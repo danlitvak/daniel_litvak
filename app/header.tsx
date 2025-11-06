@@ -14,7 +14,7 @@ export function Header() {
           as="p"
           preset="fade"
           per="char"
-          className="text-zinc-600 dark:text-zinc-500"
+          className="text-black/60 dark:text-white/60"
           delay={0.5}
         >
           {HERO.role}

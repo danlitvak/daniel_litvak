@@ -51,13 +51,13 @@ function CTAButton({
   target?: string
 }) {
   const baseClasses =
-    'inline-flex items-center justify-center rounded-full px-5 py-2 text-sm font-medium transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500'
+    'inline-flex items-center justify-center rounded-full px-5 py-2 text-sm font-medium transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black dark:focus-visible:outline-white'
 
   const variants = {
     primary:
-      'bg-blue-600 text-white shadow-sm hover:bg-blue-500 dark:bg-blue-500 dark:hover:bg-blue-400',
+      'bg-black text-white shadow-sm hover:bg-black/80 dark:bg-white dark:text-black dark:hover:bg-white/80',
     secondary:
-      'bg-white/80 text-zinc-900 ring-1 ring-inset ring-zinc-200 hover:bg-white dark:bg-zinc-900/70 dark:text-zinc-100 dark:ring-zinc-700 dark:hover:bg-zinc-900',
+      'bg-white text-black ring-1 ring-inset ring-black/10 hover:bg-black/5 dark:bg-black dark:text-white dark:ring-white/20 dark:hover:bg-white/10',
   }
 
   return (
@@ -85,32 +85,32 @@ export default function Personal() {
       <motion.section
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
-        className="relative overflow-hidden rounded-3xl border border-blue-100/70 bg-white/90 p-8 shadow-sm dark:border-blue-500/20 dark:bg-slate-950/60"
+        className="relative overflow-hidden rounded-3xl border border-black/10 bg-white p-8 shadow-sm dark:border-white/10 dark:bg-white/5"
       >
         <Spotlight
-          className="-top-10 right-0 h-64 w-64 from-blue-500/40 via-blue-400/20 to-transparent blur-3xl"
+          className="-top-10 right-0 h-64 w-64 from-white/40 via-white/10 to-transparent blur-3xl"
           size={200}
         />
         <div className="relative space-y-6">
-          <div className="inline-flex items-center gap-2 rounded-full bg-blue-100/70 px-3 py-1 text-xs font-medium uppercase tracking-wide text-blue-700 dark:bg-blue-500/10 dark:text-blue-200">
+          <div className="inline-flex items-center gap-2 rounded-full bg-black/5 px-3 py-1 text-xs font-medium uppercase tracking-wide text-black dark:bg-white/10 dark:text-white">
             <span>{HERO.role}</span>
           </div>
           <div className="space-y-3">
-            <h1 className="text-3xl font-semibold text-zinc-900 dark:text-zinc-50 md:text-4xl">
+            <h1 className="text-3xl font-semibold text-black dark:text-white md:text-4xl">
               {HERO.name}
             </h1>
-            <p className="text-lg text-zinc-600 dark:text-zinc-300 md:text-xl">
+            <p className="text-lg text-black/70 dark:text-white/70 md:text-xl">
               {HERO.headline}
             </p>
-            <p className="text-base text-zinc-600 dark:text-zinc-400">
+            <p className="text-base text-black/70 dark:text-white/60">
               {HERO.statement}
             </p>
           </div>
-          <div className="flex flex-wrap items-center gap-3 text-sm text-zinc-500 dark:text-zinc-400">
-            <span className="inline-flex items-center gap-2 rounded-full bg-white/70 px-3 py-1 ring-1 ring-inset ring-zinc-200 dark:bg-zinc-900/70 dark:ring-zinc-800">
+          <div className="flex flex-wrap items-center gap-3 text-sm text-black/60 dark:text-white/60">
+            <span className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-1 text-black/70 ring-1 ring-inset ring-black/10 dark:bg-black dark:text-white/70 dark:ring-white/20">
               {HERO.location}
             </span>
-            <span className="inline-flex items-center gap-2 rounded-full bg-white/70 px-3 py-1 ring-1 ring-inset ring-zinc-200 dark:bg-zinc-900/70 dark:ring-zinc-800">
+            <span className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-1 text-black/70 ring-1 ring-inset ring-black/10 dark:bg-black dark:text-white/70 dark:ring-white/20">
               {HERO.availability}
             </span>
           </div>
@@ -124,17 +124,17 @@ export default function Personal() {
       <motion.section
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
-        className="rounded-3xl border border-zinc-200/70 bg-white/80 p-8 shadow-sm dark:border-zinc-800 dark:bg-zinc-950/70"
+        className="rounded-3xl border border-black/10 bg-white p-8 shadow-sm dark:border-white/10 dark:bg-white/5"
       >
         <div className="grid gap-8 md:grid-cols-[1.3fr_1fr] md:gap-12">
           <div className="space-y-4">
-            <h2 className="text-lg font-semibold text-zinc-900 dark:text-zinc-50">
+            <h2 className="text-lg font-semibold text-black dark:text-white">
               About & education snapshot
             </h2>
-            <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
+            <p className="text-base leading-relaxed text-black/70 dark:text-white/70">
               I approach complex civic and climate challenges by weaving together research, storytelling, and hands-on prototyping. My work spans spatial analysis, service design, and accessible interface engineering—always anchored in measurable community outcomes and inclusive facilitation.
             </p>
-            <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
+            <p className="text-base leading-relaxed text-black/70 dark:text-white/70">
               Outside the lab you’ll find me sketching speculative futures, mentoring first-gen technologists, and speaking about responsible innovation at student meetups.
             </p>
           </div>
@@ -142,15 +142,15 @@ export default function Personal() {
             {EDUCATION.map((item) => (
               <div
                 key={item.institution}
-                className="rounded-2xl border border-zinc-200/80 bg-white/80 p-4 dark:border-zinc-800 dark:bg-zinc-900/60"
+                className="rounded-2xl border border-black/10 bg-white p-4 dark:border-white/10 dark:bg-black/40"
               >
-                <h3 className="text-base font-medium text-zinc-900 dark:text-zinc-100">
+                <h3 className="text-base font-medium text-black dark:text-white">
                   {item.credential}
                 </h3>
-                <p className="text-sm text-zinc-500 dark:text-zinc-400">
+                <p className="text-sm text-black/60 dark:text-white/60">
                   {item.institution} · {item.start} — {item.end}
                 </p>
-                <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-300">
+                <p className="mt-2 text-sm text-black/70 dark:text-white/70">
                   {item.details}
                 </p>
               </div>
@@ -165,10 +165,10 @@ export default function Personal() {
         className="space-y-6"
       >
         <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
-          <h2 className="text-lg font-semibold text-zinc-900 dark:text-zinc-50">
+          <h2 className="text-lg font-semibold text-black dark:text-white">
             Projects and case studies
           </h2>
-          <p className="text-sm text-zinc-500 dark:text-zinc-400">
+          <p className="text-sm text-black/60 dark:text-white/60">
             Selected collaborations that highlight research synthesis, prototyping, and measurable impact.
           </p>
         </div>
@@ -176,9 +176,9 @@ export default function Personal() {
           {PROJECTS.map((project) => (
             <div
               key={project.id}
-              className="group flex flex-col gap-3 rounded-3xl border border-zinc-200/80 bg-white/80 p-4 shadow-sm transition hover:border-blue-200/80 hover:shadow-md dark:border-zinc-800 dark:bg-zinc-950/60 dark:hover:border-blue-500/20"
+              className="group flex flex-col gap-3 rounded-3xl border border-black/10 bg-white p-4 shadow-sm transition hover:border-black/40 hover:shadow-md dark:border-white/10 dark:bg-black/40 dark:hover:border-white/40"
             >
-              <div className="relative overflow-hidden rounded-2xl bg-zinc-100 dark:bg-zinc-900">
+              <div className="relative overflow-hidden rounded-2xl bg-black/5 dark:bg-white/10">
                 <video
                   src={project.video}
                   autoPlay
@@ -191,7 +191,7 @@ export default function Personal() {
               <div className="flex flex-1 flex-col gap-3">
                 <div>
                   <a
-                    className="inline-flex items-center gap-2 text-base font-medium text-zinc-900 transition-colors hover:text-blue-600 dark:text-zinc-50 dark:hover:text-blue-300"
+                    className="inline-flex items-center gap-2 text-base font-medium text-black transition-colors hover:text-black/70 dark:text-white dark:hover:text-white/70"
                     href={project.link}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -199,18 +199,18 @@ export default function Personal() {
                     {project.name}
                     <span aria-hidden className="text-sm">↗</span>
                   </a>
-                  <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-300">
+                  <p className="mt-1 text-sm text-black/70 dark:text-white/70">
                     {project.description}
                   </p>
                 </div>
-                <p className="text-sm font-medium text-zinc-700 dark:text-zinc-200">
+                <p className="text-sm font-medium text-black/80 dark:text-white/80">
                   {project.impact}
                 </p>
                 <div className="mt-auto flex flex-wrap gap-2">
                   {project.tools.map((tool) => (
                     <span
                       key={tool}
-                      className="inline-flex items-center rounded-full bg-blue-50 px-3 py-1 text-xs font-medium text-blue-700 dark:bg-blue-500/10 dark:text-blue-200"
+                      className="inline-flex items-center rounded-full bg-black/5 px-3 py-1 text-xs font-medium text-black dark:bg-white/10 dark:text-white"
                     >
                       {tool}
                     </span>
@@ -225,21 +225,21 @@ export default function Personal() {
       <motion.section
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
-        className="rounded-3xl border border-zinc-200/70 bg-white/80 p-8 shadow-sm dark:border-zinc-800 dark:bg-zinc-950/60"
+        className="rounded-3xl border border-black/10 bg-white p-8 shadow-sm dark:border-white/10 dark:bg-white/5"
       >
-        <h2 className="mb-6 text-lg font-semibold text-zinc-900 dark:text-zinc-50">
+        <h2 className="mb-6 text-lg font-semibold text-black dark:text-white">
           Skills & tools matrix
         </h2>
         <div className="grid gap-4 md:grid-cols-2">
           {SKILL_GROUPS.map((group) => (
             <div
               key={group.category}
-              className="rounded-2xl border border-zinc-200/70 bg-white/80 p-4 dark:border-zinc-800 dark:bg-zinc-900/60"
+              className="rounded-2xl border border-black/10 bg-white p-4 dark:border-white/10 dark:bg-black/40"
             >
-              <h3 className="text-sm font-semibold uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
+              <h3 className="text-sm font-semibold uppercase tracking-wide text-black/60 dark:text-white/60">
                 {group.category}
               </h3>
-              <ul className="mt-3 space-y-1 text-sm text-zinc-600 dark:text-zinc-300">
+              <ul className="mt-3 space-y-1 text-sm text-black/70 dark:text-white/70">
                 {group.items.map((item) => (
                   <li key={item} className="leading-relaxed">
                     {item}
@@ -258,10 +258,10 @@ export default function Personal() {
       >
         <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
           <div>
-            <h2 className="text-lg font-semibold text-zinc-900 dark:text-zinc-50">
+            <h2 className="text-lg font-semibold text-black dark:text-white">
               Experience timeline & résumé access
             </h2>
-            <p className="text-sm text-zinc-500 dark:text-zinc-400">
+            <p className="text-sm text-black/60 dark:text-white/60">
               A snapshot of internships, fellowships, and community leadership.
             </p>
           </div>
@@ -271,33 +271,33 @@ export default function Personal() {
           {WORK_EXPERIENCE.map((job) => (
             <div
               key={job.id}
-              className="rounded-3xl border border-zinc-200/80 bg-white/80 p-6 dark:border-zinc-800 dark:bg-zinc-950/60"
+              className="rounded-3xl border border-black/10 bg-white p-6 dark:border-white/10 dark:bg-black/40"
             >
               <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
                 <div>
-                  <h3 className="text-base font-medium text-zinc-900 dark:text-zinc-50">
+                  <h3 className="text-base font-medium text-black dark:text-white">
                     {job.title}
                   </h3>
                   <a
                     href={job.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm text-blue-600 hover:text-blue-500 dark:text-blue-300 dark:hover:text-blue-200"
+                    className="text-sm text-black/70 underline-offset-2 hover:underline dark:text-white/70"
                   >
                     {job.company}
                   </a>
                 </div>
-                <p className="text-sm text-zinc-500 dark:text-zinc-400">
+                <p className="text-sm text-black/60 dark:text-white/60">
                   {job.start} — {job.end}
                 </p>
               </div>
-              <p className="mt-3 text-sm text-zinc-600 dark:text-zinc-300">
+              <p className="mt-3 text-sm text-black/70 dark:text-white/70">
                 {job.summary}
               </p>
-              <ul className="mt-4 space-y-2 text-sm text-zinc-600 dark:text-zinc-300">
+              <ul className="mt-4 space-y-2 text-sm text-black/70 dark:text-white/70">
                 {job.achievements.map((achievement) => (
                   <li key={achievement} className="flex gap-2">
-                    <span className="mt-1 h-1.5 w-1.5 flex-none rounded-full bg-blue-500/80" />
+                    <span className="mt-1 h-1.5 w-1.5 flex-none rounded-full bg-black dark:bg-white" />
                     <span>{achievement}</span>
                   </li>
                 ))}
@@ -312,35 +312,35 @@ export default function Personal() {
         transition={TRANSITION_SECTION}
         className="grid gap-6 md:grid-cols-[1.1fr_0.9fr]"
       >
-        <div className="rounded-3xl border border-zinc-200/70 bg-white/80 p-6 dark:border-zinc-800 dark:bg-zinc-950/60">
-          <h2 className="text-lg font-semibold text-zinc-900 dark:text-zinc-50">
+        <div className="rounded-3xl border border-black/10 bg-white p-6 dark:border-white/10 dark:bg-black/40">
+          <h2 className="text-lg font-semibold text-black dark:text-white">
             Social proof & extracurricular highlights
           </h2>
           <div className="mt-4 space-y-4">
             {SOCIAL_PROOF.testimonials.map((testimonial) => (
               <blockquote
                 key={testimonial.name}
-                className="rounded-2xl border border-zinc-200/70 bg-white/70 p-4 text-sm italic text-zinc-700 dark:border-zinc-800 dark:bg-zinc-900/60 dark:text-zinc-200"
+                className="rounded-2xl border border-black/10 bg-white p-4 text-sm italic text-black/80 dark:border-white/10 dark:bg-black/40 dark:text-white/80"
               >
                 “{testimonial.quote}”
-                <footer className="mt-2 text-xs font-medium not-italic text-zinc-500 dark:text-zinc-400">
+                <footer className="mt-2 text-xs font-medium not-italic text-black/60 dark:text-white/60">
                   — {testimonial.name}, {testimonial.role}
                 </footer>
               </blockquote>
             ))}
           </div>
         </div>
-        <div className="rounded-3xl border border-zinc-200/70 bg-white/80 p-6 dark:border-zinc-800 dark:bg-zinc-950/60">
-          <h3 className="text-base font-semibold text-zinc-900 dark:text-zinc-50">
+        <div className="rounded-3xl border border-black/10 bg-white p-6 dark:border-white/10 dark:bg-black/40">
+          <h3 className="text-base font-semibold text-black dark:text-white">
             Awards & leadership
           </h3>
-          <ul className="mt-4 space-y-3 text-sm text-zinc-600 dark:text-zinc-300">
+          <ul className="mt-4 space-y-3 text-sm text-black/70 dark:text-white/70">
             {SOCIAL_PROOF.highlights.map((highlight) => (
               <li key={highlight.title}>
-                <p className="font-medium text-zinc-800 dark:text-zinc-100">
+                <p className="font-medium text-black dark:text-white">
                   {highlight.title}
                 </p>
-                <p className="text-zinc-600 dark:text-zinc-300">{highlight.description}</p>
+                <p className="text-black/70 dark:text-white/70">{highlight.description}</p>
               </li>
             ))}
           </ul>
@@ -350,12 +350,12 @@ export default function Personal() {
       <motion.section
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
-        className="rounded-3xl border border-zinc-200/70 bg-white/80 p-8 shadow-sm dark:border-zinc-800 dark:bg-zinc-950/60"
+        className="rounded-3xl border border-black/10 bg-white p-8 shadow-sm dark:border-white/10 dark:bg-white/5"
       >
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
-            <h2 className="text-lg font-semibold text-zinc-900 dark:text-zinc-50">Writing samples & blog posts</h2>
-            <p className="text-sm text-zinc-500 dark:text-zinc-400">
+            <h2 className="text-lg font-semibold text-black dark:text-white">Writing samples & blog posts</h2>
+            <p className="text-sm text-black/60 dark:text-white/60">
               Field notes and reflections on coursework, research, and industry collaborations.
             </p>
           </div>
@@ -363,7 +363,7 @@ export default function Personal() {
         </div>
         <AnimatedBackground
           enableHover
-          className="mt-6 grid gap-3 rounded-2xl bg-zinc-100 p-2 dark:bg-zinc-900"
+          className="mt-6 grid gap-3 rounded-2xl bg-black/5 p-2 dark:bg-white/10"
           transition={{ type: 'spring', bounce: 0, duration: 0.25 }}
         >
           {BLOG_POSTS.map((post) => (
@@ -373,13 +373,13 @@ export default function Personal() {
               href={post.link}
               data-id={post.uid}
             >
-              <p className="text-xs uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
+              <p className="text-xs uppercase tracking-wide text-black/60 dark:text-white/60">
                 {post.date}
               </p>
-              <h3 className="text-base font-medium text-zinc-900 dark:text-zinc-100">
+              <h3 className="text-base font-medium text-black dark:text-white">
                 {post.title}
               </h3>
-              <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-300">{post.description}</p>
+              <p className="mt-1 text-sm text-black/70 dark:text-white/70">{post.description}</p>
             </Link>
           ))}
         </AnimatedBackground>
@@ -388,15 +388,15 @@ export default function Personal() {
       <motion.section
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
-        className="rounded-3xl border border-zinc-200/70 bg-white/90 p-8 shadow-sm dark:border-zinc-800 dark:bg-zinc-950/70"
+        className="rounded-3xl border border-black/10 bg-white p-8 shadow-sm dark:border-white/10 dark:bg-white/5"
       >
         <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-12">
           <div className="space-y-6">
             <div className="space-y-2">
-              <h2 className="text-lg font-semibold text-zinc-900 dark:text-zinc-50">
+              <h2 className="text-lg font-semibold text-black dark:text-white">
                 Contact methods & calendar
               </h2>
-              <p className="text-sm text-zinc-600 dark:text-zinc-300">
+              <p className="text-sm text-black/70 dark:text-white/70">
                 Prefer an intro call? Reach out via email or grab time directly on my calendar.
               </p>
             </div>
@@ -407,10 +407,10 @@ export default function Personal() {
                     href={item.link}
                     target={item.link.startsWith('http') ? '_blank' : undefined}
                     rel={item.link.startsWith('http') ? 'noopener noreferrer' : undefined}
-                    className="flex flex-col rounded-2xl border border-zinc-200/80 bg-white/80 px-4 py-3 transition-colors hover:border-blue-200 hover:bg-white dark:border-zinc-800 dark:bg-zinc-900/60 dark:hover:border-blue-500/20 dark:hover:bg-zinc-900"
+                    className="flex flex-col rounded-2xl border border-black/10 bg-white px-4 py-3 transition-colors hover:border-black/40 hover:bg-black/5 dark:border-white/10 dark:bg-black/40 dark:hover:border-white/40 dark:hover:bg-white/10"
                   >
-                    <span className="text-sm font-medium text-zinc-900 dark:text-zinc-100">{item.label}</span>
-                    <span className="text-xs text-zinc-500 dark:text-zinc-400">{item.description}</span>
+                    <span className="text-sm font-medium text-black dark:text-white">{item.label}</span>
+                    <span className="text-xs text-black/60 dark:text-white/60">{item.description}</span>
                   </a>
                 </Magnetic>
               ))}
@@ -419,52 +419,52 @@ export default function Personal() {
           </div>
           <form className="space-y-4">
             <div className="grid gap-4 md:grid-cols-2">
-              <label className="flex flex-col gap-2 text-sm font-medium text-zinc-700 dark:text-zinc-300">
+              <label className="flex flex-col gap-2 text-sm font-medium text-black dark:text-white">
                 Name
                 <input
                   type="text"
                   name="name"
                   placeholder="How should I address you?"
-                  className="rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-200 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 dark:placeholder:text-zinc-500 dark:focus:border-blue-400 dark:focus:ring-blue-500/30"
+                  className="rounded-xl border border-black/10 bg-white px-3 py-2 text-sm text-black placeholder:text-black/40 focus:border-black/40 focus:outline-none focus:ring-2 focus:ring-black/20 dark:border-white/20 dark:bg-black dark:text-white dark:placeholder:text-white/40 dark:focus:border-white/60 dark:focus:ring-white/20"
                 />
               </label>
-              <label className="flex flex-col gap-2 text-sm font-medium text-zinc-700 dark:text-zinc-300">
+              <label className="flex flex-col gap-2 text-sm font-medium text-black dark:text-white">
                 Email
                 <input
                   type="email"
                   name="contact-email"
                   placeholder="you@example.com"
-                  className="rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-200 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 dark:placeholder:text-zinc-500 dark:focus:border-blue-400 dark:focus:ring-blue-500/30"
+                  className="rounded-xl border border-black/10 bg-white px-3 py-2 text-sm text-black placeholder:text-black/40 focus:border-black/40 focus:outline-none focus:ring-2 focus:ring-black/20 dark:border-white/20 dark:bg-black dark:text-white dark:placeholder:text-white/40 dark:focus:border-white/60 dark:focus:ring-white/20"
                 />
               </label>
             </div>
-            <label className="flex flex-col gap-2 text-sm font-medium text-zinc-700 dark:text-zinc-300">
+            <label className="flex flex-col gap-2 text-sm font-medium text-black dark:text-white">
               Project or role overview
               <input
                 type="text"
                 name="project"
                 placeholder="Tell me a sentence about what you need"
-                className="rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-200 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 dark:placeholder:text-zinc-500 dark:focus:border-blue-400 dark:focus:ring-blue-500/30"
+                className="rounded-xl border border-black/10 bg-white px-3 py-2 text-sm text-black placeholder:text-black/40 focus:border-black/40 focus:outline-none focus:ring-2 focus:ring-black/20 dark:border-white/20 dark:bg-black dark:text-white dark:placeholder:text-white/40 dark:focus:border-white/60 dark:focus:ring-white/20"
               />
             </label>
-            <label className="flex flex-col gap-2 text-sm font-medium text-zinc-700 dark:text-zinc-300">
+            <label className="flex flex-col gap-2 text-sm font-medium text-black dark:text-white">
               Message
               <textarea
                 name="message"
                 rows={4}
                 placeholder="Share goals, timelines, or links. I respond within two business days."
-                className="rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-200 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 dark:placeholder:text-zinc-500 dark:focus:border-blue-400 dark:focus:ring-blue-500/30"
+                className="rounded-xl border border-black/10 bg-white px-3 py-2 text-sm text-black placeholder:text-black/40 focus:border-black/40 focus:outline-none focus:ring-2 focus:ring-black/20 dark:border-white/20 dark:bg-black dark:text-white dark:placeholder:text-white/40 dark:focus:border-white/60 dark:focus:ring-white/20"
               />
             </label>
             <button
               type="submit"
-              className="inline-flex items-center justify-center rounded-full bg-blue-600 px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 dark:bg-blue-500 dark:hover:bg-blue-400"
+              className="inline-flex items-center justify-center rounded-full bg-black px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black dark:bg-white dark:text-black dark:hover:bg-white/80 dark:focus-visible:outline-white"
             >
               Send message
             </button>
-            <p className="text-xs text-zinc-500 dark:text-zinc-400">
+            <p className="text-xs text-black/60 dark:text-white/60">
               Prefer email? Reach me directly at{' '}
-              <a className="font-medium text-blue-600 hover:text-blue-500 dark:text-blue-300 dark:hover:text-blue-200" href={`mailto:${EMAIL}`}>
+              <a className="font-medium text-black underline-offset-2 hover:underline dark:text-white" href={`mailto:${EMAIL}`}>
                 {EMAIL}
               </a>
             </p>
@@ -475,12 +475,12 @@ export default function Personal() {
       <motion.section
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
-        className="rounded-3xl border border-blue-100/60 bg-blue-50/80 p-8 text-center shadow-sm dark:border-blue-500/20 dark:bg-blue-500/10"
+        className="rounded-3xl border border-black/10 bg-black/5 p-8 text-center shadow-sm dark:border-white/10 dark:bg-white/10"
       >
-        <h2 className="text-2xl font-semibold text-blue-900 dark:text-blue-200">
+        <h2 className="text-2xl font-semibold text-black dark:text-white">
           Let’s co-create resilient experiences.
         </h2>
-        <p className="mt-2 text-sm text-blue-900/70 dark:text-blue-200/80">
+        <p className="mt-2 text-sm text-black/70 dark:text-white/70">
           I’m excited to collaborate with teams who value inclusive design, honest research, and measurable impact.
         </p>
         <div className="mt-4 flex flex-wrap justify-center gap-3">
