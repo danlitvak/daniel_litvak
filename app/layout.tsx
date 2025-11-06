@@ -8,20 +8,46 @@ import { ThemeProvider } from 'next-themes'
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#ffffff',
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#f8fafc' },
+    { media: '(prefers-color-scheme: dark)', color: '#020617' },
+  ],
 }
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://nim-fawn.vercel.app/'),
+  metadataBase: new URL('https://alex-rivera.dev'),
   alternates: {
-    canonical: '/'
+    canonical: '/',
   },
   title: {
-    default: 'Nim - Personal website template',
-    template: '%s | Nim'
+    default: 'Alex Rivera – Product Design Technologist',
+    template: '%s | Alex Rivera',
   },
-  description:  'Nim is a free and open-source personal website template built with Next.js 15, React 19 and Motion-Primitives.',
-};
+  description:
+    'Portfolio and blog for Alex Rivera, a product design technologist crafting resilient digital experiences for climate-focused teams.',
+  keywords: [
+    'Alex Rivera',
+    'product design',
+    'UX researcher',
+    'frontend engineer',
+    'portfolio',
+  ],
+  openGraph: {
+    title: 'Alex Rivera – Product Design Technologist',
+    description:
+      'Human-centered technologist specializing in climate resilience, systems thinking, and end-to-end product delivery.',
+    url: 'https://alex-rivera.dev',
+    siteName: 'Alex Rivera Portfolio',
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Alex Rivera – Product Design Technologist',
+    description:
+      'Exploring the intersection of inclusive design, prototyping, and climate technology.',
+  },
+}
 
 const geist = Geist({
   variable: '--font-geist',
@@ -41,7 +67,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geist.variable} ${geistMono.variable} bg-white tracking-tight antialiased dark:bg-zinc-950`}
+        className={`${geist.variable} ${geistMono.variable} bg-slate-50 tracking-tight antialiased dark:bg-slate-950`}
       >
         <ThemeProvider
           enableSystem={true}
