@@ -253,12 +253,11 @@ export default function Personal() {
       >
         <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
           <div className="space-y-1">
-            <h2 className="text-lg font-semibold text-black dark:text-white">Experience & résumé</h2>
+            <h2 className="text-lg font-semibold text-black dark:text-white">Experience</h2>
             <p className="text-sm text-black/60 dark:text-white/60">
-              Quick snapshots of recent roles. Full details live in the PDF.
+              Resume Available upon request.
             </p>
           </div>
-          <CTAButton href={RESUME_URL} target="_blank" label="Download résumé" variant="secondary" />
         </div>
         <p className="mt-3 text-sm text-black/70 dark:text-white/70">
           Compact cards keep everything legible on narrow screens—title, team, timeline, and the most relevant wins.
@@ -322,7 +321,7 @@ export default function Personal() {
               Field notes and reflections on coursework, research, and industry collaborations.
             </p>
           </div>
-          <CTAButton href="/blog" label="Browse the archive" variant="secondary" />
+          <CTAButton href="/blog" label="Browse All" variant="secondary" />
         </div>
         <div className="mt-4 divide-y divide-black/10 border border-black/10 dark:divide-white/10 dark:border-white/10">
           {BLOG_POSTS.map((post) => (
@@ -395,7 +394,6 @@ export default function Personal() {
         </p>
         <div className="mt-4 flex flex-wrap justify-center gap-3">
           <CTAButton href={`mailto:${EMAIL}`} label="Start a conversation" />
-          <CTAButton href={RESUME_URL} target="_blank" label="Download résumé" variant="secondary" />
         </div>
       </motion.section>
     </motion.main>
