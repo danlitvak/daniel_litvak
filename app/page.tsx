@@ -282,11 +282,10 @@ export default function Personal() {
                 </p>
               </div>
               <p className="mt-2 text-sm text-black/70 dark:text-white/70">{job.summary}</p>
-              <ul className="mt-2 space-y-1.5 text-sm text-black/70 dark:text-white/70">
+              <ul className="mt-2 space-y-1.5 list-disc pl-4 text-sm text-black/70 marker:text-black dark:text-white/70 dark:marker:text-white">
                 {job.achievements.map((achievement) => (
-                  <li key={achievement} className="flex gap-2">
-                    <span className="mt-1 h-1.5 w-1.5 flex-none bg-black dark:bg-white" />
-                    <span>{achievement}</span>
+                  <li key={achievement} className="leading-relaxed">
+                    {achievement}
                   </li>
                 ))}
               </ul>
