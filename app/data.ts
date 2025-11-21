@@ -95,6 +95,8 @@ type WorkExperience = {
   id: string
   summary: string
   achievements: string[]
+  focus: string
+  stack: string[]
 }
 
 export const WORK_EXPERIENCE: WorkExperience[] = [
@@ -110,6 +112,8 @@ export const WORK_EXPERIENCE: WorkExperience[] = [
       'Led discovery sprints with 18 founders to define decision criteria for capital-efficient product bets.',
       'Co-created a design system in Figma + Storybook that reduced prototype handoff time by 60%.',
     ],
+    focus: 'Product discovery, experimentation strategy, design systems',
+    stack: ['Figma', 'Storybook', 'TypeScript'],
   },
   {
     company: 'CivicLab ATX',
@@ -123,6 +127,8 @@ export const WORK_EXPERIENCE: WorkExperience[] = [
       'Synthesized 120+ qualitative insights into decision frameworks adopted by three municipal partners.',
       'Facilitated co-design workshops with residents to validate multilingual navigation prototypes.',
     ],
+    focus: 'Participatory research, civic service design, multilingual UX',
+    stack: ['Dovetail', 'Figma', 'Airtable'],
   },
   {
     company: 'Open Source Observatory',
@@ -136,6 +142,8 @@ export const WORK_EXPERIENCE: WorkExperience[] = [
       'Implemented accessibility-first component library and paired with engineers to meet WCAG 2.2 AA.',
       'Scaled contentful-driven publishing workflow that now supports 30+ partner organizations.',
     ],
+    focus: 'Design engineering, accessibility systems, data storytelling',
+    stack: ['React', 'TypeScript', 'Contentful'],
   },
 ]
 
@@ -249,8 +257,6 @@ export const EMAIL = 'hello@alexrivera.dev'
 
 export const RESUME_URL = 'https://alex-rivera.dev/resume.pdf'
 
-export const CALENDAR_URL = 'https://calendly.com/alexrivera/30min'
-
 export const CONTACT_LINKS: ContactLink[] = [
   {
     label: 'Email',
@@ -266,10 +272,5 @@ export const CONTACT_LINKS: ContactLink[] = [
     label: 'GitHub',
     link: 'https://github.com/alexrivera',
     description: 'Browse prototypes, component experiments, and tooling.',
-  },
-  {
-    label: 'Calendly',
-    link: CALENDAR_URL,
-    description: 'Book a 30-minute collaboration session.',
   },
 ]
