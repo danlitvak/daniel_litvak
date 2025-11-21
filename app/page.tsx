@@ -169,33 +169,33 @@ export default function Personal() {
           {PROJECTS.map((project) => (
             <div
               key={project.id}
-              className="group flex flex-col gap-3 rounded-none border border-black/10 bg-white p-4 shadow-sm transition hover:border-black/40 hover:shadow-md dark:border-white/10 dark:bg-black/40 dark:hover:border-white/40"
+              className="group flex flex-col overflow-hidden rounded-none border border-black/10 bg-white shadow-sm transition hover:border-black/40 hover:shadow-md dark:border-white/10 dark:bg-black/40 dark:hover:border-white/40"
             >
-              <div className="relative overflow-hidden rounded-none bg-black/5 dark:bg-white/10">
+              <div className="relative aspect-video w-full bg-black/5 dark:bg-white/10">
                 <video
                   src={project.video}
                   autoPlay
                   loop
                   muted
                   playsInline
-                  className="aspect-video w-full object-cover"
+                  className="h-full w-full object-cover"
                 />
-              </div>
-              <div className="flex flex-1 flex-col gap-3">
-                <div>
+                <div className="absolute inset-0 bg-gradient-to-l from-black/50 via-black/25 to-transparent" aria-hidden />
+                <div className="absolute right-3 top-3 flex flex-col items-end text-right">
                   <a
-                    className="inline-flex items-center gap-2 text-base font-medium text-black transition-colors hover:text-black/70 dark:text-white dark:hover:text-white/70"
+                    className="text-base font-semibold text-white transition-colors hover:text-white/80"
                     href={project.link}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     {project.name}
-                    <span aria-hidden className="text-sm">↗</span>
                   </a>
-                  <p className="mt-1 text-sm text-black/70 dark:text-white/70">
-                    {project.description}
-                  </p>
                 </div>
+              </div>
+              <div className="flex flex-1 flex-col gap-3 p-4">
+                <p className="text-sm text-black/70 dark:text-white/70">
+                  {project.description}
+                </p>
                 <p className="text-sm font-medium text-black/80 dark:text-white/80">
                   {project.impact}
                 </p>
