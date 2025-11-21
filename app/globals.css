@@ -60,9 +60,7 @@
   }
 
   a:hover {
-    text-decoration: underline;
-    text-decoration-color: color-mix(in srgb, var(--accent-color) 60%, transparent);
-    text-decoration-thickness: 1px;
+    text-decoration: none;
   }
 
   ::selection {

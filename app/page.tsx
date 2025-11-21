@@ -251,85 +251,61 @@ export default function Personal() {
         transition={TRANSITION_SECTION}
         className="rounded-none border border-black/10 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-white/5"
       >
-        <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-          <div>
-            <h2 className="text-lg font-semibold text-black dark:text-white">
-              Experience timeline & résumé access
-            </h2>
+        <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+          <div className="space-y-1">
+            <h2 className="text-lg font-semibold text-black dark:text-white">Experience & résumé</h2>
             <p className="text-sm text-black/60 dark:text-white/60">
-              A compact view of internships, fellowships, and design engineering work.
+              Quick snapshots of recent roles. Full details live in the PDF.
             </p>
           </div>
-          <CTAButton href={RESUME_URL} target="_blank" label="Download full CV" variant="secondary" />
+          <CTAButton href={RESUME_URL} target="_blank" label="Download résumé" variant="secondary" />
         </div>
-        <div className="mt-4 grid gap-4 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
-          <div className="space-y-3 rounded-none border border-black/10 bg-white p-4 dark:border-white/10 dark:bg-black/40">
-            <h3 className="text-base font-semibold text-black dark:text-white">Highlights at a glance</h3>
-            <ul className="space-y-2 text-sm text-black/70 dark:text-white/70">
-              <li className="flex items-start gap-2">
-                <span className="mt-1 h-1.5 w-1.5 flex-none bg-black dark:bg-white" />
-                <span>Shipped research-backed design systems, participatory workshops, and inclusive data products.</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="mt-1 h-1.5 w-1.5 flex-none bg-black dark:bg-white" />
-                <span>Bridges product discovery with engineering by prototyping in code and testing with real users.</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="mt-1 h-1.5 w-1.5 flex-none bg-black dark:bg-white" />
-                <span>Comfortable leading multi-stakeholder initiatives across civic, startup, and open-source spaces.</span>
-              </li>
-            </ul>
-            <div className="rounded-none border border-black/10 bg-black/5 p-3 text-sm text-black/80 dark:border-white/20 dark:bg-white/10 dark:text-white/80">
-              Ready to share work samples tailored to your team’s stack and research needs.
+        <p className="mt-3 text-sm text-black/70 dark:text-white/70">
+          Compact cards keep everything legible on narrow screens—title, team, timeline, and the most relevant wins.
+        </p>
+        <div className="mt-3 space-y-3">
+          {WORK_EXPERIENCE.map((job) => (
+            <div
+              key={job.id}
+              className="rounded-none border border-black/10 bg-white p-4 dark:border-white/10 dark:bg-black/40"
+            >
+              <div className="flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between">
+                <div className="space-y-0.5">
+                  <h3 className="text-base font-semibold text-black dark:text-white">{job.title}</h3>
+                  <a
+                    href={job.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm font-medium text-black/70 hover:text-black/90 dark:text-white/70 dark:hover:text-white"
+                  >
+                    {job.company}
+                  </a>
+                </div>
+                <p className="text-sm text-black/60 dark:text-white/60">
+                  {job.start} — {job.end}
+                </p>
+              </div>
+              <p className="mt-2 text-sm text-black/70 dark:text-white/70">{job.summary}</p>
+              <ul className="mt-2 space-y-1.5 text-sm text-black/70 dark:text-white/70">
+                {job.achievements.map((achievement) => (
+                  <li key={achievement} className="flex gap-2">
+                    <span className="mt-1 h-1.5 w-1.5 flex-none bg-black dark:bg-white" />
+                    <span>{achievement}</span>
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-3 flex flex-wrap gap-1.5 text-xs text-black/70 dark:text-white/70">
+                {job.stack.map((tool) => (
+                  <span
+                    key={tool}
+                    className="rounded-none border border-black/15 bg-white px-2 py-1 dark:border-white/20 dark:bg-black"
+                  >
+                    {tool}
+                  </span>
+                ))}
+              </div>
             </div>
-          </div>
-          <ol className="relative space-y-4 border-l border-black/15 pl-4 dark:border-white/15">
-            {WORK_EXPERIENCE.map((job) => (
-              <li key={job.id} className="relative rounded-none border border-black/10 bg-white p-4 dark:border-white/10 dark:bg-black/40">
-                <span className="absolute -left-[29px] top-5 h-3 w-3 border border-black bg-white dark:border-white dark:bg-black" aria-hidden />
-                <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
-                  <div className="space-y-1">
-                    <h3 className="text-base font-medium text-black dark:text-white">{job.title}</h3>
-                    <a
-                      href={job.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-sm font-medium text-black/70 underline-offset-2 hover:text-black/90 dark:text-white/70 dark:hover:text-white"
-                    >
-                      {job.company}
-                    </a>
-                  </div>
-                  <p className="text-sm text-black/60 dark:text-white/60">
-                    {job.start} — {job.end}
-                  </p>
-                </div>
-                <p className="mt-2 text-sm text-black/70 dark:text-white/70">{job.summary}</p>
-                <div className="mt-3 grid gap-2 md:grid-cols-2">
-                  <div className="rounded-none border border-black/10 bg-black/5 px-3 py-2 text-xs font-medium uppercase tracking-wide text-black/70 dark:border-white/10 dark:bg-white/10 dark:text-white/70">
-                    {job.focus}
-                  </div>
-                  <div className="flex flex-wrap gap-2 text-xs text-black/70 dark:text-white/70">
-                    {job.stack.map((tool) => (
-                      <span
-                        key={tool}
-                        className="rounded-none border border-black/20 bg-white px-2 py-1 dark:border-white/20 dark:bg-black"
-                      >
-                        {tool}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                <ul className="mt-3 space-y-1.5 text-sm text-black/70 dark:text-white/70">
-                  {job.achievements.map((achievement) => (
-                    <li key={achievement} className="flex gap-2">
-                      <span className="mt-1 h-1.5 w-1.5 flex-none bg-black dark:bg-white" />
-                      <span>{achievement}</span>
-                    </li>
-                  ))}
-                </ul>
-              </li>
-            ))}
-          </ol>
+          ))}
         </div>
       </motion.section>
 
