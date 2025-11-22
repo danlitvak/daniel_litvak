@@ -219,9 +219,8 @@ export default function Personal() {
         transition={TRANSITION_SECTION}
         className="rounded-none border border-black/10 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-white/5"
       >
-        <h2 className="mb-4 text-lg font-semibold text-black dark:text-white">
-          Skills & tools matrix
-        </h2>
+        <h2 className="text-lg font-semibold text-black dark:text-white">Skills & tools matrix</h2>
+        <div className="-mx-6 mb-4 mt-2 h-px bg-black/10 dark:bg-white/15" />
         <div className="grid gap-4 lg:grid-cols-2">
           {SKILL_GROUPS.map((group) => (
             <div
@@ -231,19 +230,14 @@ export default function Personal() {
               <h3 className="text-sm font-semibold uppercase tracking-wide text-black/60 dark:text-white/60">
                 {group.category}
               </h3>
-              <div className="mt-3 divide-y divide-black/10 text-sm dark:divide-white/10">
+              <div className="mt-3 flex flex-wrap gap-2 text-sm text-black/80 dark:text-white/80">
                 {group.items.map((item) => (
-                  <div
+                  <span
                     key={item.name}
-                    className="py-2 text-black/80 dark:text-white/80"
+                    className="rounded-none bg-black/5 px-3 py-1 font-semibold text-black dark:bg-white/10 dark:text-white"
                   >
-                    <div className="space-y-1">
-                      <div className="font-semibold text-black dark:text-white">{item.name}</div>
-                      {item.depth && (
-                        <p className="text-xs leading-relaxed text-black/60 dark:text-white/60">{item.depth}</p>
-                      )}
-                    </div>
-                  </div>
+                    {item.name}
+                  </span>
                 ))}
               </div>
             </div>

@@ -146,7 +146,6 @@ export const WORK_EXPERIENCE: WorkExperience[] = [
 
 type Skill = {
   name: string
-  depth?: string
 }
 
 type SkillGroup = {
@@ -158,37 +157,37 @@ export const SKILL_GROUPS: SkillGroup[] = [
   {
     category: 'Product & Research',
     items: [
-      { name: 'Design strategy', depth: 'Align vision, metrics, and go-to-market outcomes.' },
-      { name: 'Mixed-methods research', depth: 'Qual + quant synthesis to validate direction.' },
-      { name: 'Service blueprints', depth: 'Cross-channel journeys and backstage dependencies.' },
-      { name: 'Design ops facilitation', depth: 'Rituals, templates, and governance for teams.' },
+      { name: 'Design strategy' },
+      { name: 'Mixed-methods research' },
+      { name: 'Service blueprints' },
+      { name: 'Design ops facilitation' },
     ],
   },
   {
     category: 'Interaction & Visual',
     items: [
-      { name: 'Figma', depth: 'Component libraries, design tokens, and audits.' },
-      { name: 'Prototyping in Framer', depth: 'High-fidelity flows with animation and logic.' },
-      { name: 'Motion primitives', depth: 'Delightful yet accessible motion systems.' },
-      { name: 'Accessibility audits', depth: 'WCAG 2.2 AA, semantic patterns, keyboard support.' },
+      { name: 'Figma' },
+      { name: 'Prototyping in Framer' },
+      { name: 'Motion primitives' },
+      { name: 'Accessibility audits' },
     ],
   },
   {
     category: 'Engineering',
     items: [
-      { name: 'TypeScript', depth: 'Type-safe UI components and shared models.' },
-      { name: 'Next.js', depth: 'App Router, data fetching, and server components.' },
-      { name: 'Tailwind CSS', depth: 'Design tokens, responsive primitives, dark mode.' },
-      { name: 'Node.js', depth: 'APIs, content pipelines, and automation scripts.' },
+      { name: 'TypeScript' },
+      { name: 'Next.js' },
+      { name: 'Tailwind CSS' },
+      { name: 'Node.js' },
     ],
   },
   {
     category: 'Collaboration',
     items: [
-      { name: 'Workshop facilitation', depth: 'Structured discovery and alignment sessions.' },
-      { name: 'Public speaking', depth: 'Conference talks and stakeholder storytelling.' },
-      { name: 'Mentorship', depth: 'Guiding designers and engineers toward growth.' },
-      { name: 'Spanish', depth: 'Fluent; conduct research and facilitation bilingually.' },
+      { name: 'Workshop facilitation' },
+      { name: 'Public speaking' },
+      { name: 'Mentorship' },
+      { name: 'Spanish' },
     ],
   },
 ]
