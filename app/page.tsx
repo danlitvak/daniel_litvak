@@ -12,7 +12,6 @@ import {
   SKILL_GROUPS,
   EMAIL,
   CONTACT_LINKS,
-  RESUME_URL,
 } from './data'
 
 const VARIANTS_CONTAINER = {
@@ -108,7 +107,6 @@ export default function Personal() {
           </div>
           <div className="flex flex-wrap gap-2">
             <CTAButton href={`mailto:${EMAIL}`} label="Email me" />
-            <CTAButton href={RESUME_URL} target="_blank" label="Download résumé" variant="secondary" />
           </div>
         </div>
       </motion.section>
