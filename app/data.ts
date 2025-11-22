@@ -146,7 +146,6 @@ export const WORK_EXPERIENCE: WorkExperience[] = [
 
 type Skill = {
   name: string
-  type: string
   depth?: string
 }
 
@@ -159,37 +158,37 @@ export const SKILL_GROUPS: SkillGroup[] = [
   {
     category: 'Product & Research',
     items: [
-      { name: 'Design strategy', type: 'Product framing', depth: 'Align vision, metrics, and go-to-market outcomes.' },
-      { name: 'Mixed-methods research', type: 'Research', depth: 'Qual + quant synthesis to validate direction.' },
-      { name: 'Service blueprints', type: 'Systems', depth: 'Cross-channel journeys and backstage dependencies.' },
-      { name: 'Design ops facilitation', type: 'Ops', depth: 'Rituals, templates, and governance for teams.' },
+      { name: 'Design strategy', depth: 'Align vision, metrics, and go-to-market outcomes.' },
+      { name: 'Mixed-methods research', depth: 'Qual + quant synthesis to validate direction.' },
+      { name: 'Service blueprints', depth: 'Cross-channel journeys and backstage dependencies.' },
+      { name: 'Design ops facilitation', depth: 'Rituals, templates, and governance for teams.' },
     ],
   },
   {
     category: 'Interaction & Visual',
     items: [
-      { name: 'Figma', type: 'Tooling', depth: 'Component libraries, design tokens, and audits.' },
-      { name: 'Prototyping in Framer', type: 'Prototyping', depth: 'High-fidelity flows with animation and logic.' },
-      { name: 'Motion primitives', type: 'Microinteractions', depth: 'Delightful yet accessible motion systems.' },
-      { name: 'Accessibility audits', type: 'A11y', depth: 'WCAG 2.2 AA, semantic patterns, keyboard support.' },
+      { name: 'Figma', depth: 'Component libraries, design tokens, and audits.' },
+      { name: 'Prototyping in Framer', depth: 'High-fidelity flows with animation and logic.' },
+      { name: 'Motion primitives', depth: 'Delightful yet accessible motion systems.' },
+      { name: 'Accessibility audits', depth: 'WCAG 2.2 AA, semantic patterns, keyboard support.' },
     ],
   },
   {
     category: 'Engineering',
     items: [
-      { name: 'TypeScript', type: 'Language', depth: 'Type-safe UI components and shared models.' },
-      { name: 'Next.js', type: 'Framework', depth: 'App Router, data fetching, and server components.' },
-      { name: 'Tailwind CSS', type: 'Styling system', depth: 'Design tokens, responsive primitives, dark mode.' },
-      { name: 'Node.js', type: 'Runtime', depth: 'APIs, content pipelines, and automation scripts.' },
+      { name: 'TypeScript', depth: 'Type-safe UI components and shared models.' },
+      { name: 'Next.js', depth: 'App Router, data fetching, and server components.' },
+      { name: 'Tailwind CSS', depth: 'Design tokens, responsive primitives, dark mode.' },
+      { name: 'Node.js', depth: 'APIs, content pipelines, and automation scripts.' },
     ],
   },
   {
     category: 'Collaboration',
     items: [
-      { name: 'Workshop facilitation', type: 'Collaboration', depth: 'Structured discovery and alignment sessions.' },
-      { name: 'Public speaking', type: 'Communication', depth: 'Conference talks and stakeholder storytelling.' },
-      { name: 'Mentorship', type: 'Leadership', depth: 'Guiding designers and engineers toward growth.' },
-      { name: 'Spanish', type: 'Language', depth: 'Fluent; conduct research and facilitation bilingually.' },
+      { name: 'Workshop facilitation', depth: 'Structured discovery and alignment sessions.' },
+      { name: 'Public speaking', depth: 'Conference talks and stakeholder storytelling.' },
+      { name: 'Mentorship', depth: 'Guiding designers and engineers toward growth.' },
+      { name: 'Spanish', depth: 'Fluent; conduct research and facilitation bilingually.' },
     ],
   },
 ]
