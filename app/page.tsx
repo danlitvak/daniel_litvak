@@ -79,9 +79,9 @@ export default function Personal() {
         id="about"
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
-        className="relative overflow-hidden border border-black/10 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-white/5"
+        className="relative space-y-4"
       >
-        <Spotlight className="-top-10 right-0 h-56 w-56 from-white/30 via-white/5 to-transparent blur-3xl" size={180} />
+        <Spotlight className="-top-12 right-0 h-56 w-56 from-white/20 via-white/5 to-transparent blur-3xl" size={180} />
         <div className="relative space-y-4">
           <div className="inline-flex items-center gap-2 bg-black/5 px-3 py-1 text-xs font-medium uppercase tracking-wide text-black dark:bg-white/10 dark:text-white">
             <span>{HERO.role}</span>
