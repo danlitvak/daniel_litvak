@@ -86,11 +86,24 @@ export default function Personal() {
   }, [isPaused])
 
   const handleSelect = (index: number) => {
+    if (isPaused && index === activeIndex) {
+      setIsPaused(false)
+      return
+    }
+
     setActiveIndex(index)
     setIsPaused(true)
   }
 
   const handleResume = () => setIsPaused(false)
+
+  const handleStep = (direction: 1 | -1) => {
+    setActiveIndex((prev) => {
+      const nextIndex = (prev + direction + CAROUSEL_ITEMS.length) % CAROUSEL_ITEMS.length
+      return nextIndex
+    })
+    setIsPaused(true)
+  }
 
   return (
     <motion.main
@@ -161,6 +174,22 @@ export default function Personal() {
 
         <div className="mt-4 space-y-4">
           <div className="relative overflow-hidden rounded-none border border-black/10 bg-black/5 dark:border-white/10 dark:bg-black/40">
+            <button
+              type="button"
+              onClick={() => handleStep(-1)}
+              className="absolute left-3 top-1/2 z-10 flex -translate-y-1/2 items-center justify-center rounded-full border border-black/10 bg-white/80 px-2.5 py-2 text-sm font-semibold text-black shadow-sm transition hover:bg-white dark:border-white/20 dark:bg-black/70 dark:text-white dark:hover:bg-black"
+              aria-label="Previous image"
+            >
+              ‹
+            </button>
+            <button
+              type="button"
+              onClick={() => handleStep(1)}
+              className="absolute right-3 top-1/2 z-10 flex -translate-y-1/2 items-center justify-center rounded-full border border-black/10 bg-white/80 px-2.5 py-2 text-sm font-semibold text-black shadow-sm transition hover:bg-white dark:border-white/20 dark:bg-black/70 dark:text-white dark:hover:bg-black"
+              aria-label="Next image"
+            >
+              ›
+            </button>
             <div
               className="flex h-full w-full transition-transform duration-700 ease-out"
               style={{ transform: `translateX(-${activeIndex * 100}%)` }}
