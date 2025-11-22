@@ -157,12 +157,10 @@ export default function Personal() {
         transition={TRANSITION_SECTION}
         className="space-y-4"
       >
-        <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
-          <h2 className="text-lg font-semibold text-black dark:text-white">
-            Projects and case studies
-          </h2>
+        <div className="space-y-1">
+          <h2 className="text-lg font-semibold text-black dark:text-white">Projects</h2>
           <p className="text-sm text-black/60 dark:text-white/60">
-            Selected collaborations that highlight research synthesis, prototyping, and measurable impact.
+            My skills in action. Click to learn more.
           </p>
         </div>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
