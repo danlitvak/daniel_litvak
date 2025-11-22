@@ -204,18 +204,6 @@ export default function Personal() {
 
         <div className="mt-4 space-y-4">
           <div className="relative overflow-hidden rounded-none border border-black/10 bg-black/5 dark:border-white/10 dark:bg-black/40">
-            <div className="absolute left-1/2 top-3 z-10 flex -translate-x-1/2 gap-1" aria-label="Carousel indicators">
-              {CAROUSEL_ITEMS.map((item, index) => (
-                <span
-                  key={item.id}
-                  className={`h-1.5 w-6 rounded-full transition-colors ${
-                    index === activeIndex
-                      ? 'bg-white shadow-[0_0_0_1px_rgba(0,0,0,0.15)] dark:bg-white'
-                      : 'bg-white/50 dark:bg-white/40'
-                  }`}
-                />
-              ))}
-            </div>
             <button
               type="button"
               onClick={() => handleStep(-1)}
