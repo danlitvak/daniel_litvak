@@ -56,33 +56,30 @@ type Project = {
 export const PROJECTS: Project[] = [
   {
     name: 'Tidal Tracker',
-    description:
-      'Real-time web console that helps coastal emergency teams visualize flood sensor data and prioritize response routes.',
+    description: 'Flood-response console showing live sensors and fastest routes.',
     link: 'https://example.com/tidal-tracker',
     video: 'https://storage.googleapis.com/coverr-main/mp4/Mt_Baker.mp4',
     id: 'project-tidal-tracker',
     tools: ['Next.js', 'Typescript', 'Leaflet', 'Supabase'],
-    impact: 'Cut scenario planning time by 40% through rapid mapping prototypes validated in field ride-alongs.',
+    impact: 'Planning time cut 40% in field tests.',
   },
   {
     name: 'Canopy CoLab',
-    description:
-      'Participatory research platform for urban forestry coalitions to rank interventions and share impact stories.',
+    description: 'Participatory hub for coalitions to rank tree projects and share stories.',
     link: 'https://example.com/canopy-colab',
     video: 'https://storage.googleapis.com/coverr-main/mp4/Night_Lights.mp4',
     id: 'project-canopy-colab',
     tools: ['Figma', 'React', 'D3.js', 'Notion'],
-    impact: 'Drove a 3x increase in volunteer engagement by launching story-led flows and asynchronous critique sessions.',
+    impact: 'Volunteer engagement up 3x after launch.',
   },
   {
     name: 'Pulse Beacon',
-    description:
-      'Hardware + software kit that monitors microgrid uptime across rural health clinics with SMS alerts.',
+    description: 'Hardware + software kit tracking microgrid uptime with SMS alerts.',
     link: 'https://example.com/pulse-beacon',
     video: 'https://storage.googleapis.com/coverr-main/mp4/Microchips.mp4',
     id: 'project-pulse-beacon',
     tools: ['Python', 'Arduino', 'Tailwind CSS', 'Framer'],
-    impact: 'Aligned engineering and clinical stakeholders around a unified service blueprint adopted by five pilot sites.',
+    impact: 'Unified service blueprint adopted by five pilot sites.',
   },
 ]
 

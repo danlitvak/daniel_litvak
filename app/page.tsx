@@ -193,11 +193,11 @@ export default function Personal() {
                 </div>
               </div>
               <div className="flex flex-1 flex-col gap-3 p-4">
-                <p className="text-sm text-black/70 dark:text-white/70">
+                <p className="text-base font-semibold leading-snug text-black dark:text-white">
                   {project.description}
                 </p>
-                <p className="text-sm font-medium text-black/80 dark:text-white/80">
-                  {project.impact}
+                <p className="text-xs font-semibold uppercase tracking-wide text-black/50 dark:text-white/60">
+                  Outcome · {project.impact}
                 </p>
                 <div className="mt-auto flex flex-wrap gap-2">
                   {project.tools.map((tool) => (
