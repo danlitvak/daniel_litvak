@@ -222,22 +222,38 @@ export default function Personal() {
         <h2 className="mb-4 text-lg font-semibold text-black dark:text-white">
           Skills & tools matrix
         </h2>
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid gap-4 lg:grid-cols-2">
           {SKILL_GROUPS.map((group) => (
             <div
               key={group.category}
               className="rounded-none border border-black/10 bg-white p-3 dark:border-white/10 dark:bg-black/40"
             >
-              <h3 className="text-sm font-semibold uppercase tracking-wide text-black/60 dark:text-white/60">
-                {group.category}
-              </h3>
-              <ul className="mt-3 space-y-1 text-sm text-black/70 dark:text-white/70">
+              <div className="flex items-center justify-between">
+                <h3 className="text-sm font-semibold uppercase tracking-wide text-black/60 dark:text-white/60">
+                  {group.category}
+                </h3>
+                <span className="rounded-none bg-black/5 px-2 py-1 text-[11px] font-semibold uppercase tracking-wide text-black/60 dark:bg-white/10 dark:text-white/70">
+                  Skill type
+                </span>
+              </div>
+              <div className="mt-3 divide-y divide-black/10 text-sm dark:divide-white/10">
                 {group.items.map((item) => (
-                  <li key={item} className="leading-relaxed">
-                    {item}
-                  </li>
+                  <div
+                    key={item.name}
+                    className="grid grid-cols-[1fr_auto] items-start gap-3 py-2 text-black/80 dark:text-white/80"
+                  >
+                    <div className="space-y-1">
+                      <div className="font-semibold text-black dark:text-white">{item.name}</div>
+                      {item.depth && (
+                        <p className="text-xs leading-relaxed text-black/60 dark:text-white/60">{item.depth}</p>
+                      )}
+                    </div>
+                    <span className="self-center rounded-none border border-black/10 bg-white px-2 py-1 text-[11px] font-semibold uppercase tracking-wide text-black/70 dark:border-white/10 dark:bg-black/60 dark:text-white/80">
+                      {item.type}
+                    </span>
+                  </div>
                 ))}
-              </ul>
+              </div>
             </div>
           ))}
         </div>

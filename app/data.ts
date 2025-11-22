@@ -144,27 +144,53 @@ export const WORK_EXPERIENCE: WorkExperience[] = [
   },
 ]
 
+type Skill = {
+  name: string
+  type: string
+  depth?: string
+}
+
 type SkillGroup = {
   category: string
-  items: string[]
+  items: Skill[]
 }
 
 export const SKILL_GROUPS: SkillGroup[] = [
   {
     category: 'Product & Research',
-    items: ['Design strategy', 'Mixed-methods research', 'Service blueprints', 'Design ops facilitation'],
+    items: [
+      { name: 'Design strategy', type: 'Product framing', depth: 'Align vision, metrics, and go-to-market outcomes.' },
+      { name: 'Mixed-methods research', type: 'Research', depth: 'Qual + quant synthesis to validate direction.' },
+      { name: 'Service blueprints', type: 'Systems', depth: 'Cross-channel journeys and backstage dependencies.' },
+      { name: 'Design ops facilitation', type: 'Ops', depth: 'Rituals, templates, and governance for teams.' },
+    ],
   },
   {
     category: 'Interaction & Visual',
-    items: ['Figma', 'Prototyping in Framer', 'Motion-primitives', 'Accessibility audits'],
+    items: [
+      { name: 'Figma', type: 'Tooling', depth: 'Component libraries, design tokens, and audits.' },
+      { name: 'Prototyping in Framer', type: 'Prototyping', depth: 'High-fidelity flows with animation and logic.' },
+      { name: 'Motion primitives', type: 'Microinteractions', depth: 'Delightful yet accessible motion systems.' },
+      { name: 'Accessibility audits', type: 'A11y', depth: 'WCAG 2.2 AA, semantic patterns, keyboard support.' },
+    ],
   },
   {
     category: 'Engineering',
-    items: ['TypeScript', 'Next.js', 'Tailwind CSS', 'Node.js'],
+    items: [
+      { name: 'TypeScript', type: 'Language', depth: 'Type-safe UI components and shared models.' },
+      { name: 'Next.js', type: 'Framework', depth: 'App Router, data fetching, and server components.' },
+      { name: 'Tailwind CSS', type: 'Styling system', depth: 'Design tokens, responsive primitives, dark mode.' },
+      { name: 'Node.js', type: 'Runtime', depth: 'APIs, content pipelines, and automation scripts.' },
+    ],
   },
   {
     category: 'Collaboration',
-    items: ['Workshop facilitation', 'Public speaking', 'Mentorship', 'Spanish (fluent)'],
+    items: [
+      { name: 'Workshop facilitation', type: 'Collaboration', depth: 'Structured discovery and alignment sessions.' },
+      { name: 'Public speaking', type: 'Communication', depth: 'Conference talks and stakeholder storytelling.' },
+      { name: 'Mentorship', type: 'Leadership', depth: 'Guiding designers and engineers toward growth.' },
+      { name: 'Spanish', type: 'Language', depth: 'Fluent; conduct research and facilitation bilingually.' },
+    ],
   },
 ]
 
