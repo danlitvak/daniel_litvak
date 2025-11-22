@@ -70,8 +70,21 @@ function CTAButton({
 }
 
 export default function Personal() {
-  const [activeIndex, setActiveIndex] = useState(0)
+  const [displayIndex, setDisplayIndex] = useState(1)
   const [isPaused, setIsPaused] = useState(false)
+  const [isAnimating, setIsAnimating] = useState(true)
+
+  const totalItems = CAROUSEL_ITEMS.length
+
+  const carouselItems = useMemo(
+    () => [CAROUSEL_ITEMS[totalItems - 1], ...CAROUSEL_ITEMS, CAROUSEL_ITEMS[0]],
+    [totalItems],
+  )
+
+  const activeIndex = useMemo(() => {
+    const normalized = (displayIndex - 1 + totalItems) % totalItems
+    return normalized
+  }, [displayIndex, totalItems])
 
   const activeItem = useMemo(() => CAROUSEL_ITEMS[activeIndex], [activeIndex])
 
@@ -79,11 +92,21 @@ export default function Personal() {
     if (isPaused) return
 
     const timer = window.setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % CAROUSEL_ITEMS.length)
+      setDisplayIndex((prev) => prev + 1)
     }, 4200)
 
     return () => window.clearInterval(timer)
   }, [isPaused])
+
+  useEffect(() => {
+    if (isAnimating) return
+
+    const id = window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => setIsAnimating(true))
+    })
+
+    return () => window.cancelAnimationFrame(id)
+  }, [isAnimating])
 
   const handleSelect = (index: number) => {
     if (isPaused && index === activeIndex) {
@@ -91,18 +114,25 @@ export default function Personal() {
       return
     }
 
-    setActiveIndex(index)
+    setDisplayIndex(index + 1)
     setIsPaused(true)
   }
 
   const handleResume = () => setIsPaused(false)
 
   const handleStep = (direction: 1 | -1) => {
-    setActiveIndex((prev) => {
-      const nextIndex = (prev + direction + CAROUSEL_ITEMS.length) % CAROUSEL_ITEMS.length
-      return nextIndex
-    })
+    setDisplayIndex((prev) => prev + direction)
     setIsPaused(true)
+  }
+
+  const handleTransitionEnd = () => {
+    if (displayIndex === 0) {
+      setIsAnimating(false)
+      setDisplayIndex(totalItems)
+    } else if (displayIndex === totalItems + 1) {
+      setIsAnimating(false)
+      setDisplayIndex(1)
+    }
   }
 
   return (
@@ -191,31 +221,35 @@ export default function Personal() {
               ›
             </button>
             <div
-              className="flex h-full w-full transition-transform duration-700 ease-out"
-              style={{ transform: `translateX(-${activeIndex * 100}%)` }}
+              className={`flex h-full w-full ${isAnimating ? 'transition-transform duration-700 ease-out' : ''}`}
+              style={{ transform: `translateX(-${displayIndex * 100}%)` }}
+              onTransitionEnd={handleTransitionEnd}
             >
-              {CAROUSEL_ITEMS.map((item, index) => (
-                <button
-                  key={item.id}
-                  type="button"
-                  onClick={() => handleSelect(index)}
-                  className="relative aspect-video w-full shrink-0 overflow-hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black dark:focus-visible:outline-white"
-                >
-                  <img src={item.image} alt={item.title} className="h-full w-full object-cover" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/25 to-transparent" aria-hidden />
-                  <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-left text-white">
-                    <div>
-                      <p className="text-xs uppercase tracking-wide text-white/70">Project</p>
-                      <p className="text-base font-semibold leading-tight">{item.title}</p>
+              {carouselItems.map((item, index) => {
+                const normalizedIndex = (index - 1 + totalItems) % totalItems
+                return (
+                  <button
+                    key={`${item.id}-${index}`}
+                    type="button"
+                    onClick={() => handleSelect(normalizedIndex)}
+                    className="relative aspect-video w-full shrink-0 overflow-hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black dark:focus-visible:outline-white"
+                  >
+                    <img src={item.image} alt={item.title} className="h-full w-full object-cover" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/25 to-transparent" aria-hidden />
+                    <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-left text-white">
+                      <div>
+                        <p className="text-xs uppercase tracking-wide text-white/70">Project</p>
+                        <p className="text-base font-semibold leading-tight">{item.title}</p>
+                      </div>
+                      <span
+                        className="rounded-none bg-white/15 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white/80 backdrop-blur"
+                      >
+                        {normalizedIndex + 1}/{CAROUSEL_ITEMS.length}
+                      </span>
                     </div>
-                    <span
-                      className="rounded-none bg-white/15 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white/80 backdrop-blur"
-                    >
-                      {index + 1}/{CAROUSEL_ITEMS.length}
-                    </span>
-                  </div>
-                </button>
-              ))}
+                  </button>
+                )
+              })}
             </div>
             <div className="absolute bottom-3 left-1/2 flex -translate-x-1/2 gap-1" aria-label="Carousel indicators">
               {CAROUSEL_ITEMS.map((item, index) => (
