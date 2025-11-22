@@ -157,47 +157,45 @@ export default function Personal() {
         transition={TRANSITION_SECTION}
         className="space-y-4"
       >
-        <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
-          <h2 className="text-lg font-semibold text-black dark:text-white">
-            Projects and case studies
-          </h2>
+        <div className="space-y-1">
+          <h2 className="text-lg font-semibold text-black dark:text-white">Projects</h2>
           <p className="text-sm text-black/60 dark:text-white/60">
-            Selected collaborations that highlight research synthesis, prototyping, and measurable impact.
+            My skills in action. Click to learn more.
           </p>
         </div>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           {PROJECTS.map((project) => (
             <div
               key={project.id}
-              className="group flex flex-col gap-3 rounded-none border border-black/10 bg-white p-4 shadow-sm transition hover:border-black/40 hover:shadow-md dark:border-white/10 dark:bg-black/40 dark:hover:border-white/40"
+              className="group flex flex-col overflow-hidden rounded-none border border-black/10 bg-white shadow-sm transition hover:border-black/40 hover:shadow-md dark:border-white/10 dark:bg-black/40 dark:hover:border-white/40"
             >
-              <div className="relative overflow-hidden rounded-none bg-black/5 dark:bg-white/10">
+              <div className="relative aspect-video w-full bg-black/5 dark:bg-white/10">
                 <video
                   src={project.video}
                   autoPlay
                   loop
                   muted
                   playsInline
-                  className="aspect-video w-full object-cover"
+                  className="h-full w-full object-cover"
                 />
-              </div>
-              <div className="flex flex-1 flex-col gap-3">
-                <div>
+                <div className="absolute inset-0 bg-gradient-to-l from-black/50 via-black/25 to-transparent" aria-hidden />
+                <div className="absolute right-3 top-3 flex flex-col items-end text-right">
                   <a
-                    className="inline-flex items-center gap-2 text-base font-medium text-black transition-colors hover:text-black/70 dark:text-white dark:hover:text-white/70"
+                    className="text-base font-semibold text-white transition-colors hover:text-white/80"
                     href={project.link}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     {project.name}
-                    <span aria-hidden className="text-sm">↗</span>
                   </a>
-                  <p className="mt-1 text-sm text-black/70 dark:text-white/70">
-                    {project.description}
-                  </p>
                 </div>
-                <p className="text-sm font-medium text-black/80 dark:text-white/80">
-                  {project.impact}
+              </div>
+              <div className="flex flex-1 flex-col gap-3 p-4">
+                <p className="text-base font-semibold leading-snug text-black dark:text-white">
+                  {project.description}
+                </p>
+                <p className="text-xs font-semibold uppercase tracking-wide text-black/50 dark:text-white/60">
+                  Outcome · {project.impact}
                 </p>
                 <div className="mt-auto flex flex-wrap gap-2">
                   {project.tools.map((tool) => (
@@ -221,10 +219,9 @@ export default function Personal() {
         transition={TRANSITION_SECTION}
         className="rounded-none border border-black/10 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-white/5"
       >
-        <h2 className="mb-4 text-lg font-semibold text-black dark:text-white">
-          Skills & tools matrix
-        </h2>
-        <div className="grid gap-4 md:grid-cols-2">
+        <h2 className="text-lg font-semibold text-black dark:text-white">Skills & tools matrix</h2>
+        <div className="-mx-6 mb-4 mt-2 h-px bg-black/10 dark:bg-white/15" />
+        <div className="grid gap-4 lg:grid-cols-2">
           {SKILL_GROUPS.map((group) => (
             <div
               key={group.category}
@@ -233,13 +230,16 @@ export default function Personal() {
               <h3 className="text-sm font-semibold uppercase tracking-wide text-black/60 dark:text-white/60">
                 {group.category}
               </h3>
-              <ul className="mt-3 space-y-1 text-sm text-black/70 dark:text-white/70">
+              <div className="mt-3 flex flex-wrap gap-2 text-sm text-black/80 dark:text-white/80">
                 {group.items.map((item) => (
-                  <li key={item} className="leading-relaxed">
-                    {item}
-                  </li>
+                  <span
+                    key={item.name}
+                    className="rounded-none bg-black/5 px-3 py-1 font-semibold text-black dark:bg-white/10 dark:text-white"
+                  >
+                    {item.name}
+                  </span>
                 ))}
-              </ul>
+              </div>
             </div>
           ))}
         </div>
@@ -282,11 +282,10 @@ export default function Personal() {
                 </p>
               </div>
               <p className="mt-2 text-sm text-black/70 dark:text-white/70">{job.summary}</p>
-              <ul className="mt-2 space-y-1.5 text-sm text-black/70 dark:text-white/70">
+              <ul className="mt-2 space-y-1.5 list-disc pl-4 text-sm text-black/70 marker:text-black dark:text-white/70 dark:marker:text-white">
                 {job.achievements.map((achievement) => (
-                  <li key={achievement} className="flex gap-2">
-                    <span className="mt-1 h-1.5 w-1.5 flex-none bg-black dark:bg-white" />
-                    <span>{achievement}</span>
+                  <li key={achievement} className="leading-relaxed">
+                    {achievement}
                   </li>
                 ))}
               </ul>
