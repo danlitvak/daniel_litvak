@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { useEffect, useMemo, useState } from 'react'
 import { motion } from 'motion/react'
 import { Spotlight } from '@/components/ui/spotlight'
 import {
@@ -12,6 +13,7 @@ import {
   SKILL_GROUPS,
   EMAIL,
   CONTACT_LINKS,
+  CAROUSEL_ITEMS,
 } from './data'
 
 const VARIANTS_CONTAINER = {
@@ -68,6 +70,28 @@ function CTAButton({
 }
 
 export default function Personal() {
+  const [activeIndex, setActiveIndex] = useState(0)
+  const [isPaused, setIsPaused] = useState(false)
+
+  const activeItem = useMemo(() => CAROUSEL_ITEMS[activeIndex], [activeIndex])
+
+  useEffect(() => {
+    if (isPaused) return
+
+    const timer = window.setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % CAROUSEL_ITEMS.length)
+    }, 4200)
+
+    return () => window.clearInterval(timer)
+  }, [isPaused])
+
+  const handleSelect = (index: number) => {
+    setActiveIndex(index)
+    setIsPaused(true)
+  }
+
+  const handleResume = () => setIsPaused(false)
+
   return (
     <motion.main
       className="space-y-12 pb-12"
@@ -107,6 +131,89 @@ export default function Personal() {
           </div>
           <div className="flex flex-wrap gap-2">
             <CTAButton href={`mailto:${EMAIL}`} label="Email me" />
+          </div>
+        </div>
+      </motion.section>
+
+      <motion.section
+        id="gallery"
+        variants={VARIANTS_SECTION}
+        transition={TRANSITION_SECTION}
+        className="rounded-none border border-black/10 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-white/5"
+      >
+        <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+          <div className="space-y-1">
+            <h2 className="text-lg font-semibold text-black dark:text-white">Project image carousel</h2>
+            <p className="text-sm text-black/60 dark:text-white/60">
+              Auto-scrolls through highlights. Click any frame to pause and read the story.
+            </p>
+          </div>
+          {isPaused && (
+            <button
+              type="button"
+              onClick={handleResume}
+              className="inline-flex items-center justify-center rounded-none border border-black/15 bg-white px-4 py-2 text-sm font-medium text-black transition-colors hover:border-black/40 hover:bg-black/5 dark:border-white/20 dark:bg-black dark:text-white dark:hover:border-white/40 dark:hover:bg-white/10"
+            >
+              Resume autoplay
+            </button>
+          )}
+        </div>
+
+        <div className="mt-4 space-y-4">
+          <div className="relative overflow-hidden rounded-none border border-black/10 bg-black/5 dark:border-white/10 dark:bg-black/40">
+            <div
+              className="flex h-full w-full transition-transform duration-700 ease-out"
+              style={{ transform: `translateX(-${activeIndex * 100}%)` }}
+            >
+              {CAROUSEL_ITEMS.map((item, index) => (
+                <button
+                  key={item.id}
+                  type="button"
+                  onClick={() => handleSelect(index)}
+                  className="relative aspect-video w-full shrink-0 overflow-hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black dark:focus-visible:outline-white"
+                >
+                  <img src={item.image} alt={item.title} className="h-full w-full object-cover" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/25 to-transparent" aria-hidden />
+                  <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-left text-white">
+                    <div>
+                      <p className="text-xs uppercase tracking-wide text-white/70">Project</p>
+                      <p className="text-base font-semibold leading-tight">{item.title}</p>
+                    </div>
+                    <span
+                      className="rounded-none bg-white/15 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white/80 backdrop-blur"
+                    >
+                      {index + 1}/{CAROUSEL_ITEMS.length}
+                    </span>
+                  </div>
+                </button>
+              ))}
+            </div>
+            <div className="absolute bottom-3 left-1/2 flex -translate-x-1/2 gap-1" aria-label="Carousel indicators">
+              {CAROUSEL_ITEMS.map((item, index) => (
+                <span
+                  key={item.id}
+                  className={`h-1.5 w-6 rounded-full transition-colors ${
+                    index === activeIndex
+                      ? 'bg-white shadow-[0_0_0_1px_rgba(0,0,0,0.15)] dark:bg-white'
+                      : 'bg-white/50 dark:bg-white/40'
+                  }`}
+                />
+              ))}
+            </div>
+          </div>
+
+          <div className="space-y-2 rounded-none border border-black/10 bg-white p-4 dark:border-white/10 dark:bg-black/50">
+            <div className="flex items-center gap-2 text-xs uppercase tracking-wide text-black/60 dark:text-white/60">
+              <span>Selected story</span>
+              <span className="rounded-none border border-black/15 bg-black/5 px-2 py-0.5 text-[11px] font-semibold text-black dark:border-white/20 dark:bg-white/10 dark:text-white">
+                {isPaused ? 'Paused' : 'Auto'}
+              </span>
+            </div>
+            <h3 className="text-base font-semibold text-black dark:text-white">{activeItem.title}</h3>
+            <p className="text-sm leading-relaxed text-black/70 dark:text-white/70">{activeItem.description}</p>
+            {!isPaused && (
+              <p className="text-xs text-black/60 dark:text-white/60">Click any image above to pause and reveal its story.</p>
+            )}
           </div>
         </div>
       </motion.section>
