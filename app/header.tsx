@@ -5,7 +5,7 @@ import { HERO } from './data'
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-30 mb-8 border-b border-black/10 bg-white pb-3 pt-4 dark:border-white/10 dark:bg-black">
+    <header className="sticky top-0 z-30 mb-8 border-b border-black/10 bg-white px-4 pb-3 pt-4 dark:border-white/10 dark:bg-black">
       <div className="flex items-center justify-between">
         <div>
           <Link href="/" className="font-medium text-black dark:text-white">
