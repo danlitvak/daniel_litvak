@@ -83,6 +83,48 @@ export const PROJECTS: Project[] = [
   },
 ]
 
+export type CarouselItem = {
+  id: string
+  title: string
+  image: string
+  description: string
+}
+
+export const CAROUSEL_ITEMS: CarouselItem[] = [
+  {
+    id: 'carousel-coastal-grid',
+    title: 'Coastal sensor mesh',
+    image:
+      'https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1600&q=80',
+    description:
+      'LoRa-connected tide and air-quality nodes feeding a unified dashboard for harbor safety teams.',
+  },
+  {
+    id: 'carousel-lab-prototype',
+    title: 'Inclusive lab kiosk',
+    image:
+      'https://images.unsplash.com/photo-1582719478125-9c55f0c49c89?auto=format&fit=crop&w=1600&q=80',
+    description:
+      'Touch-friendly wayfinding prototype with ambient cues for multilingual visitors and screen readers.',
+  },
+  {
+    id: 'carousel-climate-sim',
+    title: 'Climate workshop sim',
+    image:
+      'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1600&q=80',
+    description:
+      'Desktop simulator that lets facilitators rehearse decision playbooks before community workshops.',
+  },
+  {
+    id: 'carousel-field-handoff',
+    title: 'Field kit handoff',
+    image:
+      'https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?auto=format&fit=crop&w=1600&q=80',
+    description:
+      'Hardware handoff flow connecting volunteers with localized checklists and SMS updates.',
+  },
+]
+
 type WorkExperience = {
   company: string
   title: string
