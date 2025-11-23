@@ -27,18 +27,14 @@
   --muted-foreground: rgba(0, 0, 0, 0.64);
   --accent-color: #000000;
   --accent-muted: rgba(0, 0, 0, 0.08);
-  --code-background: #0f172a;
-  --code-foreground: #e5e7eb;
-  --code-border: #1f2937;
-  --code-shadow: 0 18px 40px rgba(15, 23, 42, 0.25);
-  --sh-class: #e2e8f0;
-  --sh-sign: #cbd5e1;
-  --sh-string: #f8fafc;
-  --sh-keyword: #cbd5e1;
-  --sh-comment: #94a3b8;
-  --sh-jsxliterals: #e5e7eb;
-  --sh-property: #cbd5e1;
-  --sh-entity: #e2e8f0;
+  --sh-class: #525252;
+  --sh-sign: #737373;
+  --sh-string: #404040;
+  --sh-keyword: #262626;
+  --sh-comment: #a3a3a3;
+  --sh-jsxliterals: #525252;
+  --sh-property: #737373;
+  --sh-entity: #525252;
 }
 
 .dark {
@@ -47,19 +43,7 @@
   --foreground-color: #ffffff;
   --muted-foreground: rgba(255, 255, 255, 0.68);
   --accent-color: #ffffff;
-  --accent-muted: rgba(255, 255, 255, 0.14);
-  --code-background: #f8fafc;
-  --code-foreground: #0f172a;
-  --code-border: #cbd5e1;
-  --code-shadow: 0 18px 40px rgba(0, 0, 0, 0.4);
-  --sh-class: #0f172a;
-  --sh-sign: #1f2937;
-  --sh-string: #111827;
-  --sh-keyword: #111827;
-  --sh-comment: #334155;
-  --sh-jsxliterals: #1f2937;
-  --sh-property: #0f172a;
-  --sh-entity: #0f172a;
+  --accent-muted: rgba(255, 255, 255, 0.18);
 }
 
 @layer base {
@@ -81,7 +65,7 @@
   }
 
   ::selection {
-    background-color: rgba(56, 189, 248, 0.28);
+    background-color: var(--accent-muted);
     color: var(--foreground-color);
   }
 }
@@ -89,29 +73,27 @@
 @layer base {
   .prose :not(pre) > code {
     background: var(--accent-muted);
-    border-radius: 0.5rem;
-    padding: 0.15rem 0.4rem;
+    border-radius: 0.4rem;
+    padding: 0.1rem 0.35rem;
     font-size: 0.95em;
   }
 
   .prose pre {
-    border-radius: 1rem;
-    border: 1px solid var(--code-border);
-    background: var(--code-background);
-    color: var(--code-foreground);
-    box-shadow: var(--code-shadow);
+    border-radius: 0.75rem;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    background: #f8f8f8;
+    color: #0f172a;
   }
 
   .dark .prose pre {
-    border: 1px solid var(--code-border);
-    background: var(--code-background);
-    color: var(--code-foreground);
-    box-shadow: var(--code-shadow);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: #0b1224;
+    color: #e5e7eb;
   }
 
   .prose pre code {
     display: grid;
-    gap: 0.3rem;
+    gap: 0.25rem;
     line-height: 1.6;
     color: inherit;
   }

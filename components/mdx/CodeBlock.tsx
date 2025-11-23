@@ -1,11 +1,10 @@
 "use client"
 
-import { ComponentPropsWithoutRef, useEffect, useState } from 'react'
+import { ComponentPropsWithoutRef, useEffect, useRef, useState } from 'react'
 
 export function CodeBlock({ children, className = '', ...props }: ComponentPropsWithoutRef<'pre'>) {
+  const preRef = useRef<HTMLPreElement>(null)
   const [copied, setCopied] = useState(false)
-  const child = children as { props?: { children?: string } }
-  const codeText = typeof child?.props?.children === 'string' ? child.props.children : ''
 
   useEffect(() => {
     if (!copied) return
@@ -14,6 +13,7 @@ export function CodeBlock({ children, className = '', ...props }: ComponentProps
   }, [copied])
 
   const handleCopy = async () => {
+    const codeText = preRef.current?.innerText ?? ''
     if (!codeText) return
     try {
       await navigator.clipboard.writeText(codeText.trimEnd())
@@ -25,7 +25,7 @@ export function CodeBlock({ children, className = '', ...props }: ComponentProps
 
   return (
     <div className="group relative">
-      <pre className={`overflow-x-auto pr-14 ${className}`} {...props}>
+      <pre ref={preRef} className={`overflow-x-auto pr-14 ${className}`} {...props}>
         {children}
       </pre>
       <button
