@@ -1,3 +1,5 @@
+"use client"
+
 import type { MDXComponents } from 'mdx/types'
 import { ComponentPropsWithoutRef, useEffect, useState } from 'react'
 import { highlight } from 'sugar-high'
