@@ -331,8 +331,8 @@ export const RESUME_URL = 'https://alex-rivera.dev/resume.pdf'
 export const CONTACT_LINKS: ContactLink[] = [
   {
     label: 'Email',
-    link: `mailto:${EMAIL}`,
-    description: 'hello@alexrivera.dev',
+    link: '/contact?open=true',
+    description: 'Open the EmailJS form and reach out directly.',
   },
   {
     label: 'LinkedIn',

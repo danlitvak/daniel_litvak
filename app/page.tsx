@@ -11,7 +11,6 @@ import {
   WORK_EXPERIENCE,
   BLOG_POSTS,
   SKILL_GROUPS,
-  EMAIL,
   CONTACT_LINKS,
   CAROUSEL_ITEMS,
 } from './data'
@@ -181,7 +180,7 @@ export default function Personal() {
             </span>
           </div>
           <div className="flex flex-wrap gap-2">
-            <CTAButton href={`mailto:${EMAIL}`} label="Email me" />
+            <CTAButton href="/contact?open=true" label="Email me" />
           </div>
         </div>
       </motion.section>
@@ -532,9 +531,9 @@ export default function Personal() {
             ))}
           </div>
           <p className="text-xs text-black/60 dark:text-white/60">
-            Prefer email? Reach me directly at{' '}
-            <a className="font-medium text-black underline-offset-2 hover:underline dark:text-white" href={`mailto:${EMAIL}`}>
-              {EMAIL}
+            Prefer email? Open the dedicated EmailJS form{' '}
+            <a className="font-medium text-black underline-offset-2 hover:underline dark:text-white" href="/contact?open=true">
+              here
             </a>
             .
           </p>
@@ -553,7 +552,7 @@ export default function Personal() {
           I’m excited to collaborate with teams who value inclusive design, honest research, and measurable impact.
         </p>
         <div className="mt-4 flex flex-wrap justify-center gap-3">
-          <CTAButton href={`mailto:${EMAIL}`} label="Start a conversation" />
+          <CTAButton href="/contact?open=true" label="Start a conversation" />
         </div>
       </motion.section>
     </motion.main>
