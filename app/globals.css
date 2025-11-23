@@ -27,14 +27,14 @@
   --muted-foreground: rgba(0, 0, 0, 0.64);
   --accent-color: #000000;
   --accent-muted: rgba(0, 0, 0, 0.08);
-  --sh-class: #525252;
-  --sh-sign: #737373;
-  --sh-string: #404040;
-  --sh-keyword: #262626;
-  --sh-comment: #a3a3a3;
-  --sh-jsxliterals: #525252;
-  --sh-property: #737373;
-  --sh-entity: #525252;
+  --sh-class: #7c3aed;
+  --sh-sign: #2563eb;
+  --sh-string: #047857;
+  --sh-keyword: #db2777;
+  --sh-comment: #6b7280;
+  --sh-jsxliterals: #d97706;
+  --sh-property: #0ea5e9;
+  --sh-entity: #db2777;
 }
 
 .dark {
@@ -43,7 +43,15 @@
   --foreground-color: #ffffff;
   --muted-foreground: rgba(255, 255, 255, 0.68);
   --accent-color: #ffffff;
-  --accent-muted: rgba(255, 255, 255, 0.18);
+  --accent-muted: rgba(255, 255, 255, 0.14);
+  --sh-class: #c084fc;
+  --sh-sign: #93c5fd;
+  --sh-string: #86efac;
+  --sh-keyword: #f9a8d4;
+  --sh-comment: #94a3b8;
+  --sh-jsxliterals: #facc15;
+  --sh-property: #67e8f9;
+  --sh-entity: #f9a8d4;
 }
 
 @layer base {
@@ -65,7 +73,45 @@
   }
 
   ::selection {
-    background-color: var(--accent-muted);
+    background-color: rgba(56, 189, 248, 0.28);
     color: var(--foreground-color);
   }
+}
+
+@layer base {
+  .prose :not(pre) > code {
+    background: var(--accent-muted);
+    border-radius: 0.5rem;
+    padding: 0.15rem 0.4rem;
+    font-size: 0.95em;
+  }
+
+  .prose pre {
+    border-radius: 1rem;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0.08));
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  }
+
+  .dark .prose pre {
+    border-color: rgba(255, 255, 255, 0.08);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.12));
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+  }
+
+  .prose pre code {
+    display: grid;
+    gap: 0.3rem;
+    line-height: 1.6;
+  }
+
+  .sh__line { color: inherit; }
+  .sh__keyword { color: var(--sh-keyword); }
+  .sh__string { color: var(--sh-string); }
+  .sh__class { color: var(--sh-class); }
+  .sh__sign { color: var(--sh-sign); }
+  .sh__comment { color: var(--sh-comment); }
+  .sh__jsxliterals { color: var(--sh-jsxliterals); }
+  .sh__property { color: var(--sh-property); }
+  .sh__entity { color: var(--sh-entity); }
 }
