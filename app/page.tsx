@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { motion } from 'motion/react'
 import { Spotlight } from '@/components/ui/spotlight'
 import {
@@ -77,6 +77,15 @@ export default function Personal() {
 
   const totalItems = CAROUSEL_ITEMS.length
 
+  const clampDisplayIndex = useCallback(
+    (index: number) => {
+      if (index < 0) return 0
+      if (index > totalItems + 1) return totalItems + 1
+      return index
+    },
+    [totalItems],
+  )
+
   const carouselItems = useMemo(
     () => [CAROUSEL_ITEMS[totalItems - 1], ...CAROUSEL_ITEMS, CAROUSEL_ITEMS[0]],
     [totalItems],
@@ -93,11 +102,11 @@ export default function Personal() {
     if (isPaused) return
 
     const timer = window.setInterval(() => {
-      setDisplayIndex((prev) => prev + 1)
+      setDisplayIndex((prev) => clampDisplayIndex(prev + 1))
     }, 4200)
 
     return () => window.clearInterval(timer)
-  }, [isPaused])
+  }, [clampDisplayIndex, isPaused])
 
   useEffect(() => {
     if (isAnimating) return
@@ -115,14 +124,14 @@ export default function Personal() {
       return
     }
 
-    setDisplayIndex(index + 1)
+    setDisplayIndex(clampDisplayIndex(index + 1))
     setIsPaused(true)
   }
 
   const handleResume = () => setIsPaused(false)
 
   const handleStep = (direction: 1 | -1) => {
-    setDisplayIndex((prev) => prev + direction)
+    setDisplayIndex((prev) => clampDisplayIndex(prev + direction))
     setIsPaused(true)
   }
 
