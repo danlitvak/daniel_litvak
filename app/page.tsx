@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useMemo, useState } from 'react'
 import { motion } from 'motion/react'
@@ -146,7 +147,7 @@ export default function Personal() {
         id="about"
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
-        className="relative space-y-4"
+        className="relative space-y-4 scroll-mt-28"
       >
         <Spotlight className="-top-12 right-0 h-56 w-56 from-white/20 via-white/5 to-transparent blur-3xl" size={180} />
         <div className="relative space-y-4">
@@ -234,7 +235,13 @@ export default function Personal() {
                     onClick={() => handleSelect(normalizedIndex)}
                     className="relative aspect-video w-full shrink-0 overflow-hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black dark:focus-visible:outline-white"
                   >
-                    <img src={item.image} alt={item.title} className="h-full w-full object-cover" />
+                    <Image
+                      src={item.image}
+                      alt={item.title}
+                      fill
+                      className="object-cover"
+                      sizes="(min-width: 768px) 50vw, 100vw"
+                    />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/25 to-transparent" aria-hidden />
                     <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-left text-white">
                       <div>
@@ -311,7 +318,7 @@ export default function Personal() {
         id="projects"
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
-        className="space-y-4"
+        className="space-y-4 scroll-mt-28"
       >
         <div className="space-y-1">
           <h2 className="text-lg font-semibold text-black dark:text-white">Projects</h2>
@@ -373,7 +380,7 @@ export default function Personal() {
         id="skills"
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
-        className="rounded-none border border-black/10 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-white/5"
+        className="rounded-none border border-black/10 bg-white p-6 shadow-sm scroll-mt-28 dark:border-white/10 dark:bg-white/5"
       >
         <h2 className="text-lg font-semibold text-black dark:text-white">Skills & tools matrix</h2>
         <div className="-mx-6 mb-4 mt-2 h-px bg-black/10 dark:bg-white/15" />
@@ -464,7 +471,7 @@ export default function Personal() {
         id="writing"
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
-        className="rounded-none border border-black/10 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-white/5"
+        className="rounded-none border border-black/10 bg-white p-6 shadow-sm scroll-mt-28 dark:border-white/10 dark:bg-white/5"
       >
         <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
           <div>
@@ -485,7 +492,7 @@ export default function Personal() {
             >
               <div className="flex items-center justify-between text-xs uppercase tracking-wide text-black/60 dark:text-white/60">
                 <span>{post.date}</span>
-                <span className="text-[11px]">Read ↗</span>
+                <span className="text-[11px]">Read post</span>
               </div>
               <h3 className="text-base font-medium text-black dark:text-white">
                 {post.title}
@@ -500,7 +507,7 @@ export default function Personal() {
         id="contact"
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
-        className="rounded-none border border-black/10 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-white/5"
+        className="rounded-none border border-black/10 bg-white p-6 shadow-sm scroll-mt-28 dark:border-white/10 dark:bg-white/5"
       >
         <div className="space-y-4">
           <div className="space-y-2">
