@@ -285,6 +285,14 @@ type BlogPost = {
 
 export const BLOG_POSTS: BlogPost[] = [
   {
+    title: 'Test Drive of Blog Features',
+    description:
+      'A sample post showing typography, media, charts, tables, and links in one place.',
+    link: '/blog/test-drive-of-blog-features',
+    uid: 'blog-test-drive',
+    date: 'January 15, 2025',
+  },
+  {
     title: 'Sketching Decision Playbooks for Climate Operations',
     description:
       'Three facilitation moves that help emergency planners translate research into actionable dashboards.',

@@ -1,0 +1,99 @@
+export const metadata = {
+  title: 'Test Drive of Blog Features',
+  description: 'A sample post that exercises headings, media, data viz, tables, and links in one place.',
+  alternates: {
+    canonical: '/blog/test-drive-of-blog-features',
+  },
+}
+
+# Test Drive of Blog Features
+
+This post demonstrates the full range of the blog layout using real content. It is intentionally eclectic so you can see how text, imagery, and data elements sit together. If you want the short version, [jump to the summary](#quick-recap) or visit my main site at [alex-rivera.dev](https://alex-rivera.dev).
+
+> Quick note: everything you see here uses the same typography and spacing applied across the rest of the site, so it should mirror the production look and feel.
+
+## Hero visuals and captions
+
+<Cover
+  src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80"
+  alt="Colorful sticky notes on a wall"
+  caption="A mood board from a recent participatory design workshop"
+/>
+
+## Mixed typography
+
+### Large statement
+
+Designers, researchers, and engineers work better together when the narrative is as clear as the numbers.
+
+### Supporting paragraph
+
+The blog template keeps paragraphs readable by balancing line length with generous spacing. Short lead-ins like this help set context before showing heavier content.
+
+### Small print
+
+<p className="text-sm text-black/70 dark:text-white/70">Fine details, legal disclaimers, or inline annotations can ride in small text without breaking the rhythm of the page.</p>
+
+## Data storytelling
+
+### Quick chart (inline SVG)
+
+<figure>
+  <svg viewBox="0 0 320 160" role="img" aria-labelledby="chart-title" className="w-full max-w-xl rounded-lg border border-black/10 bg-white p-4 shadow-sm dark:border-white/15 dark:bg-white/5">
+    <title id="chart-title">Research throughput by sprint</title>
+    <g fill="none" stroke="currentColor" stroke-width="1" opacity="0.5">
+      <line x1="40" y1="20" x2="40" y2="140" />
+      <line x1="40" y1="140" x2="300" y2="140" />
+    </g>
+    <g fill="#0f172a">
+      <rect x="60" y="70" width="40" height="70" rx="4" className="fill-black/80 dark:fill-white/80" />
+      <rect x="130" y="50" width="40" height="90" rx="4" className="fill-black/70 dark:fill-white/70" />
+      <rect x="200" y="30" width="40" height="110" rx="4" className="fill-black/60 dark:fill-white/60" />
+    </g>
+    <g fill="currentColor" className="text-xs">
+      <text x="80" y="155" text-anchor="middle">Sprint 1</text>
+      <text x="150" y="155" text-anchor="middle">Sprint 2</text>
+      <text x="220" y="155" text-anchor="middle">Sprint 3</text>
+      <text x="40" y="15" text-anchor="end">Studies completed</text>
+    </g>
+  </svg>
+  <figcaption className="mt-2 text-sm text-black/70 dark:text-white/70">A lightweight bar chart rendered in pure SVG for crisp scaling.</figcaption>
+</figure>
+
+### Table
+
+| Channel        | Notes                                  | Confidence |
+| -------------- | -------------------------------------- | ---------- |
+| SMS diaries    | Fast feedback from field technicians   | High       |
+| Pop-up surveys | Works for quick segmentation           | Medium     |
+| Debrief calls  | Rich insights but scheduling overhead  | High       |
+| Analytics      | Good for volume, limited on intent     | Medium     |
+
+## Lists and highlights
+
+- Bullet lists stay compact with consistent spacing.
+- Numbered steps are equally supported.
+- Inline links, like this [stakeholder map template](https://miro.com), remain easy to spot.
+
+1. Align on the decision to be made.
+2. Define success signals and guardrails.
+3. Run a pilot, measure, then scale.
+
+## Embedded code snippet
+
+```ts
+const shareable = {
+  title: metadata.title,
+  url: metadata.alternates.canonical,
+  tags: ['design', 'research', 'sample'],
+}
+```
+
+## Quick recap
+
+- The layout supports images, headings, charts, and tables without breaking alignment.
+- Links can point to external sites or internal anchors.
+- Text scales from small print to bold statements.
+- Lists, code, and quotes render cleanly alongside visuals.
+
+Thanks for taking this test drive. If you spot anything else to showcase, feel free to add it.
