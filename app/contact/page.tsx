@@ -12,6 +12,10 @@ const emailJsSetupFields = [
   'Template variables that match the form fields (e.g., from_name, from_email, subject, message)',
 ] as const
 
+const EMAILJS_PUBLIC_KEY = 'XyVp0YtV0hQxFOj4w'
+const EMAILJS_SERVICE_ID = 'service_daniel_litvak'
+const EMAILJS_TEMPLATE_ID = 'template_m61czgr'
+
 const formDefaults = {
   name: '',
   email: '',
@@ -21,11 +25,12 @@ const formDefaults = {
 
 type FormState = typeof formDefaults
 
-type SubmissionState = 'idle' | 'ready' | 'success'
+type SubmissionState = 'idle' | 'sending' | 'success' | 'error'
 
 function ContactModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
   const [formState, setFormState] = useState<FormState>(formDefaults)
   const [submissionState, setSubmissionState] = useState<SubmissionState>('idle')
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
   useEffect(() => {
     if (!isOpen) return
@@ -48,11 +53,45 @@ function ContactModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
   const resetForm = () => {
     setFormState(formDefaults)
     setSubmissionState('idle')
+    setErrorMessage(null)
   }
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    setSubmissionState('ready')
+
+    setSubmissionState('sending')
+    setErrorMessage(null)
+
+    try {
+      const response = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          service_id: EMAILJS_SERVICE_ID,
+          template_id: EMAILJS_TEMPLATE_ID,
+          user_id: EMAILJS_PUBLIC_KEY,
+          template_params: {
+            Name: formState.name,
+            Email: formState.email,
+            subject: formState.subject,
+            message: formState.message,
+          },
+        }),
+      })
+
+      if (!response.ok) {
+        throw new Error(`EmailJS responded with ${response.status}`)
+      }
+
+      setSubmissionState('success')
+      setFormState(formDefaults)
+    } catch (error) {
+      console.error('EmailJS submission failed:', error)
+      setSubmissionState('error')
+      setErrorMessage('Something went wrong sending your message. Please try again.')
+    }
   }
 
   if (!isOpen) return null
@@ -131,13 +170,19 @@ function ContactModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
           <div className="flex flex-wrap items-center gap-3 text-sm">
             <button
               type="submit"
-              className="inline-flex items-center justify-center rounded-none bg-black px-4 py-2 text-sm font-semibold uppercase tracking-wide text-white shadow-sm transition hover:bg-black/80 dark:bg-white dark:text-black dark:hover:bg-white/85"
+              disabled={submissionState === 'sending'}
+              className="inline-flex items-center justify-center rounded-none bg-black px-4 py-2 text-sm font-semibold uppercase tracking-wide text-white shadow-sm transition hover:bg-black/80 disabled:cursor-not-allowed disabled:bg-black/50 dark:bg-white dark:text-black dark:hover:bg-white/85 dark:disabled:bg-white/50"
             >
-              Generate EmailJS payload
+              {submissionState === 'sending' ? 'Sending…' : 'Send via EmailJS'}
             </button>
-            {submissionState === 'ready' && (
+            {submissionState === 'success' && (
               <span className="text-xs font-medium text-emerald-600 dark:text-emerald-300">
-                Payload ready — wire this form to EmailJS send() with your service, template, and public key.
+                Sent! Your message was delivered to the EmailJS template configured for this site.
+              </span>
+            )}
+            {submissionState === 'error' && errorMessage && (
+              <span className="text-xs font-medium text-red-600 dark:text-red-300" role="status" aria-live="assertive">
+                {errorMessage}
               </span>
             )}
           </div>
@@ -212,7 +257,7 @@ export default function ContactPage() {
             ))}
           </ul>
           <p className="mt-3 text-sm text-black/70 dark:text-white/70">
-            Once your keys are in place, connect the submit handler to <code>emailjs.send</code> with the template variables matching the field names.
+            This form posts directly to EmailJS using the keys above; update the constants at the top of this file if you need to point to a different service or template.
           </p>
         </div>
         <div className="rounded-none border border-black/10 bg-white p-4 shadow-sm dark:border-white/10 dark:bg-white/5">
