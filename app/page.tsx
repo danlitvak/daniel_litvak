@@ -146,7 +146,7 @@ export default function Personal() {
         id="about"
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
-        className="relative space-y-4"
+        className="relative space-y-4 scroll-mt-28"
       >
         <Spotlight className="-top-12 right-0 h-56 w-56 from-white/20 via-white/5 to-transparent blur-3xl" size={180} />
         <div className="relative space-y-4">
@@ -311,7 +311,7 @@ export default function Personal() {
         id="projects"
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
-        className="space-y-4"
+        className="space-y-4 scroll-mt-28"
       >
         <div className="space-y-1">
           <h2 className="text-lg font-semibold text-black dark:text-white">Projects</h2>
@@ -373,7 +373,7 @@ export default function Personal() {
         id="skills"
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
-        className="rounded-none border border-black/10 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-white/5"
+        className="rounded-none border border-black/10 bg-white p-6 shadow-sm scroll-mt-28 dark:border-white/10 dark:bg-white/5"
       >
         <h2 className="text-lg font-semibold text-black dark:text-white">Skills & tools matrix</h2>
         <div className="-mx-6 mb-4 mt-2 h-px bg-black/10 dark:bg-white/15" />
@@ -464,7 +464,7 @@ export default function Personal() {
         id="writing"
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
-        className="rounded-none border border-black/10 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-white/5"
+        className="rounded-none border border-black/10 bg-white p-6 shadow-sm scroll-mt-28 dark:border-white/10 dark:bg-white/5"
       >
         <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
           <div>
@@ -500,7 +500,7 @@ export default function Personal() {
         id="contact"
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
-        className="rounded-none border border-black/10 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-white/5"
+        className="rounded-none border border-black/10 bg-white p-6 shadow-sm scroll-mt-28 dark:border-white/10 dark:bg-white/5"
       >
         <div className="space-y-4">
           <div className="space-y-2">

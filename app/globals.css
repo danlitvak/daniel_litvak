@@ -52,6 +52,7 @@
     color: var(--foreground-color);
     font-feature-settings: 'cv02' on, 'cv03' on, 'cv04' on;
     letter-spacing: -0.01em;
+    scroll-behavior: smooth;
   }
 
   a {
