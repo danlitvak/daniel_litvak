@@ -96,6 +96,8 @@ export default function Personal() {
     return normalized
   }, [displayIndex, totalItems])
 
+  const activeItem = useMemo(() => CAROUSEL_ITEMS[activeIndex], [activeIndex])
+
   useEffect(() => {
     if (isPaused) return
 
@@ -265,6 +267,11 @@ export default function Personal() {
                 )
               })}
             </div>
+          </div>
+
+          <div className="space-y-1 rounded-none border border-black/10 bg-white p-4 text-left dark:border-white/10 dark:bg-black/50">
+            <h3 className="text-base font-semibold text-black dark:text-white">{activeItem.title}</h3>
+            <p className="text-sm leading-relaxed text-black/70 dark:text-white/70">{activeItem.description}</p>
           </div>
 
         </div>
