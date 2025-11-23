@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { motion } from 'motion/react'
+import { ContactModal } from '../components/ContactModal'
 import {
   HERO,
   EDUCATION,
@@ -40,11 +41,13 @@ function CTAButton({
   label,
   variant = 'primary',
   target,
+  onClick,
 }: {
   href: string
   label: string
   variant?: 'primary' | 'secondary'
   target?: string
+  onClick?: () => void
 }) {
   const baseClasses =
     'inline-flex items-center justify-center px-5 py-2 text-sm font-medium transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black dark:focus-visible:outline-white'
@@ -54,6 +57,14 @@ function CTAButton({
       'bg-black text-white shadow-sm hover:bg-black/80 dark:bg-white dark:text-black dark:hover:bg-white/80',
     secondary:
       'bg-white text-black ring-1 ring-inset ring-black/10 hover:bg-black/5 dark:bg-black dark:text-white dark:ring-white/20 dark:hover:bg-white/10',
+  }
+
+  if (onClick) {
+    return (
+      <button type="button" onClick={onClick} className={`${baseClasses} ${variants[variant]}`}>
+        {label}
+      </button>
+    )
   }
 
   return (
@@ -69,6 +80,7 @@ function CTAButton({
 }
 
 export default function Personal() {
+  const [isContactOpen, setIsContactOpen] = useState(false)
   const [displayIndex, setDisplayIndex] = useState(1)
   const [isPaused, setIsPaused] = useState(false)
   const [isAnimating, setIsAnimating] = useState(true)
@@ -180,7 +192,7 @@ export default function Personal() {
             </span>
           </div>
           <div className="flex flex-wrap gap-2">
-            <CTAButton href="/contact?open=true" label="Email me" />
+            <CTAButton href="/contact?open=true" label="Email me" onClick={() => setIsContactOpen(true)} />
           </div>
         </div>
       </motion.section>
@@ -517,24 +529,46 @@ export default function Personal() {
             </p>
           </div>
           <div className="grid gap-3 md:grid-cols-3">
-            {CONTACT_LINKS.map((item) => (
-              <a
-                key={item.label}
-                href={item.link}
-                target={item.link.startsWith('http') ? '_blank' : undefined}
-                rel={item.link.startsWith('http') ? 'noopener noreferrer' : undefined}
-                className="flex flex-col justify-between rounded-none border border-black/10 bg-white px-4 py-3 transition-colors hover:border-black/40 hover:bg-black/5 dark:border-white/10 dark:bg-black/40 dark:hover:border-white/40 dark:hover:bg-white/10"
-              >
-                <span className="text-sm font-medium text-black dark:text-white">{item.label}</span>
-                <span className="text-xs text-black/60 dark:text-white/60">{item.description}</span>
-              </a>
-            ))}
+            {CONTACT_LINKS.map((item) => {
+              const isEmailModalLink = item.link.startsWith('/contact')
+
+              if (isEmailModalLink) {
+                return (
+                  <button
+                    key={item.label}
+                    type="button"
+                    onClick={() => setIsContactOpen(true)}
+                    className="flex flex-col justify-between rounded-none border border-black/10 bg-white px-4 py-3 text-left transition-colors hover:border-black/40 hover:bg-black/5 dark:border-white/10 dark:bg-black/40 dark:hover:border-white/40 dark:hover:bg-white/10"
+                  >
+                    <span className="text-sm font-medium text-black dark:text-white">{item.label}</span>
+                    <span className="text-xs text-black/60 dark:text-white/60">{item.description}</span>
+                  </button>
+                )
+              }
+
+              return (
+                <a
+                  key={item.label}
+                  href={item.link}
+                  target={item.link.startsWith('http') ? '_blank' : undefined}
+                  rel={item.link.startsWith('http') ? 'noopener noreferrer' : undefined}
+                  className="flex flex-col justify-between rounded-none border border-black/10 bg-white px-4 py-3 transition-colors hover:border-black/40 hover:bg-black/5 dark:border-white/10 dark:bg-black/40 dark:hover:border-white/40 dark:hover:bg-white/10"
+                >
+                  <span className="text-sm font-medium text-black dark:text-white">{item.label}</span>
+                  <span className="text-xs text-black/60 dark:text-white/60">{item.description}</span>
+                </a>
+              )
+            })}
           </div>
           <p className="text-xs text-black/60 dark:text-white/60">
             Prefer email? Open the dedicated EmailJS form{' '}
-            <a className="font-medium text-black underline-offset-2 hover:underline dark:text-white" href="/contact?open=true">
+            <button
+              type="button"
+              onClick={() => setIsContactOpen(true)}
+              className="font-medium text-black underline-offset-2 hover:underline dark:text-white"
+            >
               here
-            </a>
+            </button>
             .
           </p>
         </div>
@@ -552,9 +586,11 @@ export default function Personal() {
           I’m excited to collaborate with teams who value inclusive design, honest research, and measurable impact.
         </p>
         <div className="mt-4 flex flex-wrap justify-center gap-3">
-          <CTAButton href="/contact?open=true" label="Start a conversation" />
+          <CTAButton href="/contact?open=true" label="Start a conversation" onClick={() => setIsContactOpen(true)} />
         </div>
       </motion.section>
+
+      <ContactModal isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} />
     </motion.main>
   )
 }
