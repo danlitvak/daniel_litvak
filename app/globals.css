@@ -27,14 +27,19 @@
   --muted-foreground: rgba(0, 0, 0, 0.64);
   --accent-color: #000000;
   --accent-muted: rgba(0, 0, 0, 0.08);
-  --sh-class: #525252;
-  --sh-sign: #737373;
-  --sh-string: #404040;
-  --sh-keyword: #262626;
-  --sh-comment: #a3a3a3;
-  --sh-jsxliterals: #525252;
-  --sh-property: #737373;
-  --sh-entity: #525252;
+  --code-bg: #f7f8ff;
+  --code-border: rgba(0, 0, 0, 0.08);
+  --code-text: #0b1224;
+  --code-inline-bg: rgba(0, 17, 255, 0.08);
+  --code-inline-text: #0b1224;
+  --sh-class: #1d4ed8;
+  --sh-sign: #0f172a;
+  --sh-string: #166534;
+  --sh-keyword: #0ea5e9;
+  --sh-comment: #94a3b8;
+  --sh-jsxliterals: #1e3a8a;
+  --sh-property: #7c3aed;
+  --sh-entity: #4338ca;
 }
 
 .dark {
@@ -44,6 +49,19 @@
   --muted-foreground: rgba(255, 255, 255, 0.68);
   --accent-color: #ffffff;
   --accent-muted: rgba(255, 255, 255, 0.18);
+  --code-bg: #0b1224;
+  --code-border: rgba(255, 255, 255, 0.12);
+  --code-text: #e5e7eb;
+  --code-inline-bg: rgba(255, 255, 255, 0.12);
+  --code-inline-text: #f8fafc;
+  --sh-class: #a5b4fc;
+  --sh-sign: #cbd5f5;
+  --sh-string: #86efac;
+  --sh-keyword: #67e8f9;
+  --sh-comment: #94a3b8;
+  --sh-jsxliterals: #c4b5fd;
+  --sh-property: #f9a8d4;
+  --sh-entity: #c7d2fe;
 }
 
 @layer base {
@@ -72,7 +90,8 @@
 
 @layer base {
   .prose :not(pre) > code {
-    background: var(--accent-muted);
+    background: var(--code-inline-bg);
+    color: var(--code-inline-text);
     border-radius: 0.4rem;
     padding: 0.1rem 0.35rem;
     font-size: 0.95em;
@@ -80,15 +99,9 @@
 
   .prose pre {
     border-radius: 0.75rem;
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    background: #f8f8f8;
-    color: #0f172a;
-  }
-
-  .dark .prose pre {
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    background: #0b1224;
-    color: #e5e7eb;
+    border: 1px solid var(--code-border);
+    background: var(--code-bg);
+    color: var(--code-text);
   }
 
   .prose pre code {
