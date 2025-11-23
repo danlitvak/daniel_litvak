@@ -4,17 +4,24 @@ import { AnimatePresence, Transition, motion } from 'motion/react'
 import {
   Children,
   cloneElement,
+  HTMLAttributes,
   ReactElement,
   ReactNode,
   useEffect,
-  useState,
   useId,
+  useState,
 } from 'react'
+
+type AnimatedBackgroundChildProps = {
+  'data-id': string
+  className?: string
+  children?: ReactNode
+} & HTMLAttributes<HTMLElement>
 
 export type AnimatedBackgroundProps = {
   children:
-    | ReactElement<{ 'data-id': string }>[]
-    | ReactElement<{ 'data-id': string }>
+    | ReactElement<AnimatedBackgroundChildProps>[]
+    | ReactElement<AnimatedBackgroundChildProps>
   defaultValue?: string
   onValueChange?: (newActiveId: string | null) => void
   className?: string
@@ -48,11 +55,7 @@ export function AnimatedBackground({
   }, [defaultValue])
 
   return Children.map(children, (child, index) => {
-    const typedChild = child as ReactElement<{
-      'data-id': string
-      className?: string
-      children?: ReactNode
-    }>
+    const typedChild = child as ReactElement<AnimatedBackgroundChildProps>
 
     const id = typedChild.props['data-id']
 
