@@ -2,9 +2,9 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { motion } from 'motion/react'
-import { Spotlight } from '@/components/ui/spotlight'
+import { ContactModal } from '../components/ContactModal'
 import {
   HERO,
   EDUCATION,
@@ -12,7 +12,6 @@ import {
   WORK_EXPERIENCE,
   BLOG_POSTS,
   SKILL_GROUPS,
-  EMAIL,
   CONTACT_LINKS,
   CAROUSEL_ITEMS,
 } from './data'
@@ -42,11 +41,13 @@ function CTAButton({
   label,
   variant = 'primary',
   target,
+  onClick,
 }: {
   href: string
   label: string
   variant?: 'primary' | 'secondary'
   target?: string
+  onClick?: () => void
 }) {
   const baseClasses =
     'inline-flex items-center justify-center px-5 py-2 text-sm font-medium transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black dark:focus-visible:outline-white'
@@ -56,6 +57,14 @@ function CTAButton({
       'bg-black text-white shadow-sm hover:bg-black/80 dark:bg-white dark:text-black dark:hover:bg-white/80',
     secondary:
       'bg-white text-black ring-1 ring-inset ring-black/10 hover:bg-black/5 dark:bg-black dark:text-white dark:ring-white/20 dark:hover:bg-white/10',
+  }
+
+  if (onClick) {
+    return (
+      <button type="button" onClick={onClick} className={`${baseClasses} ${variants[variant]}`}>
+        {label}
+      </button>
+    )
   }
 
   return (
@@ -71,11 +80,21 @@ function CTAButton({
 }
 
 export default function Personal() {
+  const [isContactOpen, setIsContactOpen] = useState(false)
   const [displayIndex, setDisplayIndex] = useState(1)
   const [isPaused, setIsPaused] = useState(false)
   const [isAnimating, setIsAnimating] = useState(true)
 
   const totalItems = CAROUSEL_ITEMS.length
+
+  const clampDisplayIndex = useCallback(
+    (index: number) => {
+      if (index < 0) return 0
+      if (index > totalItems + 1) return totalItems + 1
+      return index
+    },
+    [totalItems],
+  )
 
   const carouselItems = useMemo(
     () => [CAROUSEL_ITEMS[totalItems - 1], ...CAROUSEL_ITEMS, CAROUSEL_ITEMS[0]],
@@ -93,11 +112,11 @@ export default function Personal() {
     if (isPaused) return
 
     const timer = window.setInterval(() => {
-      setDisplayIndex((prev) => prev + 1)
+      setDisplayIndex((prev) => clampDisplayIndex(prev + 1))
     }, 4200)
 
     return () => window.clearInterval(timer)
-  }, [isPaused])
+  }, [clampDisplayIndex, isPaused])
 
   useEffect(() => {
     if (isAnimating) return
@@ -115,14 +134,14 @@ export default function Personal() {
       return
     }
 
-    setDisplayIndex(index + 1)
+    setDisplayIndex(clampDisplayIndex(index + 1))
     setIsPaused(true)
   }
 
   const handleResume = () => setIsPaused(false)
 
   const handleStep = (direction: 1 | -1) => {
-    setDisplayIndex((prev) => prev + direction)
+    setDisplayIndex((prev) => clampDisplayIndex(prev + direction))
     setIsPaused(true)
   }
 
@@ -149,7 +168,6 @@ export default function Personal() {
         transition={TRANSITION_SECTION}
         className="relative space-y-4 scroll-mt-28"
       >
-        <Spotlight className="-top-12 right-0 h-56 w-56 from-white/20 via-white/5 to-transparent blur-3xl" size={180} />
         <div className="relative space-y-4">
           <div className="inline-flex items-center gap-2 bg-black/5 px-3 py-1 text-xs font-medium uppercase tracking-wide text-black dark:bg-white/10 dark:text-white">
             <span>{HERO.role}</span>
@@ -174,104 +192,7 @@ export default function Personal() {
             </span>
           </div>
           <div className="flex flex-wrap gap-2">
-            <CTAButton href={`mailto:${EMAIL}`} label="Email me" />
-          </div>
-        </div>
-      </motion.section>
-
-      <motion.section
-        id="gallery"
-        variants={VARIANTS_SECTION}
-        transition={TRANSITION_SECTION}
-        className="rounded-none border border-black/10 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-white/5"
-      >
-        <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-          <div className="space-y-1">
-            <h2 className="text-lg font-semibold text-black dark:text-white">Project image carousel</h2>
-            <p className="text-sm text-black/60 dark:text-white/60">
-              Auto-scrolls through highlights. Click any frame to pause and read the story.
-            </p>
-          </div>
-          {isPaused && (
-            <button
-              type="button"
-              onClick={handleResume}
-              className="inline-flex items-center justify-center rounded-none border border-black/15 bg-white px-4 py-2 text-sm font-medium text-black transition-colors hover:border-black/40 hover:bg-black/5 dark:border-white/20 dark:bg-black dark:text-white dark:hover:border-white/40 dark:hover:bg-white/10"
-            >
-              Resume autoplay
-            </button>
-          )}
-        </div>
-
-        <div className="mt-4 space-y-4">
-          <div className="relative overflow-hidden rounded-none border border-black/10 bg-black/5 dark:border-white/10 dark:bg-black/40">
-            <button
-              type="button"
-              onClick={() => handleStep(-1)}
-              className="absolute left-3 top-1/2 z-10 flex -translate-y-1/2 items-center justify-center rounded-full border border-black/10 bg-white/80 px-2.5 py-2 text-sm font-semibold text-black shadow-sm transition hover:bg-white dark:border-white/20 dark:bg-black/70 dark:text-white dark:hover:bg-black"
-              aria-label="Previous image"
-            >
-              ‹
-            </button>
-            <button
-              type="button"
-              onClick={() => handleStep(1)}
-              className="absolute right-3 top-1/2 z-10 flex -translate-y-1/2 items-center justify-center rounded-full border border-black/10 bg-white/80 px-2.5 py-2 text-sm font-semibold text-black shadow-sm transition hover:bg-white dark:border-white/20 dark:bg-black/70 dark:text-white dark:hover:bg-black"
-              aria-label="Next image"
-            >
-              ›
-            </button>
-            <div
-              className={`flex h-full w-full ${isAnimating ? 'transition-transform duration-700 ease-out' : ''}`}
-              style={{ transform: `translateX(-${displayIndex * 100}%)` }}
-              onTransitionEnd={handleTransitionEnd}
-            >
-              {carouselItems.map((item, index) => {
-                const normalizedIndex = (index - 1 + totalItems) % totalItems
-                return (
-                  <button
-                    key={`${item.id}-${index}`}
-                    type="button"
-                    onClick={() => handleSelect(normalizedIndex)}
-                    className="relative aspect-video w-full shrink-0 overflow-hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black dark:focus-visible:outline-white"
-                  >
-                    <Image
-                      src={item.image}
-                      alt={item.title}
-                      fill
-                      className="object-cover"
-                      sizes="(min-width: 768px) 50vw, 100vw"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/25 to-transparent" aria-hidden />
-                    <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-left text-white">
-                      <div>
-                        <p className="text-xs uppercase tracking-wide text-white/70">Project</p>
-                        <p className="text-base font-semibold leading-tight">{item.title}</p>
-                      </div>
-                      <span
-                        className="rounded-none bg-white/15 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white/80 backdrop-blur"
-                      >
-                        {normalizedIndex + 1}/{CAROUSEL_ITEMS.length}
-                      </span>
-                    </div>
-                  </button>
-                )
-              })}
-            </div>
-          </div>
-
-          <div className="space-y-2 rounded-none border border-black/10 bg-white p-4 dark:border-white/10 dark:bg-black/50">
-            <div className="flex items-center gap-2 text-xs uppercase tracking-wide text-black/60 dark:text-white/60">
-              <span>Selected story</span>
-              <span className="rounded-none border border-black/15 bg-black/5 px-2 py-0.5 text-[11px] font-semibold text-black dark:border-white/20 dark:bg-white/10 dark:text-white">
-                {isPaused ? 'Paused' : 'Auto'}
-              </span>
-            </div>
-            <h3 className="text-base font-semibold text-black dark:text-white">{activeItem.title}</h3>
-            <p className="text-sm leading-relaxed text-black/70 dark:text-white/70">{activeItem.description}</p>
-            {!isPaused && (
-              <p className="text-xs text-black/60 dark:text-white/60">Click any image above to pause and reveal its story.</p>
-            )}
+            <CTAButton href="/contact?open=true" label="Email me" onClick={() => setIsContactOpen(true)} />
           </div>
         </div>
       </motion.section>
@@ -504,6 +425,97 @@ export default function Personal() {
       </motion.section>
 
       <motion.section
+        id="gallery"
+        variants={VARIANTS_SECTION}
+        transition={TRANSITION_SECTION}
+        className="rounded-none border border-black/10 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-white/5"
+      >
+        <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+          <div className="space-y-1">
+            <h2 className="text-lg font-semibold text-black dark:text-white">Project image carousel</h2>
+            <p className="text-sm text-black/60 dark:text-white/60">
+              Auto-scrolls through highlights. Click any frame to pause and read the story.
+            </p>
+          </div>
+          {isPaused && (
+            <button
+              type="button"
+              onClick={handleResume}
+              className="inline-flex items-center justify-center rounded-none border border-black/15 bg-white px-4 py-2 text-sm font-medium text-black transition-colors hover:border-black/40 hover:bg-black/5 dark:border-white/20 dark:bg-black dark:text-white dark:hover:border-white/40 dark:hover:bg-white/10"
+            >
+              Resume autoplay
+            </button>
+          )}
+        </div>
+
+        <div className="mt-4 space-y-4">
+          <div className="relative overflow-hidden rounded-none border border-black/10 bg-black/5 dark:border-white/10 dark:bg-black/40">
+            <button
+              type="button"
+              onClick={() => handleStep(-1)}
+              className="absolute left-3 top-1/2 z-10 flex -translate-y-1/2 items-center justify-center rounded-full border border-black/10 bg-white/80 px-2.5 py-2 text-sm font-semibold text-black shadow-sm transition hover:bg-white dark:border-white/20 dark:bg-black/70 dark:text-white dark:hover:bg-black"
+              aria-label="Previous image"
+            >
+              ‹
+            </button>
+            <button
+              type="button"
+              onClick={() => handleStep(1)}
+              className="absolute right-3 top-1/2 z-10 flex -translate-y-1/2 items-center justify-center rounded-full border border-black/10 bg-white/80 px-2.5 py-2 text-sm font-semibold text-black shadow-sm transition hover:bg-white dark:border-white/20 dark:bg-black/70 dark:text-white dark:hover:bg-black"
+              aria-label="Next image"
+            >
+              ›
+            </button>
+            <div
+              className={`flex h-full w-full ${isAnimating ? 'transition-transform duration-700 ease-out' : ''}`}
+              style={{ transform: `translateX(-${displayIndex * 100}%)` }}
+              onTransitionEnd={handleTransitionEnd}
+            >
+              {carouselItems.map((item, index) => {
+                const normalizedIndex = (index - 1 + totalItems) % totalItems
+                return (
+                  <button
+                    key={`${item.id}-${index}`}
+                    type="button"
+                    onClick={() => handleSelect(normalizedIndex)}
+                    className="relative aspect-video w-full shrink-0 overflow-hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black dark:focus-visible:outline-white"
+                  >
+                    <Image
+                      src={item.image}
+                      alt={item.title}
+                      fill
+                      className="object-cover"
+                      sizes="(min-width: 768px) 50vw, 100vw"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/25 to-transparent" aria-hidden />
+                    <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-left text-white">
+                      <div>
+                        <p className="text-xs uppercase tracking-wide text-white/70">Project</p>
+                        <p className="text-base font-semibold leading-tight">{item.title}</p>
+                      </div>
+                      <span
+                        className="rounded-none bg-white/15 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white/80 backdrop-blur"
+                      >
+                        {normalizedIndex + 1}/{CAROUSEL_ITEMS.length}
+                      </span>
+                    </div>
+                  </button>
+                )
+              })}
+            </div>
+          </div>
+
+          <div className="space-y-1 text-left">
+            <p className="text-sm font-semibold uppercase tracking-wide text-black/70 dark:text-white/70">
+              {activeItem.title}
+            </p>
+            <p className="text-sm leading-relaxed text-black/70 dark:text-white/70">{activeItem.description}</p>
+          </div>
+
+        </div>
+      </motion.section>
+
+      <motion.section
         id="contact"
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
@@ -517,24 +529,46 @@ export default function Personal() {
             </p>
           </div>
           <div className="grid gap-3 md:grid-cols-3">
-            {CONTACT_LINKS.map((item) => (
-              <a
-                key={item.label}
-                href={item.link}
-                target={item.link.startsWith('http') ? '_blank' : undefined}
-                rel={item.link.startsWith('http') ? 'noopener noreferrer' : undefined}
-                className="flex flex-col justify-between rounded-none border border-black/10 bg-white px-4 py-3 transition-colors hover:border-black/40 hover:bg-black/5 dark:border-white/10 dark:bg-black/40 dark:hover:border-white/40 dark:hover:bg-white/10"
-              >
-                <span className="text-sm font-medium text-black dark:text-white">{item.label}</span>
-                <span className="text-xs text-black/60 dark:text-white/60">{item.description}</span>
-              </a>
-            ))}
+            {CONTACT_LINKS.map((item) => {
+              const isEmailModalLink = item.link.startsWith('/contact')
+
+              if (isEmailModalLink) {
+                return (
+                  <button
+                    key={item.label}
+                    type="button"
+                    onClick={() => setIsContactOpen(true)}
+                    className="flex flex-col justify-between rounded-none border border-black/10 bg-white px-4 py-3 text-left transition-colors hover:border-black/40 hover:bg-black/5 dark:border-white/10 dark:bg-black/40 dark:hover:border-white/40 dark:hover:bg-white/10"
+                  >
+                    <span className="text-sm font-medium text-black dark:text-white">{item.label}</span>
+                    <span className="text-xs text-black/60 dark:text-white/60">{item.description}</span>
+                  </button>
+                )
+              }
+
+              return (
+                <a
+                  key={item.label}
+                  href={item.link}
+                  target={item.link.startsWith('http') ? '_blank' : undefined}
+                  rel={item.link.startsWith('http') ? 'noopener noreferrer' : undefined}
+                  className="flex flex-col justify-between rounded-none border border-black/10 bg-white px-4 py-3 transition-colors hover:border-black/40 hover:bg-black/5 dark:border-white/10 dark:bg-black/40 dark:hover:border-white/40 dark:hover:bg-white/10"
+                >
+                  <span className="text-sm font-medium text-black dark:text-white">{item.label}</span>
+                  <span className="text-xs text-black/60 dark:text-white/60">{item.description}</span>
+                </a>
+              )
+            })}
           </div>
           <p className="text-xs text-black/60 dark:text-white/60">
-            Prefer email? Reach me directly at{' '}
-            <a className="font-medium text-black underline-offset-2 hover:underline dark:text-white" href={`mailto:${EMAIL}`}>
-              {EMAIL}
-            </a>
+            Prefer email? Open the contact form{' '}
+            <button
+              type="button"
+              onClick={() => setIsContactOpen(true)}
+              className="font-medium text-black underline-offset-2 hover:underline dark:text-white"
+            >
+              here
+            </button>
             .
           </p>
         </div>
@@ -552,9 +586,11 @@ export default function Personal() {
           I’m excited to collaborate with teams who value inclusive design, honest research, and measurable impact.
         </p>
         <div className="mt-4 flex flex-wrap justify-center gap-3">
-          <CTAButton href={`mailto:${EMAIL}`} label="Start a conversation" />
+          <CTAButton href="/contact?open=true" label="Start a conversation" onClick={() => setIsContactOpen(true)} />
         </div>
       </motion.section>
+
+      <ContactModal isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} />
     </motion.main>
   )
 }

@@ -103,7 +103,7 @@ export const CAROUSEL_ITEMS: CarouselItem[] = [
     id: 'carousel-lab-prototype',
     title: 'Inclusive lab kiosk',
     image:
-      'https://images.unsplash.com/photo-1582719478125-9c55f0c49c89?auto=format&fit=crop&w=1600&q=80',
+      'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1600&q=80',
     description:
       'Touch-friendly wayfinding prototype with ambient cues for multilingual visitors and screen readers.',
   },
@@ -331,8 +331,8 @@ export const RESUME_URL = 'https://alex-rivera.dev/resume.pdf'
 export const CONTACT_LINKS: ContactLink[] = [
   {
     label: 'Email',
-    link: `mailto:${EMAIL}`,
-    description: 'hello@alexrivera.dev',
+    link: '/contact?open=true',
+    description: 'Open the contact form and reach out directly.',
   },
   {
     label: 'LinkedIn',
