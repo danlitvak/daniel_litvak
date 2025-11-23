@@ -96,8 +96,6 @@ export default function Personal() {
     return normalized
   }, [displayIndex, totalItems])
 
-  const activeItem = useMemo(() => CAROUSEL_ITEMS[activeIndex], [activeIndex])
-
   useEffect(() => {
     if (isPaused) return
 
@@ -269,19 +267,6 @@ export default function Personal() {
             </div>
           </div>
 
-          <div className="space-y-2 rounded-none border border-black/10 bg-white p-4 dark:border-white/10 dark:bg-black/50">
-            <div className="flex items-center gap-2 text-xs uppercase tracking-wide text-black/60 dark:text-white/60">
-              <span>Selected story</span>
-              <span className="rounded-none border border-black/15 bg-black/5 px-2 py-0.5 text-[11px] font-semibold text-black dark:border-white/20 dark:bg-white/10 dark:text-white">
-                {isPaused ? 'Paused' : 'Auto'}
-              </span>
-            </div>
-            <h3 className="text-base font-semibold text-black dark:text-white">{activeItem.title}</h3>
-            <p className="text-sm leading-relaxed text-black/70 dark:text-white/70">{activeItem.description}</p>
-            {!isPaused && (
-              <p className="text-xs text-black/60 dark:text-white/60">Click any image above to pause and reveal its story.</p>
-            )}
-          </div>
         </div>
       </motion.section>
 
