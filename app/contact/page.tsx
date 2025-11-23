@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { Suspense, useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 
@@ -201,7 +201,7 @@ function ContactModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
   )
 }
 
-export default function ContactPage() {
+function ContactPageContent() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const [isOpen, setIsOpen] = useState(false)
@@ -273,5 +273,13 @@ export default function ContactPage() {
 
       <ContactModal isOpen={isOpen} onClose={handleClose} />
     </main>
+  )
+}
+
+export default function ContactPage() {
+  return (
+    <Suspense fallback={null}>
+      <ContactPageContent />
+    </Suspense>
   )
 }
