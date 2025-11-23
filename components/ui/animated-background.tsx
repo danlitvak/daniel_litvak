@@ -14,6 +14,7 @@ import {
 
 type AnimatedBackgroundChildProps = {
   'data-id': string
+  'data-checked'?: string
   className?: string
   children?: ReactNode
 } & HTMLAttributes<HTMLElement>
