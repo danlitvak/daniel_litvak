@@ -2,12 +2,7 @@
 
 import { useEffect, useState } from 'react'
 
-import {
-  EMAILJS_PUBLIC_KEY,
-  EMAILJS_SERVICE_ID,
-  EMAILJS_TEMPLATE_ID,
-  emailJsSetupFields,
-} from '../lib/emailjsConfig'
+import { EMAILJS_PUBLIC_KEY, EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID } from '../lib/emailjsConfig'
 
 const formDefaults = {
   name: '',
@@ -100,9 +95,9 @@ export function ContactModal({
       <div className="relative w-full max-w-2xl space-y-4 rounded-none bg-white p-6 shadow-2xl dark:bg-black/90 dark:text-white">
         <div className="flex items-start justify-between gap-4">
           <div>
-            <h1 className="text-xl font-semibold">Send a note via EmailJS</h1>
+            <h1 className="text-xl font-semibold">Send a message</h1>
             <p className="mt-1 text-sm text-black/70 dark:text-white/70">
-              Fill out the form and connect your EmailJS keys to route the message to your inbox.
+              Share a few details and I&apos;ll get back to you soon.
             </p>
           </div>
           <button
@@ -169,16 +164,16 @@ export function ContactModal({
           <div className="flex flex-wrap items-center gap-3 text-sm">
             <button
               type="submit"
-              disabled={submissionState === 'sending'}
-              className="inline-flex items-center justify-center rounded-none bg-black px-4 py-2 text-sm font-semibold uppercase tracking-wide text-white shadow-sm transition hover:bg-black/80 disabled:cursor-not-allowed disabled:bg-black/50 dark:bg-white dark:text-black dark:hover:bg-white/85 dark:disabled:bg-white/50"
-            >
-              {submissionState === 'sending' ? 'Sending…' : 'Send via EmailJS'}
-            </button>
-            {submissionState === 'success' && (
-              <span className="text-xs font-medium text-emerald-600 dark:text-emerald-300">
-                Sent! Your message was delivered to the EmailJS template configured for this site.
-              </span>
-            )}
+            disabled={submissionState === 'sending'}
+            className="inline-flex items-center justify-center rounded-none bg-black px-4 py-2 text-sm font-semibold uppercase tracking-wide text-white shadow-sm transition hover:bg-black/80 disabled:cursor-not-allowed disabled:bg-black/50 dark:bg-white dark:text-black dark:hover:bg-white/85 dark:disabled:bg-white/50"
+          >
+            {submissionState === 'sending' ? 'Sending…' : 'Send message'}
+          </button>
+          {submissionState === 'success' && (
+            <span className="text-xs font-medium text-emerald-600 dark:text-emerald-300">
+              Sent! Thanks for reaching out.
+            </span>
+          )}
             {submissionState === 'error' && errorMessage && (
               <span className="text-xs font-medium text-red-600 dark:text-red-300" role="status" aria-live="assertive">
                 {errorMessage}
@@ -187,15 +182,7 @@ export function ContactModal({
           </div>
         </form>
 
-        <div className="space-y-2 rounded-none border border-black/10 bg-black/5 p-4 text-sm text-black/80 dark:border-white/10 dark:bg-white/5 dark:text-white/80">
-          <p className="font-semibold uppercase tracking-wide text-black/70 dark:text-white/70">EmailJS setup checklist</p>
-          <ul className="list-disc space-y-1 pl-5">
-            {emailJsSetupFields.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
-        </div>
-      </div>
     </div>
-  )
+  </div>
+)
 }

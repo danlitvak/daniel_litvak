@@ -332,7 +332,7 @@ export const CONTACT_LINKS: ContactLink[] = [
   {
     label: 'Email',
     link: '/contact?open=true',
-    description: 'Open the EmailJS form and reach out directly.',
+    description: 'Open the contact form and reach out directly.',
   },
   {
     label: 'LinkedIn',

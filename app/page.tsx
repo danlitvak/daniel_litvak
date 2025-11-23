@@ -561,7 +561,7 @@ export default function Personal() {
             })}
           </div>
           <p className="text-xs text-black/60 dark:text-white/60">
-            Prefer email? Open the dedicated EmailJS form{' '}
+            Prefer email? Open the contact form{' '}
             <button
               type="button"
               onClick={() => setIsContactOpen(true)}
