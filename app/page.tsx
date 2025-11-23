@@ -485,7 +485,7 @@ export default function Personal() {
             >
               <div className="flex items-center justify-between text-xs uppercase tracking-wide text-black/60 dark:text-white/60">
                 <span>{post.date}</span>
-                <span className="text-[11px]">Read ↗</span>
+                <span className="text-[11px]">Read post</span>
               </div>
               <h3 className="text-base font-medium text-black dark:text-white">
                 {post.title}

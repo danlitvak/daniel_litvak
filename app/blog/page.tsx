@@ -49,7 +49,7 @@ export default function BlogIndex() {
             >
               <div className="flex items-center justify-between text-xs uppercase tracking-wide text-black/60 dark:text-white/60">
                 <span>{post.date}</span>
-                <span className="text-[11px]">Read ↗</span>
+                <span className="text-[11px]">Read post</span>
               </div>
               <h2 className="text-lg font-semibold text-black dark:text-white">{post.title}</h2>
               <p className="text-sm text-black/70 dark:text-white/70">{post.description}</p>
