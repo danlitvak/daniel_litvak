@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useMemo, useState } from 'react'
 import { motion } from 'motion/react'
@@ -234,7 +235,13 @@ export default function Personal() {
                     onClick={() => handleSelect(normalizedIndex)}
                     className="relative aspect-video w-full shrink-0 overflow-hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black dark:focus-visible:outline-white"
                   >
-                    <img src={item.image} alt={item.title} className="h-full w-full object-cover" />
+                    <Image
+                      src={item.image}
+                      alt={item.title}
+                      fill
+                      className="object-cover"
+                      sizes="(min-width: 768px) 50vw, 100vw"
+                    />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/25 to-transparent" aria-hidden />
                     <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-left text-white">
                       <div>
