@@ -5,7 +5,7 @@ export const emailJsSetupFields = [
   'EmailJS service ID',
   'EmailJS template ID',
   'Recipient email configured inside the EmailJS template',
-  'Template variables that match the form fields (e.g., from_name, from_email, subject, message)',
+  'Template variables that match the form fields (e.g., Name, Email, subject, message, time)',
 ] as const
 
 export const EMAILJS_PUBLIC_KEY = 'XyVp0YtV0hQxFOj4w'

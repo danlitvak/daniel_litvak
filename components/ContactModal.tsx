@@ -57,6 +57,11 @@ export function ContactModal({
     setErrorMessage(null)
 
     try {
+      const messageTime = new Date().toLocaleString(undefined, {
+        dateStyle: 'medium',
+        timeStyle: 'short',
+      })
+
       const response = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
         method: 'POST',
         headers: {
@@ -71,6 +76,7 @@ export function ContactModal({
             Email: formState.email,
             subject: formState.subject,
             message: formState.message,
+            time: messageTime,
           },
         }),
       })
