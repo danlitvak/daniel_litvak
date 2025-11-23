@@ -189,97 +189,6 @@ export default function Personal() {
       </motion.section>
 
       <motion.section
-        id="gallery"
-        variants={VARIANTS_SECTION}
-        transition={TRANSITION_SECTION}
-        className="rounded-none border border-black/10 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-white/5"
-      >
-        <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-          <div className="space-y-1">
-            <h2 className="text-lg font-semibold text-black dark:text-white">Project image carousel</h2>
-            <p className="text-sm text-black/60 dark:text-white/60">
-              Auto-scrolls through highlights. Click any frame to pause and read the story.
-            </p>
-          </div>
-          {isPaused && (
-            <button
-              type="button"
-              onClick={handleResume}
-              className="inline-flex items-center justify-center rounded-none border border-black/15 bg-white px-4 py-2 text-sm font-medium text-black transition-colors hover:border-black/40 hover:bg-black/5 dark:border-white/20 dark:bg-black dark:text-white dark:hover:border-white/40 dark:hover:bg-white/10"
-            >
-              Resume autoplay
-            </button>
-          )}
-        </div>
-
-        <div className="mt-4 space-y-4">
-          <div className="relative overflow-hidden rounded-none border border-black/10 bg-black/5 dark:border-white/10 dark:bg-black/40">
-            <button
-              type="button"
-              onClick={() => handleStep(-1)}
-              className="absolute left-3 top-1/2 z-10 flex -translate-y-1/2 items-center justify-center rounded-full border border-black/10 bg-white/80 px-2.5 py-2 text-sm font-semibold text-black shadow-sm transition hover:bg-white dark:border-white/20 dark:bg-black/70 dark:text-white dark:hover:bg-black"
-              aria-label="Previous image"
-            >
-              ‹
-            </button>
-            <button
-              type="button"
-              onClick={() => handleStep(1)}
-              className="absolute right-3 top-1/2 z-10 flex -translate-y-1/2 items-center justify-center rounded-full border border-black/10 bg-white/80 px-2.5 py-2 text-sm font-semibold text-black shadow-sm transition hover:bg-white dark:border-white/20 dark:bg-black/70 dark:text-white dark:hover:bg-black"
-              aria-label="Next image"
-            >
-              ›
-            </button>
-            <div
-              className={`flex h-full w-full ${isAnimating ? 'transition-transform duration-700 ease-out' : ''}`}
-              style={{ transform: `translateX(-${displayIndex * 100}%)` }}
-              onTransitionEnd={handleTransitionEnd}
-            >
-              {carouselItems.map((item, index) => {
-                const normalizedIndex = (index - 1 + totalItems) % totalItems
-                return (
-                  <button
-                    key={`${item.id}-${index}`}
-                    type="button"
-                    onClick={() => handleSelect(normalizedIndex)}
-                    className="relative aspect-video w-full shrink-0 overflow-hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black dark:focus-visible:outline-white"
-                  >
-                    <Image
-                      src={item.image}
-                      alt={item.title}
-                      fill
-                      className="object-cover"
-                      sizes="(min-width: 768px) 50vw, 100vw"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/25 to-transparent" aria-hidden />
-                    <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-left text-white">
-                      <div>
-                        <p className="text-xs uppercase tracking-wide text-white/70">Project</p>
-                        <p className="text-base font-semibold leading-tight">{item.title}</p>
-                      </div>
-                      <span
-                        className="rounded-none bg-white/15 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white/80 backdrop-blur"
-                      >
-                        {normalizedIndex + 1}/{CAROUSEL_ITEMS.length}
-                      </span>
-                    </div>
-                  </button>
-                )
-              })}
-            </div>
-          </div>
-
-          <div className="space-y-1 text-left">
-            <p className="text-sm font-semibold uppercase tracking-wide text-black/70 dark:text-white/70">
-              {activeItem.title}
-            </p>
-            <p className="text-sm leading-relaxed text-black/70 dark:text-white/70">{activeItem.description}</p>
-          </div>
-
-        </div>
-      </motion.section>
-
-      <motion.section
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
         className="rounded-none border border-black/10 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-white/5"
@@ -503,6 +412,97 @@ export default function Personal() {
               <p className="text-sm text-black/70 dark:text-white/70">{post.description}</p>
             </Link>
           ))}
+        </div>
+      </motion.section>
+
+      <motion.section
+        id="gallery"
+        variants={VARIANTS_SECTION}
+        transition={TRANSITION_SECTION}
+        className="rounded-none border border-black/10 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-white/5"
+      >
+        <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+          <div className="space-y-1">
+            <h2 className="text-lg font-semibold text-black dark:text-white">Project image carousel</h2>
+            <p className="text-sm text-black/60 dark:text-white/60">
+              Auto-scrolls through highlights. Click any frame to pause and read the story.
+            </p>
+          </div>
+          {isPaused && (
+            <button
+              type="button"
+              onClick={handleResume}
+              className="inline-flex items-center justify-center rounded-none border border-black/15 bg-white px-4 py-2 text-sm font-medium text-black transition-colors hover:border-black/40 hover:bg-black/5 dark:border-white/20 dark:bg-black dark:text-white dark:hover:border-white/40 dark:hover:bg-white/10"
+            >
+              Resume autoplay
+            </button>
+          )}
+        </div>
+
+        <div className="mt-4 space-y-4">
+          <div className="relative overflow-hidden rounded-none border border-black/10 bg-black/5 dark:border-white/10 dark:bg-black/40">
+            <button
+              type="button"
+              onClick={() => handleStep(-1)}
+              className="absolute left-3 top-1/2 z-10 flex -translate-y-1/2 items-center justify-center rounded-full border border-black/10 bg-white/80 px-2.5 py-2 text-sm font-semibold text-black shadow-sm transition hover:bg-white dark:border-white/20 dark:bg-black/70 dark:text-white dark:hover:bg-black"
+              aria-label="Previous image"
+            >
+              ‹
+            </button>
+            <button
+              type="button"
+              onClick={() => handleStep(1)}
+              className="absolute right-3 top-1/2 z-10 flex -translate-y-1/2 items-center justify-center rounded-full border border-black/10 bg-white/80 px-2.5 py-2 text-sm font-semibold text-black shadow-sm transition hover:bg-white dark:border-white/20 dark:bg-black/70 dark:text-white dark:hover:bg-black"
+              aria-label="Next image"
+            >
+              ›
+            </button>
+            <div
+              className={`flex h-full w-full ${isAnimating ? 'transition-transform duration-700 ease-out' : ''}`}
+              style={{ transform: `translateX(-${displayIndex * 100}%)` }}
+              onTransitionEnd={handleTransitionEnd}
+            >
+              {carouselItems.map((item, index) => {
+                const normalizedIndex = (index - 1 + totalItems) % totalItems
+                return (
+                  <button
+                    key={`${item.id}-${index}`}
+                    type="button"
+                    onClick={() => handleSelect(normalizedIndex)}
+                    className="relative aspect-video w-full shrink-0 overflow-hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black dark:focus-visible:outline-white"
+                  >
+                    <Image
+                      src={item.image}
+                      alt={item.title}
+                      fill
+                      className="object-cover"
+                      sizes="(min-width: 768px) 50vw, 100vw"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/25 to-transparent" aria-hidden />
+                    <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-left text-white">
+                      <div>
+                        <p className="text-xs uppercase tracking-wide text-white/70">Project</p>
+                        <p className="text-base font-semibold leading-tight">{item.title}</p>
+                      </div>
+                      <span
+                        className="rounded-none bg-white/15 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white/80 backdrop-blur"
+                      >
+                        {normalizedIndex + 1}/{CAROUSEL_ITEMS.length}
+                      </span>
+                    </div>
+                  </button>
+                )
+              })}
+            </div>
+          </div>
+
+          <div className="space-y-1 text-left">
+            <p className="text-sm font-semibold uppercase tracking-wide text-black/70 dark:text-white/70">
+              {activeItem.title}
+            </p>
+            <p className="text-sm leading-relaxed text-black/70 dark:text-white/70">{activeItem.description}</p>
+          </div>
+
         </div>
       </motion.section>
 
