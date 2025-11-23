@@ -31,7 +31,7 @@ export function CodeBlock({ children, className = '', ...props }: ComponentProps
       <button
         type="button"
         onClick={handleCopy}
-        className="absolute right-3 top-3 rounded-full border border-white/15 bg-white/90 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-black shadow-sm transition hover:scale-[1.01] hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/80 dark:border-white/20 dark:bg-black/80 dark:text-white dark:hover:bg-black"
+        className="absolute right-3 top-3 rounded-none border border-white/15 bg-white/90 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-black shadow-sm transition hover:scale-[1.01] hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/80 dark:border-white/20 dark:bg-black/80 dark:text-white dark:hover:bg-black"
       >
         {copied ? 'Copied' : 'Copy'}
       </button>

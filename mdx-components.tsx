@@ -13,7 +13,7 @@ type CoverProps = {
 function Cover({ src, alt, caption }: CoverProps) {
   return (
     <figure>
-      <img src={src} alt={alt} className="h-64 w-full rounded-xl object-cover shadow-sm md:h-80" />
+      <img src={src} alt={alt} className="h-64 w-full object-cover shadow-sm md:h-80" />
       <figcaption className="text-center">{caption}</figcaption>
     </figure>
   )
