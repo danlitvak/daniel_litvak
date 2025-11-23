@@ -27,14 +27,18 @@
   --muted-foreground: rgba(0, 0, 0, 0.64);
   --accent-color: #000000;
   --accent-muted: rgba(0, 0, 0, 0.08);
-  --sh-class: #7c3aed;
-  --sh-sign: #2563eb;
-  --sh-string: #047857;
-  --sh-keyword: #db2777;
-  --sh-comment: #6b7280;
-  --sh-jsxliterals: #d97706;
-  --sh-property: #0ea5e9;
-  --sh-entity: #db2777;
+  --code-background: #0f172a;
+  --code-foreground: #e5e7eb;
+  --code-border: #1f2937;
+  --code-shadow: 0 18px 40px rgba(15, 23, 42, 0.25);
+  --sh-class: #e2e8f0;
+  --sh-sign: #cbd5e1;
+  --sh-string: #f8fafc;
+  --sh-keyword: #cbd5e1;
+  --sh-comment: #94a3b8;
+  --sh-jsxliterals: #e5e7eb;
+  --sh-property: #cbd5e1;
+  --sh-entity: #e2e8f0;
 }
 
 .dark {
@@ -44,14 +48,18 @@
   --muted-foreground: rgba(255, 255, 255, 0.68);
   --accent-color: #ffffff;
   --accent-muted: rgba(255, 255, 255, 0.14);
-  --sh-class: #c084fc;
-  --sh-sign: #93c5fd;
-  --sh-string: #86efac;
-  --sh-keyword: #f9a8d4;
-  --sh-comment: #94a3b8;
-  --sh-jsxliterals: #facc15;
-  --sh-property: #67e8f9;
-  --sh-entity: #f9a8d4;
+  --code-background: #f8fafc;
+  --code-foreground: #0f172a;
+  --code-border: #cbd5e1;
+  --code-shadow: 0 18px 40px rgba(0, 0, 0, 0.4);
+  --sh-class: #0f172a;
+  --sh-sign: #1f2937;
+  --sh-string: #111827;
+  --sh-keyword: #111827;
+  --sh-comment: #334155;
+  --sh-jsxliterals: #1f2937;
+  --sh-property: #0f172a;
+  --sh-entity: #0f172a;
 }
 
 @layer base {
@@ -88,21 +96,24 @@
 
   .prose pre {
     border-radius: 1rem;
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0.08));
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+    border: 1px solid var(--code-border);
+    background: var(--code-background);
+    color: var(--code-foreground);
+    box-shadow: var(--code-shadow);
   }
 
   .dark .prose pre {
-    border-color: rgba(255, 255, 255, 0.08);
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.12));
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--code-border);
+    background: var(--code-background);
+    color: var(--code-foreground);
+    box-shadow: var(--code-shadow);
   }
 
   .prose pre code {
     display: grid;
     gap: 0.3rem;
     line-height: 1.6;
+    color: inherit;
   }
 
   .sh__line { color: inherit; }
