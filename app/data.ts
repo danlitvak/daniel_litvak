@@ -8,13 +8,13 @@ export type Hero = {
 }
 
 export const HERO: Hero = {
-  name: 'Alex Rivera',
-  role: 'Product Design Technologist',
-  headline: 'Designing inclusive, climate-resilient digital products.',
+  name: 'Daniel Litvak (he/him)',
+  role: 'Front End Developer & Technical Adviser',
+  headline: 'Engineer building web experiences and embedded systems with real-world impact.',
   statement:
-    'Graduate researcher translating systems thinking into actionable product strategy. I partner with mission-driven teams to prototype services that balance sustainability goals with measurable user outcomes.',
-  location: 'Austin, TX · Remote friendly',
-  availability: 'Actively interviewing for Summer 2025 product design roles.',
+    'Engineer passionate about computers, robotics, machine learning, and programming. Recently shipped data dashboards, admin portals, and interactive simulations across JavaScript, Python, and embedded toolchains.',
+  location: 'Richmond, British Columbia · Open to Vancouver area & remote',
+  availability: 'Open to collaborations and front end opportunities.',
 }
 
 type Education = {
@@ -27,19 +27,19 @@ type Education = {
 
 export const EDUCATION: Education[] = [
   {
-    institution: 'University of Cascadia',
-    credential: 'M.S. Human–Computer Interaction',
-    start: '2023',
-    end: '2025 (expected)',
+    institution: 'University of British Columbia',
+    credential: 'BASc, Computer Engineering',
+    start: 'Sep 2024',
+    end: 'May 2029 (expected)',
     details:
-      'Research assistant in the Inclusive Futures Lab studying decision-support tools for climate adaptation teams.',
+      'Schulich Leader Scholarship nominee pursuing applied computer engineering with a focus on software and embedded systems.',
   },
   {
-    institution: 'Coastal State University',
-    credential: 'B.S. Computer Science, UX Design minor',
-    start: '2019',
-    end: '2023',
-    details: 'Graduated magna cum laude; Honors thesis on resilient design systems for civic technology.',
+    institution: 'King David High School',
+    credential: 'High School Diploma',
+    start: 'Sep 2020',
+    end: 'Jun 2024',
+    details: 'Completed STEM-focused coursework while contributing to band and community outreach performances.',
   },
 ]
 
@@ -140,49 +140,55 @@ type WorkExperience = {
 
 export const WORK_EXPERIENCE: WorkExperience[] = [
   {
-    company: 'Lumen Collective',
-    title: 'Product Design Intern',
-    start: 'Jun 2024',
+    company: 'Sky AI',
+    title: 'Front End Developer / Technical Adviser',
+    start: 'Oct 2024',
+    end: 'Jan 2025',
+    link: '',
+    id: 'work-sky-ai',
+    summary:
+      'Developed real-time data visualization and troubleshooting flows that improved reporting speed and reliability.',
+    achievements: [
+      'Built a real-time data visualization dashboard to streamline reporting for stakeholders.',
+      'Collaborated with engineers to resolve API endpoint failures and stabilize integrations.',
+      'Implemented front-end features in HTML, CSS, JavaScript, and Python to ship seamless data views.',
+    ],
+    focus: 'Data visualization, API integration, frontend delivery',
+    stack: ['HTML', 'CSS', 'JavaScript', 'Python'],
+  },
+  {
+    company: 'UBC Bionics Design Team',
+    title: 'Co-Lead, Web Development',
+    start: 'Sep 2025',
     end: 'Present',
-    link: 'https://example.com/lumen',
-    id: 'work-lumen',
-    summary: 'Designing planning tools that help climate tech founders calibrate go-to-market experiments.',
+    link: '',
+    id: 'work-ubc-bionics',
+    summary:
+      'Leading web development for the team’s admin systems, unifying blog management and member profile tooling.',
     achievements: [
-      'Led discovery sprints with 18 founders to define decision criteria for capital-efficient product bets.',
-      'Co-created a design system in Figma + Storybook that reduced prototype handoff time by 60%.',
+      'Built a full admin backend with dedicated databases for blogs and member profiles.',
+      'Developed secure authentication flows to restrict content management to authorized teammates.',
+      'Designed an integrated admin portal combining blog creation, live markdown preview, and profile editing.',
     ],
-    focus: 'Product discovery, experimentation strategy, design systems',
-    stack: ['Figma', 'Storybook', 'TypeScript'],
+    focus: 'Admin portals, authentication, content workflows',
+    stack: ['JavaScript', 'Node.js', 'marked.js', 'Database design'],
   },
   {
-    company: 'CivicLab ATX',
-    title: 'UX Research Fellow',
-    start: 'Aug 2023',
-    end: 'May 2024',
-    link: 'https://example.com/civiclab',
-    id: 'work-civiclab',
-    summary: 'Partnered with the City of Austin innovation office to shape digital services for climate migration support.',
+    company: 'Self-Employed',
+    title: 'Private Tutor (Math 11, Physics 11 & 12)',
+    start: 'Sep 2023',
+    end: 'Present',
+    link: '',
+    id: 'work-private-tutor',
+    summary:
+      'Provide personalized STEM tutoring while managing scheduling, preparation, and client relationships.',
     achievements: [
-      'Synthesized 120+ qualitative insights into decision frameworks adopted by three municipal partners.',
-      'Facilitated co-design workshops with residents to validate multilingual navigation prototypes.',
+      'Guided six high school students through exams and coursework with tailored lesson plans.',
+      'Developed clear explanations that simplify complex physics and math concepts for diverse learners.',
+      'Ran end-to-end scheduling and communications to support families independently.',
     ],
-    focus: 'Participatory research, civic service design, multilingual UX',
-    stack: ['Dovetail', 'Figma', 'Airtable'],
-  },
-  {
-    company: 'Open Source Observatory',
-    title: 'Design Engineer',
-    start: 'May 2021',
-    end: 'Aug 2023',
-    link: 'https://example.com/oso',
-    id: 'work-oso',
-    summary: 'Shipped inclusive data visualizations for researchers and journalists covering environmental equity.',
-    achievements: [
-      'Implemented accessibility-first component library and paired with engineers to meet WCAG 2.2 AA.',
-      'Scaled contentful-driven publishing workflow that now supports 30+ partner organizations.',
-    ],
-    focus: 'Design engineering, accessibility systems, data storytelling',
-    stack: ['React', 'TypeScript', 'Contentful'],
+    focus: 'STEM education, communication, self-management',
+    stack: ['Physics', 'Mathematics', 'Lesson planning'],
   },
 ]
 
@@ -324,24 +330,29 @@ type ContactLink = {
   description: string
 }
 
-export const EMAIL = 'hello@alexrivera.dev'
+export const EMAIL = 'daniel.litvak.64@gmail.com'
 
-export const RESUME_URL = 'https://alex-rivera.dev/resume.pdf'
+export const RESUME_URL = 'https://danlitvak.github.io/portfolio'
 
 export const CONTACT_LINKS: ContactLink[] = [
   {
     label: 'Email',
-    link: '/contact?open=true',
-    description: 'Open the contact form and reach out directly.',
+    link: 'mailto:daniel.litvak.64@gmail.com',
+    description: 'Send me a note about collaborations or opportunities.',
   },
   {
     label: 'LinkedIn',
-    link: 'https://www.linkedin.com/in/alex-rivera',
-    description: 'Let’s connect for product and research chats.',
+    link: 'https://www.linkedin.com/in/daniel-litvak-837224313',
+    description: 'Connect to discuss roles, projects, or design team work.',
   },
   {
     label: 'GitHub',
-    link: 'https://github.com/alexrivera',
-    description: 'Browse prototypes, component experiments, and tooling.',
+    link: 'https://github.com/danlitvak',
+    description: 'Browse my projects, simulations, and web experiments.',
+  },
+  {
+    label: 'Portfolio',
+    link: 'https://danlitvak.github.io/portfolio',
+    description: 'View my portfolio site with interactive projects and demos.',
   },
 ]
