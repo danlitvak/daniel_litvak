@@ -15,37 +15,36 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://alex-rivera.dev'),
+  metadataBase: new URL('https://danlitvak.github.io/portfolio'),
   alternates: {
     canonical: '/',
   },
   title: {
-    default: 'Alex Rivera – Product Design Technologist',
-    template: '%s | Alex Rivera',
+    default: 'Daniel Litvak – Front End Developer & Technical Adviser',
+    template: '%s | Daniel Litvak',
   },
   description:
-    'Portfolio and blog for Alex Rivera, a product design technologist crafting resilient digital experiences for climate-focused teams.',
+    'Portfolio and blog for Daniel Litvak, a front end developer and technical adviser building dashboards, admin tooling, and interactive simulations.',
   keywords: [
-    'Alex Rivera',
-    'product design',
-    'UX researcher',
-    'frontend engineer',
+    'Daniel Litvak',
+    'front end developer',
+    'technical adviser',
+    'JavaScript developer',
     'portfolio',
   ],
   openGraph: {
-    title: 'Alex Rivera – Product Design Technologist',
+    title: 'Daniel Litvak – Front End Developer & Technical Adviser',
     description:
-      'Human-centered technologist specializing in climate resilience, systems thinking, and end-to-end product delivery.',
-    url: 'https://alex-rivera.dev',
-    siteName: 'Alex Rivera Portfolio',
+      'Front end developer specializing in dashboards, admin platforms, and interactive web experiments.',
+    url: 'https://danlitvak.github.io/portfolio',
+    siteName: 'Daniel Litvak Portfolio',
     locale: 'en_US',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Alex Rivera – Product Design Technologist',
-    description:
-      'Exploring the intersection of inclusive design, prototyping, and climate technology.',
+    title: 'Daniel Litvak – Front End Developer & Technical Adviser',
+    description: 'Exploring interactive web builds, embedded systems, and hands-on simulations.',
   },
 }
 
