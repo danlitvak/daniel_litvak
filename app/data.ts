@@ -204,6 +204,24 @@ type WorkExperience = {
 
 export const WORK_EXPERIENCE: WorkExperience[] = [
   {
+    company: 'UBC Bionics Design Team',
+    title: 'Co-Lead, Web Development',
+    start: 'Sep 2025',
+    end: 'Present',
+    link: '',
+    id: 'work-ubc-bionics',
+    summary:
+      'Leading web development for the team’s admin systems, unifying blog management and member profile tooling.',
+    achievements: [
+      'Built a full admin backend with dedicated databases for blogs and member profiles.',
+      'Developed secure authentication flows to restrict content management to authorized teammates.',
+      'Designed an integrated admin portal combining blog creation, live markdown preview, and profile editing.',
+      'Implemented markdown-based blog creation with live preview to speed up publication.',
+    ],
+    focus: 'Admin portals, authentication, content workflows',
+    stack: ['JavaScript', 'Node.js', 'marked.js', 'Database design'],
+  },
+  {
     company: 'Sky AI',
     title: 'Front End Developer / Technical Adviser',
     start: 'Oct 2024',
@@ -221,23 +239,6 @@ export const WORK_EXPERIENCE: WorkExperience[] = [
     stack: ['HTML', 'CSS', 'JavaScript', 'Python'],
   },
   {
-    company: 'UBC Bionics Design Team',
-    title: 'Co-Lead, Web Development',
-    start: 'Sep 2025',
-    end: 'Present',
-    link: '',
-    id: 'work-ubc-bionics',
-    summary:
-      'Leading web development for the team’s admin systems, unifying blog management and member profile tooling.',
-    achievements: [
-      'Built a full admin backend with dedicated databases for blogs and member profiles.',
-      'Developed secure authentication flows to restrict content management to authorized teammates.',
-      'Designed an integrated admin portal combining blog creation, live markdown preview, and profile editing.',
-    ],
-    focus: 'Admin portals, authentication, content workflows',
-    stack: ['JavaScript', 'Node.js', 'marked.js', 'Database design'],
-  },
-  {
     company: 'Self-Employed',
     title: 'Private Tutor (Math 11, Physics 11 & 12)',
     start: 'Sep 2023',
@@ -253,6 +254,40 @@ export const WORK_EXPERIENCE: WorkExperience[] = [
     ],
     focus: 'STEM education, communication, self-management',
     stack: ['Physics', 'Mathematics', 'Lesson planning'],
+  },
+  {
+    company: 'Cactus Club Café',
+    title: 'Kitchen Partner / Back of House',
+    start: 'Jun 2025',
+    end: 'Present',
+    link: '',
+    id: 'work-cactus-club',
+    summary:
+      'Leads dish station operations in a fast-paced kitchen while training new crew members.',
+    achievements: [
+      'Trained new crew and coordinated with other stations to keep high-volume service running smoothly.',
+      'Supported nightly prep and back-of-house duties while maintaining a clean, organized workspace.',
+      'Strengthened teamwork and communication skills under pressure alongside kitchen partners.',
+    ],
+    focus: 'Team coordination, training, high-volume operations',
+    stack: ['Operations', 'Training', 'Teamwork'],
+  },
+  {
+    company: "Pajo's Fish and Chips Restaurant",
+    title: 'General Worker',
+    start: 'Jun 2024',
+    end: 'Aug 2024',
+    link: '',
+    id: 'work-pajos',
+    summary:
+      'Delivered front-of-house support and kitchen prep to keep service efficient in a seasonal restaurant.',
+    achievements: [
+      'Assisted guests and handled orders to maintain smooth front-of-house operations.',
+      'Completed inventory organization and restocking to prepare for peak service times.',
+      'Collaborated with team members across kitchen and service roles to uphold standards.',
+    ],
+    focus: 'Customer service, operations support, teamwork',
+    stack: ['Customer service', 'Inventory', 'Teamwork'],
   },
 ]
 
