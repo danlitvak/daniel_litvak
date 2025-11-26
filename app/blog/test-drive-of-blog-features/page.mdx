@@ -1,0 +1,134 @@
+export const metadata = {
+  title: 'Test Drive of Blog Features',
+  description: 'A sample post that exercises headings, media, data viz, tables, and links in one place.',
+  alternates: {
+    canonical: '/blog/test-drive-of-blog-features',
+  },
+}
+
+# Test Drive of Blog Features
+
+This post demonstrates the full range of the blog layout using real content. It is intentionally eclectic so you can see how text, imagery, and data elements sit together. If you want the short version, [jump to the summary](#quick-recap) or visit my main site at [alex-rivera.dev](https://alex-rivera.dev).
+
+> Quick note: everything you see here uses the same typography and spacing applied across the rest of the site, so it should mirror the production look and feel.
+
+## Hero visuals and captions
+
+<Cover
+  src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80"
+  alt="Colorful sticky notes on a wall"
+  caption="A mood board from a recent participatory design workshop"
+/> 
+
+## Mixed typography
+
+### Large statement
+
+Designers, researchers, and engineers work better together when the narrative is as clear as the numbers.
+
+### Supporting paragraph
+
+The blog template keeps paragraphs readable by balancing line length with generous spacing. Short lead-ins like this help set context before showing heavier content.
+
+### Small print
+
+<p className="text-sm text-black/70 dark:text-white/70">Fine details, legal disclaimers, or inline annotations can ride in small text without breaking the rhythm of the page.</p>
+
+Inline code like `const focusArea = 'research';` stays readable without overwhelming the surrounding sentence.
+
+## Data storytelling
+
+### Quick chart (inline SVG)
+
+<figure className="flex flex-col items-center">
+  <svg
+    viewBox="0 0 320 180"
+    role="img"
+    aria-labelledby="chart-title"
+    className="w-full max-w-2xl border border-black/10 bg-white shadow-sm dark:border-white/15 dark:bg-white/5"
+  >
+    <title id="chart-title">Research throughput by sprint</title>
+    <g transform="translate(36 18)">
+      <g fill="none" stroke="currentColor" stroke-width="1" opacity="0.4">
+        <line x1="0" y1="12" x2="0" y2="142" />
+        <line x1="0" y1="142" x2="260" y2="142" />
+        <line x1="0" y1="62" x2="260" y2="62" className="stroke-black/30 dark:stroke-white/30" />
+      </g>
+      <g fill="#0f172a">
+        <rect x="22" y="82" width="48" height="60" className="fill-black/80 dark:fill-white/80" />
+        <rect x="98" y="54" width="48" height="88" className="fill-black/65 dark:fill-white/65" />
+        <rect x="174" y="30" width="48" height="112" className="fill-black/50 dark:fill-white/50" />
+      </g>
+      <g fill="currentColor" className="text-xs">
+        <text x="46" y="158" text-anchor="middle">Sprint 1</text>
+        <text x="122" y="158" text-anchor="middle">Sprint 2</text>
+        <text x="198" y="158" text-anchor="middle">Sprint 3</text>
+        <text x="-6" y="8" text-anchor="end">Studies completed</text>
+      </g>
+    </g>
+  </svg>
+  <figcaption className="mt-2 text-sm text-black/70 dark:text-white/70">A lightweight bar chart rendered in pure SVG for crisp scaling.</figcaption>
+</figure>
+
+### Table
+
+<table>
+  <thead>
+    <tr>
+      <th scope="col">Channel</th>
+      <th scope="col">Notes</th>
+      <th scope="col">Confidence</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>SMS diaries</td>
+      <td>Fast feedback from field technicians</td>
+      <td>High</td>
+    </tr>
+    <tr>
+      <td>Pop-up surveys</td>
+      <td>Works for quick segmentation</td>
+      <td>Medium</td>
+    </tr>
+    <tr>
+      <td>Debrief calls</td>
+      <td>Rich insights but scheduling overhead</td>
+      <td>High</td>
+    </tr>
+    <tr>
+      <td>Analytics</td>
+      <td>Good for volume, limited on intent</td>
+      <td>Medium</td>
+    </tr>
+  </tbody>
+</table>
+
+## Lists and highlights
+
+- Bullet lists stay compact with consistent spacing.
+- Numbered steps are equally supported.
+- Inline links, like this [stakeholder map template](https://miro.com), remain easy to spot.
+
+1. Align on the decision to be made.
+2. Define success signals and guardrails.
+3. Run a pilot, measure, then scale.
+
+## Embedded code snippet
+
+```ts
+const shareable = {
+  title: metadata.title,
+  url: metadata.alternates.canonical,
+  tags: ['design', 'research', 'sample'],
+}
+```
+
+## Quick recap
+
+- The layout supports images, headings, charts, and tables without breaking alignment.
+- Links can point to external sites or internal anchors.
+- Text scales from small print to bold statements.
+- Lists, code, and quotes render cleanly alongside visuals.
+
+Thanks for taking this test drive. If you spot anything else to showcase, feel free to add it.

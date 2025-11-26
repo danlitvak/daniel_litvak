@@ -83,6 +83,48 @@ export const PROJECTS: Project[] = [
   },
 ]
 
+export type CarouselItem = {
+  id: string
+  title: string
+  image: string
+  description: string
+}
+
+export const CAROUSEL_ITEMS: CarouselItem[] = [
+  {
+    id: 'carousel-coastal-grid',
+    title: 'Coastal sensor mesh',
+    image:
+      'https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1600&q=80',
+    description:
+      'LoRa-connected tide and air-quality nodes feeding a unified dashboard for harbor safety teams.',
+  },
+  {
+    id: 'carousel-lab-prototype',
+    title: 'Inclusive lab kiosk',
+    image:
+      'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1600&q=80',
+    description:
+      'Touch-friendly wayfinding prototype with ambient cues for multilingual visitors and screen readers.',
+  },
+  {
+    id: 'carousel-climate-sim',
+    title: 'Climate workshop sim',
+    image:
+      'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1600&q=80',
+    description:
+      'Desktop simulator that lets facilitators rehearse decision playbooks before community workshops.',
+  },
+  {
+    id: 'carousel-field-handoff',
+    title: 'Field kit handoff',
+    image:
+      'https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?auto=format&fit=crop&w=1600&q=80',
+    description:
+      'Hardware handoff flow connecting volunteers with localized checklists and SMS updates.',
+  },
+]
+
 type WorkExperience = {
   company: string
   title: string
@@ -243,6 +285,14 @@ type BlogPost = {
 
 export const BLOG_POSTS: BlogPost[] = [
   {
+    title: 'Test Drive of Blog Features',
+    description:
+      'A sample post showing typography, media, charts, tables, and links in one place.',
+    link: '/blog/test-drive-of-blog-features',
+    uid: 'blog-test-drive',
+    date: 'January 15, 2025',
+  },
+  {
     title: 'Sketching Decision Playbooks for Climate Operations',
     description:
       'Three facilitation moves that help emergency planners translate research into actionable dashboards.',
@@ -281,8 +331,8 @@ export const RESUME_URL = 'https://alex-rivera.dev/resume.pdf'
 export const CONTACT_LINKS: ContactLink[] = [
   {
     label: 'Email',
-    link: `mailto:${EMAIL}`,
-    description: 'hello@alexrivera.dev',
+    link: '/contact?open=true',
+    description: 'Open the contact form and reach out directly.',
   },
   {
     label: 'LinkedIn',
