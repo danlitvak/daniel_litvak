@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react'
 
-const CANVAS_HEIGHT = 440
+const CANVAS_HEIGHT = 400
 const BOID_COUNT = 500
 const BOID_VISION = 25
 const EDGE_WEIGHT = 100
@@ -282,7 +282,7 @@ export function FlockingSketch() {
         let debug = false
         let showFrames = false
 
-        const getWidth = () => Math.max(320, containerRef.current?.getBoundingClientRect().width ?? 800)
+        const getWidth = () => containerRef.current?.getBoundingClientRect().width ?? 400
 
         const resetQuadTree = () => {
           initBound = new Bound(0, 0, p.width, p.height)
@@ -333,6 +333,8 @@ export function FlockingSketch() {
             const close = qt.query(new Bound(pos.x - BOID_VISION, pos.y - BOID_VISION, BOID_VISION * 2, BOID_VISION * 2))
             boid.neighbours = close.length
 
+            let count = 0
+
             close.forEach((other) => {
               if (boid === other) return
 
@@ -344,6 +346,7 @@ export function FlockingSketch() {
                 com.add(oPos)
                 avv.add(oVel)
                 rep.add(pos.copy().sub(oPos).div(Math.pow(d, 0.3)))
+                count++
 
                 if (debug) {
                   p.push()
@@ -361,13 +364,21 @@ export function FlockingSketch() {
             )
             const tlt = p.createVector(0, 0)
 
-            if (boid.neighbours !== 0) {
-              com.div(boid.neighbours).sub(pos)
+            if (count !== 0) {
+              com.div(count).sub(pos)
               tlt
                 .add(com.mult(COHESION_WEIGHT))
                 .add(avv.mult(ALIGNMENT_WEIGHT))
                 .add(rep.mult(SEPARATION_WEIGHT))
                 .add(edg.mult(EDGE_WEIGHT))
+            }
+
+            if (debug) {
+              p.push()
+              p.stroke(0, 0, 255)
+              edg.limit(10)
+              p.line(pos.x, pos.y, pos.x + edg.x, pos.y + edg.y)
+              p.pop()
             }
 
             const s = Math.sign(tlt.x * vel.y - vel.x * tlt.y)
@@ -390,8 +401,10 @@ export function FlockingSketch() {
 
             pos.add(vel)
 
-            pos.x = Math.min(Math.max(pos.x, 0), p.width)
-            pos.y = Math.min(Math.max(pos.y, 0), p.height)
+            if (pos.x < 0) pos.x = 0
+            if (pos.y < 0) pos.y = 0
+            if (pos.x > p.width) pos.x = p.width
+            if (pos.y > p.height) pos.y = p.height
 
             if (vel.mag() > 1) vel.mult(0.8)
             if (vel.mag() < 1) vel.setMag(1)
