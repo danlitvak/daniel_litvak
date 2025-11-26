@@ -208,10 +208,10 @@ export default function Personal() {
               About & education snapshot
             </h2>
             <p className="text-base leading-relaxed text-black/70 dark:text-white/70">
-              I approach complex civic and climate challenges by weaving together research, storytelling, and hands-on prototyping. My work spans spatial analysis, service design, and accessible interface engineering—always anchored in measurable community outcomes and inclusive facilitation.
+              I’m Daniel Litvak, a front end developer and technical adviser from Richmond, BC. I build dashboards, admin portals, and interactive simulations that connect JavaScript, Python, and embedded systems work on Arduino and microarchitecture projects.
             </p>
             <p className="text-base leading-relaxed text-black/70 dark:text-white/70">
-              Outside the lab you’ll find me sketching speculative futures, mentoring first-gen technologists, and speaking about responsible innovation at student meetups.
+              Recent highlights include co-leading UBC Bionics web development, advising Sky AI on real-time data visualizations, and tutoring STEM students while pursuing my BASc in Computer Engineering at UBC.
             </p>
           </div>
           <div className="space-y-3">

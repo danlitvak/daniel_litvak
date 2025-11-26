@@ -129,7 +129,7 @@ export function ContactModal({
                 value={formState.name}
                 onChange={(event) => setFormState((prev) => ({ ...prev, name: event.target.value }))}
                 className="rounded-none border border-black/15 bg-white px-3 py-2 text-black shadow-sm focus:border-black focus:outline-none focus:ring-2 focus:ring-black/20 dark:border-white/20 dark:bg-black/60 dark:text-white dark:focus:border-white dark:focus:ring-white/30"
-                placeholder="Alex Rivera"
+                placeholder="Daniel Litvak"
               />
             </label>
             <label className="flex flex-col gap-1 text-sm font-medium text-black/80 dark:text-white">
