@@ -264,14 +264,23 @@ export default function Personal() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-l from-black/50 via-black/25 to-transparent" aria-hidden />
                 <div className="absolute right-3 top-3 flex flex-col items-end text-right">
-                  <a
-                    className="text-base font-semibold text-white transition-colors hover:text-white/80"
-                    href={project.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {project.name}
-                  </a>
+                  {project.link.startsWith('http') ? (
+                    <a
+                      className="text-base font-semibold text-white transition-colors hover:text-white/80"
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {project.name}
+                    </a>
+                  ) : (
+                    <Link
+                      className="text-base font-semibold text-white transition-colors hover:text-white/80"
+                      href={project.link}
+                    >
+                      {project.name}
+                    </Link>
+                  )}
                 </div>
               </div>
               <div className="flex flex-1 flex-col gap-3 p-4">
