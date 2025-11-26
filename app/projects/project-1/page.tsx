@@ -1,7 +1,7 @@
-import dynamic from 'next/dynamic'
-import Link from 'next/link'
+"use client"
 
-const FlockingSketch = dynamic(() => import('./FlockingSketch').then((mod) => mod.FlockingSketch), { ssr: false })
+import Link from 'next/link'
+import { FlockingSketch } from './FlockingSketch'
 
 export default function FlockingBirdsPage() {
   return (
