@@ -250,17 +250,24 @@ export default function Personal() {
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           {PROJECTS.map((project) => {
             const isExternal = project.link.startsWith('http')
+            const hasVideo = Boolean(project.video?.trim())
             const cardContent = (
               <>
                 <div className="relative aspect-video w-full bg-black/5 dark:bg-white/10">
-                  <video
-                    src={project.video}
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    className="h-full w-full object-cover"
-                  />
+                  {hasVideo ? (
+                    <video
+                      src={project.video}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      className="h-full w-full object-cover"
+                    />
+                  ) : (
+                    <div className="absolute inset-0 flex h-full w-full items-center justify-center bg-gradient-to-br from-black/40 via-black/30 to-black/10 text-xs font-medium uppercase tracking-wide text-white/70">
+                      Preview unavailable
+                    </div>
+                  )}
                   <div className="absolute inset-0 bg-gradient-to-l from-black/50 via-black/25 to-transparent" aria-hidden />
                   <div className="absolute right-3 top-3 flex flex-col items-end text-right">
                     <span className="text-base font-semibold text-white transition-colors group-hover:text-white/80">
