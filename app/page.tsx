@@ -248,59 +248,72 @@ export default function Personal() {
           </p>
         </div>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          {PROJECTS.map((project) => (
-            <div
-              key={project.id}
-              className="group flex flex-col overflow-hidden rounded-none border border-black/10 bg-white shadow-sm transition hover:border-black/40 hover:shadow-md dark:border-white/10 dark:bg-black/40 dark:hover:border-white/40"
-            >
-              <div className="relative aspect-video w-full bg-black/5 dark:bg-white/10">
-                <video
-                  src={project.video}
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  className="h-full w-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-l from-black/50 via-black/25 to-transparent" aria-hidden />
-                <div className="absolute right-3 top-3 flex flex-col items-end text-right">
-                  {project.link.startsWith('http') ? (
-                    <a
-                      className="text-base font-semibold text-white transition-colors hover:text-white/80"
-                      href={project.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {project.name}
-                    </a>
+          {PROJECTS.map((project) => {
+            const isExternal = project.link.startsWith('http')
+            const hasVideo = Boolean(project.video?.trim())
+            const cardContent = (
+              <>
+                <div className="relative aspect-video w-full bg-black/5 dark:bg-white/10">
+                  {hasVideo ? (
+                    <video
+                      src={project.video}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      className="h-full w-full object-cover"
+                    />
                   ) : (
-                    <Link
-                      className="text-base font-semibold text-white transition-colors hover:text-white/80"
-                      href={project.link}
-                    >
-                      {project.name}
-                    </Link>
+                    <div className="absolute inset-0 flex h-full w-full items-center justify-center bg-gradient-to-br from-black/40 via-black/30 to-black/10 text-xs font-medium uppercase tracking-wide text-white/70">
+                      Preview unavailable
+                    </div>
                   )}
-                </div>
-              </div>
-              <div className="flex flex-1 flex-col gap-3 p-4">
-                <p className="text-base font-semibold leading-snug text-black dark:text-white">
-                  {project.description}
-                </p>
-                <p className="text-xs text-black/60 dark:text-white/60">{project.impact}</p>
-                <div className="mt-auto flex flex-wrap gap-2">
-                  {project.tools.map((tool) => (
-                    <span
-                      key={tool}
-                      className="inline-flex items-center rounded-none bg-black/5 px-3 py-1 text-xs font-medium text-black dark:bg-white/10 dark:text-white"
-                    >
-                      {tool}
+                  <div className="absolute inset-0 bg-gradient-to-l from-black/50 via-black/25 to-transparent" aria-hidden />
+                  <div className="absolute right-3 top-3 flex flex-col items-end text-right">
+                    <span className="text-base font-semibold text-white transition-colors group-hover:text-white/80">
+                      {project.name}
                     </span>
-                  ))}
+                  </div>
                 </div>
-              </div>
-            </div>
-          ))}
+                <div className="flex flex-1 flex-col gap-3 p-4">
+                  <p className="text-base font-semibold leading-snug text-black dark:text-white">
+                    {project.description}
+                  </p>
+                  <p className="text-xs text-black/60 dark:text-white/60">{project.impact}</p>
+                  <div className="mt-auto flex flex-wrap gap-2">
+                    {project.tools.map((tool) => (
+                      <span
+                        key={tool}
+                        className="inline-flex items-center rounded-none bg-black/5 px-3 py-1 text-xs font-medium text-black dark:bg-white/10 dark:text-white"
+                      >
+                        {tool}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </>
+            )
+
+            return isExternal ? (
+              <a
+                key={project.id}
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex flex-col overflow-hidden rounded-none border border-black/10 bg-white shadow-sm transition hover:border-black/40 hover:shadow-md dark:border-white/10 dark:bg-black/40 dark:hover:border-white/40"
+              >
+                {cardContent}
+              </a>
+            ) : (
+              <Link
+                key={project.id}
+                href={project.link}
+                className="group flex flex-col overflow-hidden rounded-none border border-black/10 bg-white shadow-sm transition hover:border-black/40 hover:shadow-md dark:border-white/10 dark:bg-black/40 dark:hover:border-white/40"
+              >
+                {cardContent}
+              </Link>
+            )
+          })}
         </div>
       </motion.section>
 
