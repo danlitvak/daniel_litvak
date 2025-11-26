@@ -416,26 +416,36 @@ export function FlockingSketch() {
           p.fill(255)
           p.noStroke()
 
-          boids.forEach((b) => {
-            const pos = b.pos
-            const vel = b.vel
-            p.push()
-            p.translate(pos.x, pos.y)
-            p.rotate(vel.heading())
+          if (debug) {
+            boids.forEach((b) => {
+              const pos = b.pos
+              const vel = b.vel
+              p.circle(pos.x, pos.y, 3)
+              p.stroke(255, 0, 0, 150)
+              p.line(pos.x, pos.y, pos.x + vel.x * 10, pos.y + vel.y * 10)
+            })
+          } else {
+            boids.forEach((b) => {
+              const pos = b.pos
+              const vel = b.vel
+              p.push()
+              p.translate(pos.x, pos.y)
+              p.rotate(vel.heading())
 
-            const nrm = vel.copy().setMag(255)
-            p.fill(
-              Math.abs(nrm.x) + b.neighbours * 1,
-              (pos.x / p.width) * 200 + b.neighbours * 1,
-              Math.abs(nrm.y) - 20 + b.neighbours * 1,
-              0.1,
-            )
-            p.circle(0, 0, BOID_VISION)
+              const nrm = vel.copy().setMag(255)
+              p.fill(
+                Math.abs(nrm.x) + b.neighbours * 1,
+                (pos.x / p.width) * 200 + b.neighbours * 1,
+                Math.abs(nrm.y) - 20 + b.neighbours * 1,
+                0.1,
+              )
+              p.circle(0, 0, BOID_VISION)
 
-            p.fill(Math.abs(nrm.x), (pos.x / p.width) * 200, Math.abs(nrm.y))
-            p.triangle(5, 0, -5, -5, -5, 5)
-            p.pop()
-          })
+              p.fill(Math.abs(nrm.x), (pos.x / p.width) * 200, Math.abs(nrm.y))
+              p.triangle(5, 0, -5, -5, -5, 5)
+              p.pop()
+            })
+          }
 
           p.pop()
         }
@@ -462,7 +472,7 @@ export function FlockingSketch() {
           p.textSize(12)
           p.textAlign(p.LEFT, p.BOTTOM)
           const average = frHistory.reduce((sum, val) => sum + val, 0) / frHistory.length
-          p.text(`FPS: ${p.frameRate().toFixed(2)}, Average: ${average.toFixed(2)}`, xPos + 5, yPos + 15)
+          p.text(`FPS: ${p.frameRate().toFixed(5)}, Average: ${average.toFixed(5)}`, xPos + 5, yPos + 15)
 
           const maxFR = Math.max(60, ...frHistory)
 
