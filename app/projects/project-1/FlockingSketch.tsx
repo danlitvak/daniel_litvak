@@ -536,7 +536,7 @@ export function FlockingSketch() {
         script.removeEventListener('load', startSketch)
       }
       resizeObserver?.disconnect()
-      instance?.remove()
+      instance?.remove?.()
     }
   }, [])
 
