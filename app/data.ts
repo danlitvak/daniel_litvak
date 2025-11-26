@@ -58,7 +58,7 @@ export const PROJECTS: Project[] = [
     name: 'Flocking Birds',
     description:
       'Boids simulation using a quadtree to let alignment, cohesion, and separation scale smoothly.',
-    link: 'https://danlitvak.github.io/projects/project-1/project-1.html',
+    link: '/projects/project-1',
     video: '',
     id: 'project-1',
     tools: ['JavaScript', 'p5.js'],
