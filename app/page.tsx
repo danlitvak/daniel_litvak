@@ -278,9 +278,7 @@ export default function Personal() {
                 <p className="text-base font-semibold leading-snug text-black dark:text-white">
                   {project.description}
                 </p>
-                <p className="text-xs font-semibold uppercase tracking-wide text-black/50 dark:text-white/60">
-                  Outcome · {project.impact}
-                </p>
+                <p className="text-xs text-black/60 dark:text-white/60">{project.impact}</p>
                 <div className="mt-auto flex flex-wrap gap-2">
                   {project.tools.map((tool) => (
                     <span
