@@ -83,6 +83,7 @@ interface P5 {
   setup: () => void
   draw: () => void
   keyPressed: () => void
+  remove?: () => void
 }
 
 class Bound {
