@@ -32,7 +32,7 @@ interface P5Constructor {
     dist: (v1: P5Vector, v2: P5Vector) => number
     sub: (v1: P5Vector, v2: P5Vector) => P5Vector
   }
-  new (sketch: (p: P5) => void, node?: HTMLElement): P5
+  new(sketch: (p: P5) => void, node?: HTMLElement): P5
 }
 
 type WindowWithP5 = Window & { p5?: P5Constructor }
@@ -567,8 +567,7 @@ export function FlockingSketch() {
     <div className="relative rounded-none border border-black/10 bg-gradient-to-b from-zinc-900 via-black to-black shadow-md dark:border-white/10">
       <div ref={containerRef} className="h-full w-full" aria-label="Interactive flocking boids simulation canvas" />
       <div className="pointer-events-none absolute inset-x-0 top-0 bg-gradient-to-b from-black/60 to-transparent p-4 text-white">
-        <div className="text-sm font-semibold tracking-wide">Flocking birds</div>
-        <p className="text-xs text-white/80">Space toggles debug · F toggles FPS graph · Click to attract nearby boids</p>
+        { }
       </div>
     </div>
   )

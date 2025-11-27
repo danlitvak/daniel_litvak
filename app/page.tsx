@@ -323,8 +323,7 @@ export default function Personal() {
         transition={TRANSITION_SECTION}
         className="rounded-none border border-black/10 bg-white p-6 shadow-sm scroll-mt-28 dark:border-white/10 dark:bg-white/5"
       >
-        <h2 className="text-lg font-semibold text-black dark:text-white">Skills & tools matrix</h2>
-        <div className="-mx-6 mb-4 mt-2 h-px bg-black/10 dark:bg-white/15" />
+        <h2 className="text-lg mb-4 font-semibold text-black dark:text-white">Skills & tools matrix</h2>
         <div className="grid gap-4 lg:grid-cols-2">
           {SKILL_GROUPS.map((group) => (
             <div
