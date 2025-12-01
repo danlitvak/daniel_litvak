@@ -395,31 +395,13 @@ type BlogPost = {
   date: string
 }
 
-type LegacyBlog = (typeof blogsData)['posts'][number]
-
-const formatDate = (value: LegacyBlog['published_at']) => {
-  if (!value) return '—'
-  const parsed = new Date(value)
-  if (Number.isNaN(parsed.getTime())) return '—'
-  return parsed.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
-}
-
-const LEGACY_BLOGS: BlogPost[] = blogsData.posts.map((post) => ({
-  title: post.title,
-  description: post.summary || post.subtitle || 'Read more',
-  link: `/blog/${post.slug}`,
-  uid: post.slug,
-  date: formatDate(post.published_at),
-}))
-
 export const BLOG_POSTS: BlogPost[] = [
-  ...LEGACY_BLOGS,
   {
     title: 'Test Drive of Blog Features',
     description: 'A sample post that exercises headings, media, data viz, tables, and links in one place.',
     link: '/blog/test-drive-of-blog-features',
     uid: 'test-drive-of-blog-features',
-    date: 'Feb 6, 2026',
+    date: 'Nov 30, 2026',
   },
 ]
 
