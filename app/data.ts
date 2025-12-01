@@ -8,13 +8,13 @@ export type Hero = {
 }
 
 export const HERO: Hero = {
-  name: 'Daniel Litvak (he/him)',
-  role: 'Front End Developer & Technical Adviser',
-  headline: 'Engineer building web experiences and embedded systems with real-world impact.',
+  name: 'Daniel Litvak',
+  role: 'Engineer & Developer',
+  headline: 'Building web experiences and Engineering embedded systems',
   statement:
     'Engineer passionate about computers, robotics, machine learning, and programming. I build data dashboards, admin portals, and interactive simulations across JavaScript, Python, and embedded toolchains.',
-  location: 'Richmond, British Columbia · Open to Vancouver area & remote',
-  availability: 'Open to collaborations and front end opportunities.',
+  location: 'Vancouver Based · Remote',
+  availability: 'Open for work.',
 }
 
 type Education = {
@@ -32,14 +32,14 @@ export const EDUCATION: Education[] = [
     start: 'Sep 2024',
     end: 'May 2029 (expected)',
     details:
-      'Schulich Leader Scholarship nominee pursuing applied computer engineering with a focus on software and embedded systems.',
+      'Pursuing a degree in applied sciences computer engineering focused on advanced mathematics, software and embedded systems.',
   },
   {
     institution: 'King David High School',
     credential: 'High School Diploma',
     start: 'Sep 2020',
     end: 'Jun 2024',
-    details: 'Completed STEM-focused coursework while contributing to band and community outreach performances.',
+    details: 'Completed STEM-focused coursework while contributing to community through tutoring and teacher assistance.',
   },
 ]
 
@@ -57,12 +57,12 @@ export const PROJECTS: Project[] = [
   {
     name: 'Flocking Birds',
     description:
-      'Boids simulation using a quadtree to let alignment, cohesion, and separation scale smoothly.',
+      'Boids simulation using quadtrees for spacial indexing.',
     link: '/projects/project-1',
     video: '',
     id: 'project-1',
     tools: ['JavaScript', 'p5.js'],
-    impact: 'Explored emergent behavior and performance gains from spatial indexing.',
+    impact: 'Interact and explore the emergent behavior of boids and see the performance gains from spatial indexing.',
   },
   {
     name: '2D Gravity Simulation',

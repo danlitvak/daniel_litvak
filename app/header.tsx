@@ -4,10 +4,13 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import type { MouseEvent } from 'react'
 import { HERO } from './data'
+import { useState } from 'react'
+import { Menu, X } from 'lucide-react' // optional (icons)
 
 export function Header() {
   const pathname = usePathname()
   const isBlogIndex = pathname === '/blog'
+  const [open, setOpen] = useState(false)
 
   const handleNavClick = (event: MouseEvent<HTMLAnchorElement>, id: string) => {
     if (pathname !== '/') return
@@ -24,6 +27,7 @@ export function Header() {
     const offsetPosition = Math.max(targetPosition - headerHeight - 12, 0)
 
     window.scrollTo({ top: offsetPosition, behavior: 'smooth' })
+    setOpen(false) // close menu after clicking
   }
 
   const navigationItems = [
@@ -51,7 +55,9 @@ export function Header() {
             {HERO.role}
           </TextEffect>
         </div>
-        <nav className="flex items-center gap-4 text-xs uppercase tracking-wide text-black/70 dark:text-white/70">
+
+        {/* DESKTOP NAV */}
+        <nav className="hidden sm:flex items-center gap-4 text-xs uppercase tracking-wide text-black/70 dark:text-white/70">
           {navigationItems.map(({ href, id, label }) => (
             <Link
               key={id}
@@ -72,7 +78,40 @@ export function Header() {
             </Link>
           )}
         </nav>
+
+        {/* MOBILE MENU BUTTON */}
+        <button
+          onClick={() => setOpen(!open)}
+          className="sm:hidden text-black dark:text-white"
+        >
+          {open ? <X size={22} /> : <Menu size={22} />}
+        </button>
       </div>
+
+      {/* MOBILE DROPDOWN */}
+      {open && (
+        <nav className="sm:hidden mt-3 flex flex-col gap-3 text-xs uppercase tracking-wide text-black/70 dark:text-white/70">
+          {navigationItems.map(({ href, id, label }) => (
+            <Link
+              key={id}
+              href={href}
+              onClick={(event) => handleNavClick(event, id)}
+              className="hover:text-black dark:hover:text-white"
+            >
+              {label}
+            </Link>
+          ))}
+          {isBlogIndex ? (
+            <Link href="/" className="hover:text-black dark:hover:text-white">
+              Home
+            </Link>
+          ) : (
+            <Link href="/blog" className="hover:text-black dark:hover:text-white">
+              Blog
+            </Link>
+          )}
+        </nav>
+      )}
     </header>
   )
 }

@@ -205,10 +205,11 @@ export default function Personal() {
         <div className="grid gap-6 md:grid-cols-[1.3fr_1fr] md:gap-10">
           <div className="space-y-3">
             <h2 className="text-lg font-semibold text-black dark:text-white">
-              About & education snapshot
+              About & Education
             </h2>
             <p className="text-base leading-relaxed text-black/70 dark:text-white/70">
-              I’m Daniel Litvak, a front end developer and technical adviser from Richmond, BC. I build dashboards, admin portals, and interactive simulations that connect JavaScript, Python, and embedded systems work on Arduino and microarchitecture projects.
+              I’m Daniel Litvak, an Engineer in education and a full-stack developer based in Vancouver B.C.
+              I build web-based solutions, interactive simulations, embedded systems on Arduino and microarchitecture projects.
             </p>
             <p className="text-base leading-relaxed text-black/70 dark:text-white/70">
               Recent highlights include co-leading UBC Bionics web development, advising Sky AI on real-time data visualizations, and tutoring STEM students while pursuing my BASc in Computer Engineering at UBC.
@@ -242,10 +243,18 @@ export default function Personal() {
         className="space-y-4 scroll-mt-28"
       >
         <div className="space-y-1">
-          <h2 className="text-lg font-semibold text-black dark:text-white">Projects</h2>
-          <p className="text-sm text-black/60 dark:text-white/60">
-            My skills in action. Click to learn more.
-          </p>
+
+          <div className="flex flex-wrap justify-between items-center">
+            <h2 className="text-lg font-semibold text-black dark:text-white">
+              Projects
+            </h2>
+
+            <p className="text-sm text-black/60 dark:text-white/60">
+              My skills in action. Click to learn more.
+            </p>
+          </div>
+
+
         </div>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           {PROJECTS.map((project) => {
