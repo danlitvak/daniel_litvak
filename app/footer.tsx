@@ -73,7 +73,7 @@ export function Footer() {
       <div className="flex items-center justify-between">
         <TextLoop className="text-xs text-black/60 dark:text-white/60">
           <span>© 2025 {HERO.name}.</span>
-          <span>Crafted with Next.js, Tailwind, and Motion-Primitives.</span>
+          <span>Powered by AI</span>
         </TextLoop>
         <div className="text-xs text-black/50 dark:text-white/50">
           <ThemeSwitch />

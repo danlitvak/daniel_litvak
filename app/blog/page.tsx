@@ -14,9 +14,12 @@ export default function BlogIndex() {
   return (
     <main className="space-y-10 pb-12">
       <section className="space-y-3">
-        <div className="inline-flex items-center gap-2 bg-black/5 px-3 py-1 text-xs font-medium uppercase tracking-wide text-black dark:bg-white/10 dark:text-white">
-          <span>Writing</span>
-        </div>
+        <Link
+          href="/"
+          className="inline-flex items-center justify-center rounded-none border border-black/15 bg-white px-4 py-2 text-sm font-medium text-black transition-colors hover:border-black/40 hover:bg-black/5 dark:border-white/20 dark:bg-black dark:text-white dark:hover:border-white/40 dark:hover:bg-white/10"
+        >
+          Back to home
+        </Link>
         <div className="space-y-2">
           <h1 className="text-3xl font-semibold text-black dark:text-white">Blog</h1>
           <p className="text-lg text-black/80 dark:text-white/80">
@@ -36,12 +39,6 @@ export default function BlogIndex() {
               The same layout and typography as the homepage writing section for a consistent read.
             </p>
           </div>
-          <Link
-            href="/"
-            className="inline-flex items-center justify-center rounded-none border border-black/15 bg-white px-4 py-2 text-sm font-medium text-black transition-colors hover:border-black/40 hover:bg-black/5 dark:border-white/20 dark:bg-black dark:text-white dark:hover:border-white/40 dark:hover:bg-white/10"
-          >
-            Back to home
-          </Link>
         </div>
         <div className="mt-4 divide-y divide-black/10 border border-black/10 dark:divide-white/10 dark:border-white/10">
           {published.map((post) => (

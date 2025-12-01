@@ -326,7 +326,7 @@ export default function Personal() {
         </div>
         <div className="space-y-6">
           <div className="space-y-2">
-            <h3 className="text-sm font-semibold uppercase tracking-wide text-black/60 dark:text-white/60">
+            <h3 className="text-sm font-semibold uppercase tracking-wide text-black/60 dark:text-white/60 drop-shadow-[0_0_8px_rgba(0,0,0,0.08)] dark:drop-shadow-[0_0_10px_rgba(255,255,255,0.08)]">
               Featured projects
             </h3>
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
