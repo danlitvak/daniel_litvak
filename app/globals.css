@@ -30,16 +30,16 @@
   --code-bg: #0f172a;
   --code-border: #1f2937;
   --code-text: #e6edf3;
-  --code-inline-bg: rgba(15, 23, 42, 0.08);
-  --code-inline-text: #0f172a;
-  --sh-class: #c7d2fe;
-  --sh-sign: #d8dee9;
-  --sh-string: #9ae6b4;
-  --sh-keyword: #7dd3fc;
-  --sh-comment: #94a3b8;
-  --sh-jsxliterals: #a5b4fc;
-  --sh-property: #f9a8d4;
-  --sh-entity: #fde68a;
+  --code-inline-bg: #edeff3;
+  --code-inline-text: #111827;
+  --sh-class: #267f99;
+  --sh-sign: #1f1f1f;
+  --sh-string: #ce9178;
+  --sh-keyword: #569cd6;
+  --sh-comment: #6a9955;
+  --sh-jsxliterals: #4ec9b0;
+  --sh-property: #9cdcfe;
+  --sh-entity: #c586c0;
 }
 
 .dark {
@@ -49,19 +49,19 @@
   --muted-foreground: rgba(255, 255, 255, 0.68);
   --accent-color: #ffffff;
   --accent-muted: rgba(255, 255, 255, 0.18);
-  --code-bg: #0b1224;
-  --code-border: #1f2937;
-  --code-text: #e6edf3;
-  --code-inline-bg: rgba(255, 255, 255, 0.1);
-  --code-inline-text: #f8fafc;
-  --sh-class: #c7d2fe;
-  --sh-sign: #d8dee9;
-  --sh-string: #a7f3d0;
-  --sh-keyword: #67e8f9;
-  --sh-comment: #9ca3af;
-  --sh-jsxliterals: #c7d2fe;
-  --sh-property: #f9a8d4;
-  --sh-entity: #fde68a;
+  --code-bg: #0b1220;
+  --code-border: #2c3648;
+  --code-text: #eef1f6;
+  --code-inline-bg: #252526;
+  --code-inline-text: #f5f5f5;
+  --sh-class: #4ec9b0;
+  --sh-sign: #d4d4d4;
+  --sh-string: #ce9178;
+  --sh-keyword: #569cd6;
+  --sh-comment: #6a9955;
+  --sh-jsxliterals: #4ec9b0;
+  --sh-property: #9cdcfe;
+  --sh-entity: #c586c0;
 }
 
 @layer base {
@@ -79,7 +79,11 @@
   }
 
   a:hover {
-    text-decoration: none;
+    color: #111111;
+  }
+
+  .dark a:hover {
+    color: #f5f5f5;
   }
 
   ::selection {
@@ -92,16 +96,17 @@
   .prose :not(pre) > code {
     background: var(--code-inline-bg);
     color: var(--code-inline-text);
-    border-radius: 0.125rem;
+    border-radius: 0;
     padding: 0.1rem 0.35rem;
     font-size: 0.95em;
   }
 
   .prose pre {
-    border-radius: 0.125rem;
+    border-radius: 0;
     border: 1px solid var(--code-border);
     background: var(--code-bg);
     color: var(--code-text);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
   }
 
   .prose pre code {

@@ -1,7 +1,5 @@
 import type { ComponentPropsWithoutRef } from 'react'
 import type { MDXComponents } from 'mdx/types'
-import { highlight } from 'sugar-high'
-
 import { CodeBlock } from './components/mdx/CodeBlock'
 
 type CoverProps = {
@@ -30,8 +28,11 @@ function Table({ children, ...props }: ComponentPropsWithoutRef<'table'>) {
 }
 
 function InlineCode({ children, ...props }: ComponentPropsWithoutRef<'code'>) {
-  const codeHTML = highlight(children as string)
-  return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />
+  return (
+    <code {...props}>
+      {children}
+    </code>
+  )
 }
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {

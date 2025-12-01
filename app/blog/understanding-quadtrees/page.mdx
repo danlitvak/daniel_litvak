@@ -7,204 +7,75 @@ export const metadata = {
   },
 }
 
-<main className="space-y-6 pb-12">
-  <div className="flex items-center justify-between">
-    <a
-      href="/blog"
-      className="inline-flex items-center gap-2 text-sm font-semibold text-black hover:text-black/70 dark:text-white dark:hover:text-white/80"
-    >
-      ← Back to blog
-    </a>
-    <p className="text-sm text-black/60 dark:text-white/60">May 15, 2025 • 5 min read</p>
-  </div>
+# Understanding Quadtrees: A Visual Guide
 
-  <header className="space-y-3">
-    <div className="space-y-2">
-      <h1 className="text-4xl font-semibold leading-tight text-black dark:text-white md:text-5xl">
-        Understanding Quadtrees: A Visual Guide
-      </h1>
-      <p className="text-lg text-black/80 dark:text-white/80">
-        A deep dive into quadtree data structures and their practical applications in game development and simulations.
-      </p>
-    </div>
-    <div className="h-px w-full bg-black/10 dark:bg-white/15" />
-  </header>
+*May 15, 2025 · 5 min read*
+<hr className="my-4 border-black/20 dark:border-white/30" />
 
-  <article className="prose prose-neutral max-w-none dark:prose-invert">
-    <h1>Understanding Quadtrees: A Visual Guide</h1>
-    <div className="blog-meta">
-      <span>May 15, 2025</span> • <span id="understanding-quadtrees"></span> • <span>5 min read</span>
-    </div>
-    <hr />
-    <h2>Introduction</h2>
-    <p>
-      As someone who has implemented quadtrees in multiple projects, I can tell you they are one of the most fascinating
-      and useful data structures for spatial partitioning. In this post, I will break down how quadtrees work and why
-      they are so powerful for optimizing spatial queries in 2D space.
-      <br />
-      <em>- Quadtrees are a cornerstone of efficient spatial partitioning in computer science.</em>
-    </p>
-    <h2>What is a Quadtree?</h2>
-    <p>
-      A quadtree is a tree data structure where each node has exactly four children, or "quadrants." It is useful for
-      dividing 2D space into smaller regions, making it perfect for tasks like collision detection, spatial indexing,
-      and image compression.
-    </p>
-    <h2>Why Use Quadtrees?</h2>
-    <p>
-      The main advantage of quadtrees is their ability to reduce the complexity of spatial operations from O(n²) to
-      O(n log n) or better. In my flocking birds simulation and gravity projects, this made a huge difference in
-      performance when dealing with hundreds or thousands of objects.
-    </p>
-    <p style={{ textAlign: 'center', margin: '2rem 0' }}>
-      <a href="../projects/project-4/project-4.html" className="accent-link">
-        Try the Interactive Demo
-      </a>
-    </p>
-    <h2>Real-World Applications</h2>
-    <p>I have used quadtrees in several projects on this site:</p>
-    <ul>
-      <li>Flocking Birds Simulation: For efficient neighbor searches</li>
-      <li>2D Gravity Simulation: To optimize force calculations between bodies</li>
-      <li>Collision Detection: For quick spatial queries in game development</li>
-    </ul>
-    <h2>QuadTree with Boids</h2>
-    <p>Below is a snapshot of how quadtrees are used to speed up flocking simulations:</p>
-    <p>Notice how boids close together do not need to query for boids outside their vicinity, improving performance.</p>
-    <div className="image-section">
-      <a href="../assets/blog-assets/understanding-quadtrees-assets/boids.png" target="_blank">
-        <img
-          src="../assets/blog-assets/understanding-quadtrees-assets/boids.png"
-          alt="Quadtree Example"
-          style={{ maxWidth: '100%', height: 'auto' }}
-        />
-      </a>
-      <em className="image-caption">Figure 1: Visualization of a Quadtree in action with boids.</em>
-    </div>
-    <h2>Boo! a slider section is below</h2>
-    <p>There are three slides with images:</p>
-    <ol>
-      <li>First slide: square image</li>
-      <li>Second slide: square image with a border radius</li>
-      <li>Third slide: filled image</li>
-    </ol>
-    <div className="swiper-horizontal">
-      <div className="swiper-wrapper">
-        <div className="swiper-slide">
-          <img
-            src="../assets/blog-assets/understanding-quadtrees-assets/hello.png"
-            alt="Quadtree Example"
-            style={{ width: 'calc(100% - 40px)', height: 'calc(100% - 30px)', objectFit: 'contain', margin: '10px' }}
-          />
-        </div>
-        <div className="swiper-slide">
-          <div
-            className="image-container"
-            style={{
-              borderRadius: '15px',
-              overflow: 'hidden',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            <img
-              src="../assets/blog-assets/understanding-quadtrees-assets/hello.png"
-              alt="Quadtree Example"
-              style={{ width: '100%', height: '80%', objectFit: 'cover', borderRadius: '15px', margin: '20px 0' }}
-            />
-          </div>
-        </div>
-        <div className="swiper-slide">
-          <div
-            className="image-container"
-            style={{
-              borderRadius: '15px',
-              overflow: 'hidden',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            <img
-              src="../assets/blog-assets/understanding-quadtrees-assets/hello.png"
-              alt="Background Example"
-              style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                margin: 0,
-              }}
-            />
-          </div>
-        </div>
-      </div>
-      <div className="swiper-pagination" />
-      <div className="swiper-button-prev" />
-      <div className="swiper-button-next" />
-    </div>
-    <h2>Implementation Insights</h2>
-    <p>Here is a glimpse at the key parts of my quadtree implementation:</p>
-    <pre>
-      <code>{`class QuadTree {
-        constructor(boundary, capacity) {
-            this.boundary = boundary;
-            this.capacity = capacity;
-            this.points = [];
-            this.divided = false;
-        }
+> Quadtrees are a cornerstone of efficient spatial partitioning in computer science.
 
-        subdivide() {
-            // Create four children...
-        }
+## Introduction
 
-        insert(point) {
-            // Add points and subdivide when needed...
-        }
+As someone who has implemented quadtrees in multiple projects, I can tell you they are one of the most fascinating and
+useful data structures for spatial partitioning. In this post, I break down how quadtrees work and why they are so
+powerful for optimizing spatial queries in 2D space.
 
-        query(range) {
-            // Find points within a range...
-        }
-}`}</code>
-    </pre>
-    <p>Key functions in the implementation:</p>
-    <ol>
-      <li>
-        <strong>constructor(boundary, capacity)</strong>: Initializes the quadtree with a boundary and capacity.
-      </li>
-      <li><strong>subdivide()</strong>: Divides the current node into four child nodes.</li>
-      <li><strong>insert(point)</strong>: Adds a point to the quadtree and subdivides if necessary.</li>
-      <li><strong>query(range)</strong>: Retrieves all points within a specified range.</li>
-    </ol>
-    <p>
-      Check out my{' '}
-      <a href="../projects/project-1/project-1.html" className="blog-content-link">
-        Flocking Birds
-      </a>{' '}
-      or{' '}
-      <a href="../projects/project-4/project-4.html" className="blog-content-link">
-        QuadTree Demo
-      </a>{' '}
-      projects to see these concepts in action!
-    </p>
-    <hr />
-    <h2>Further Reading</h2>
-    <p>If you are interested in learning more about quadtrees and spatial partitioning:</p>
-    <ul>
-      <li>
-        <a href="https://en.wikipedia.org/wiki/Quadtree" className="blog-content-link">
-          Wikipedia: Quadtree
-        </a>
-      </li>
-      <li>
-        <a href="https://github.com/danlitvak" className="blog-content-link">
-          Check out my GitHub
-        </a>{' '}
-        for implementation examples
-      </li>
-    </ul>
-  </article>
-</main>
+## What is a Quadtree?
+
+A quadtree is a tree data structure where each node has exactly four children, or “quadrants.” It is useful for dividing
+2D space into smaller regions, making it perfect for tasks like collision detection, spatial indexing, and image
+compression.
+
+## Why Use Quadtrees?
+
+Quadtrees reduce the complexity of spatial operations from O(n²) to O(n log n) or better. In my flocking birds
+simulation and gravity projects, this made a huge difference in performance when dealing with hundreds or thousands of
+objects.
+
+## Real-World Applications
+
+- Flocking Birds Simulation: For efficient neighbor searches
+- 2D Gravity Simulation: To optimize force calculations between bodies
+- Collision Detection: For quick spatial queries in game development
+
+## Implementation Insights
+
+Here is a glimpse at the key parts of my quadtree implementation:
+
+```ts
+class QuadTree {
+  constructor(boundary, capacity) {
+    this.boundary = boundary;
+    this.capacity = capacity;
+    this.points = [];
+    this.divided = false;
+  }
+
+  subdivide() {
+    // Create four children...
+  }
+
+  insert(point) {
+    // Add points and subdivide when needed...
+  }
+
+  query(range) {
+    // Find points within a range...
+  }
+}
+```
+
+Key functions in the implementation:
+
+1. **constructor(boundary, capacity)**: Initializes the quadtree with a boundary and capacity.
+2. **subdivide()**: Divides the current node into four child nodes.
+3. **insert(point)**: Adds a point to the quadtree and subdivides if necessary.
+4. **query(range)**: Retrieves all points within a specified range.
+
+Check out my [Flocking Birds](../projects/project-1/project-1.html) or
+[QuadTree Demo](../projects/project-4/project-4.html) projects to see these concepts in action.
+
+## Further Reading
+
+- [Wikipedia: Quadtree](https://en.wikipedia.org/wiki/Quadtree)
+- [Check out my GitHub](https://github.com/danlitvak) for implementation examples

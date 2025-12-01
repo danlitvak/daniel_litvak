@@ -397,6 +397,36 @@ type BlogPost = {
 
 export const BLOG_POSTS: BlogPost[] = [
   {
+    title: 'Understanding Quadtrees: A Visual Guide',
+    description:
+      'Explains how quadtrees optimize spatial partitioning for flocking simulations and gravity calculations, with links to demos.',
+    link: '/blog/understanding-quadtrees',
+    uid: 'understanding-quadtrees',
+    date: 'May 15, 2025',
+  },
+  {
+    title: 'Automating Word Count Display on a Static Blog with Python + Git Hooks',
+    description:
+      'Walkthrough of a Python + PowerShell workflow that auto-generates blog word counts during git commits and renders them on a static site.',
+    link: '/blog/automatic-python',
+    uid: 'automatic-python',
+    date: 'May 15, 2025',
+  },
+  {
+    title: 'Neural Networks in Game Development',
+    description: 'Planned exploration of neural network applications in interactive games.',
+    link: '/blog/neural-networks',
+    uid: 'neural-networks',
+    date: '—',
+  },
+  {
+    title: 'Developing 2D Gravity Engines',
+    description: 'Planned post on building and optimizing 2D gravity and physics engines.',
+    link: '/blog/physics-engines',
+    uid: 'physics-engines',
+    date: '—',
+  },
+  {
     title: 'Test Drive of Blog Features',
     description: 'A sample post that exercises headings, media, data viz, tables, and links in one place.',
     link: '/blog/test-drive-of-blog-features',
