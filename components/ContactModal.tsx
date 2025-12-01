@@ -129,7 +129,7 @@ export function ContactModal({
                 value={formState.name}
                 onChange={(event) => setFormState((prev) => ({ ...prev, name: event.target.value }))}
                 className="rounded-none border border-black/15 bg-white px-3 py-2 text-black shadow-sm focus:border-black focus:outline-none focus:ring-2 focus:ring-black/20 dark:border-white/20 dark:bg-black/60 dark:text-white dark:focus:border-white dark:focus:ring-white/30"
-                placeholder="Daniel Litvak"
+                placeholder="Your Name"
               />
             </label>
             <label className="flex flex-col gap-1 text-sm font-medium text-black/80 dark:text-white">
@@ -170,16 +170,16 @@ export function ContactModal({
           <div className="flex flex-wrap items-center gap-3 text-sm">
             <button
               type="submit"
-            disabled={submissionState === 'sending'}
-            className="inline-flex items-center justify-center rounded-none bg-black px-4 py-2 text-sm font-semibold uppercase tracking-wide text-white shadow-sm transition hover:bg-black/80 disabled:cursor-not-allowed disabled:bg-black/50 dark:bg-white dark:text-black dark:hover:bg-white/85 dark:disabled:bg-white/50"
-          >
-            {submissionState === 'sending' ? 'Sending…' : 'Send message'}
-          </button>
-          {submissionState === 'success' && (
-            <span className="text-xs font-medium text-emerald-600 dark:text-emerald-300">
-              Sent! Thanks for reaching out.
-            </span>
-          )}
+              disabled={submissionState === 'sending'}
+              className="inline-flex items-center justify-center rounded-none bg-black px-4 py-2 text-sm font-semibold uppercase tracking-wide text-white shadow-sm transition hover:bg-black/80 disabled:cursor-not-allowed disabled:bg-black/50 dark:bg-white dark:text-black dark:hover:bg-white/85 dark:disabled:bg-white/50"
+            >
+              {submissionState === 'sending' ? 'Sending…' : 'Send message'}
+            </button>
+            {submissionState === 'success' && (
+              <span className="text-xs font-medium text-emerald-600 dark:text-emerald-300">
+                Sent! Thanks for reaching out.
+              </span>
+            )}
             {submissionState === 'error' && errorMessage && (
               <span className="text-xs font-medium text-red-600 dark:text-red-300" role="status" aria-live="assertive">
                 {errorMessage}
@@ -188,7 +188,7 @@ export function ContactModal({
           </div>
         </form>
 
+      </div>
     </div>
-  </div>
-)
+  )
 }
