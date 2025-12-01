@@ -1,3 +1,5 @@
+import blogsData from '../old_portfolio_data/projects/data/blogs.json'
+
 export type Hero = {
   name: string
   role: string
@@ -43,7 +45,7 @@ export const EDUCATION: Education[] = [
   },
 ]
 
-type Project = {
+export type Project = {
   name: string
   description: string
   link: string
@@ -53,7 +55,7 @@ type Project = {
   impact: string
 }
 
-export const PROJECTS: Project[] = [
+export const FEATURED_PROJECTS: Project[] = [
   {
     name: 'Flocking Birds',
     description:
@@ -67,16 +69,19 @@ export const PROJECTS: Project[] = [
   {
     name: '2D Gravity Simulation',
     description: 'Interactive Newtonian gravity sandbox with path prediction and field visualization.',
-    link: 'https://danlitvak.github.io/projects/project-2/project-2.html',
+    link: 'https://danlitvak.github.io/portfolio/projects/project-2/project-2.html',
     video: '',
     id: 'project-2',
     tools: ['JavaScript', 'p5.js'],
     impact: 'Deepened physics intuition while building an approachable simulator.',
   },
+]
+
+export const MORE_PROJECTS: Project[] = [
   {
     name: "Conway's Game of Life",
     description: 'Interactive Game of Life with statistics, playback controls, and speed tuning.',
-    link: 'https://danlitvak.github.io/projects/project-3/project-3.html',
+    link: 'https://danlitvak.github.io/portfolio/projects/project-3/project-3.html',
     video: '',
     id: 'project-3',
     tools: ['JavaScript', 'p5.js'],
@@ -85,7 +90,7 @@ export const PROJECTS: Project[] = [
   {
     name: 'QuadTree',
     description: 'Spatial index demo comparing naive searches versus quadtree subdivision.',
-    link: 'https://danlitvak.github.io/projects/project-4/project-4.html',
+    link: 'https://danlitvak.github.io/portfolio/projects/project-4/project-4.html',
     video: '',
     id: 'project-4',
     tools: ['JavaScript', 'p5.js'],
@@ -94,7 +99,7 @@ export const PROJECTS: Project[] = [
   {
     name: 'Machine Learning Pong',
     description: 'Evolutionary neural-network agents learn to play Pong autonomously.',
-    link: 'https://danlitvak.github.io/projects/project-5/project-5.html',
+    link: 'https://danlitvak.github.io/portfolio/projects/project-5/project-5.html',
     video: '',
     id: 'project-5',
     tools: ['JavaScript', 'p5.js'],
@@ -103,7 +108,7 @@ export const PROJECTS: Project[] = [
   {
     name: 'Curve Fitter',
     description: 'Gradient-descent curve fitting with panning, zooming, and live error updates.',
-    link: 'https://danlitvak.github.io/projects/project-6/project-6.html',
+    link: 'https://danlitvak.github.io/portfolio/projects/project-6/project-6.html',
     video: '',
     id: 'project-6',
     tools: ['JavaScript', 'p5.js'],
@@ -112,7 +117,7 @@ export const PROJECTS: Project[] = [
   {
     name: 'Mandelbrot Visualization',
     description: 'Zoomable Mandelbrot explorer with HUD controls and undo support.',
-    link: 'https://danlitvak.github.io/projects/project-7/project-7.html',
+    link: 'https://danlitvak.github.io/portfolio/projects/project-7/project-7.html',
     video: '',
     id: 'project-7',
     tools: ['JavaScript', 'p5.js'],
@@ -121,7 +126,7 @@ export const PROJECTS: Project[] = [
   {
     name: 'Hamiltonian Path Solver',
     description: 'DFS-based Hamiltonian path visualizer inspired by Block Fill.',
-    link: 'https://danlitvak.github.io/projects/project-8/project-8.html',
+    link: 'https://danlitvak.github.io/portfolio/projects/project-8/project-8.html',
     video: '',
     id: 'project-8',
     tools: ['JavaScript', 'p5.js'],
@@ -130,7 +135,7 @@ export const PROJECTS: Project[] = [
   {
     name: 'Node Graph Visualization',
     description: 'Spring-physics node graph experiments with pan and zoom controls.',
-    link: 'https://danlitvak.github.io/projects/project-9/project-9.html',
+    link: 'https://danlitvak.github.io/portfolio/projects/project-9/project-9.html',
     video: '',
     id: 'project-9',
     tools: ['JavaScript', 'p5.js'],
@@ -139,13 +144,15 @@ export const PROJECTS: Project[] = [
   {
     name: 'Matrix Transformation',
     description: 'Affine transformation visualizer highlighting eigenvectors in real time.',
-    link: 'https://danlitvak.github.io/projects/project-10/project-10.html',
+    link: 'https://danlitvak.github.io/portfolio/projects/project-10/project-10.html',
     video: '',
     id: 'project-10',
     tools: ['JavaScript', 'p5.js'],
     impact: 'Connected linear algebra concepts to interactive canvas controls.',
   },
 ]
+
+export const PROJECTS: Project[] = [...FEATURED_PROJECTS, ...MORE_PROJECTS]
 
 export type CarouselItem = {
   id: string
@@ -388,36 +395,31 @@ type BlogPost = {
   date: string
 }
 
+type LegacyBlog = (typeof blogsData)['posts'][number]
+
+const formatDate = (value: LegacyBlog['published_at']) => {
+  if (!value) return '—'
+  const parsed = new Date(value)
+  if (Number.isNaN(parsed.getTime())) return '—'
+  return parsed.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+}
+
+const LEGACY_BLOGS: BlogPost[] = blogsData.posts.map((post) => ({
+  title: post.title,
+  description: post.summary || post.subtitle || 'Read more',
+  link: `/blog/${post.slug}`,
+  uid: post.slug,
+  date: formatDate(post.published_at),
+}))
+
 export const BLOG_POSTS: BlogPost[] = [
+  ...LEGACY_BLOGS,
   {
-    title: 'Understanding Quadtrees: A Visual Guide',
-    description:
-      'How quadtrees optimize spatial partitioning for flocking simulations, gravity calculations, and other interactive demos.',
-    link: '/blog/understanding-quadtrees',
-    uid: 'understanding-quadtrees',
-    date: 'May 15, 2025',
-  },
-  {
-    title: 'Automating Word Count Display on a Static Blog with Python + Git Hooks',
-    description:
-      'Python and PowerShell workflow for generating blog word counts during git commits and rendering them automatically.',
-    link: '/blog/automatic-python',
-    uid: 'automatic-python',
-    date: 'May 28, 2025',
-  },
-  {
-    title: 'Neural Networks in Game Development',
-    description: 'Planned exploration of neural network applications in interactive games.',
-    link: '/blog/neural-networks',
-    uid: 'neural-networks',
-    date: 'Draft',
-  },
-  {
-    title: 'Developing 2D Gravity Engines',
-    description: 'Planned write-up on building and optimizing 2D gravity and physics engines.',
-    link: '/blog/physics-engines',
-    uid: 'physics-engines',
-    date: 'Draft',
+    title: 'Test Drive of Blog Features',
+    description: 'A sample post that exercises headings, media, data viz, tables, and links in one place.',
+    link: '/blog/test-drive-of-blog-features',
+    uid: 'test-drive-of-blog-features',
+    date: 'Feb 6, 2026',
   },
 ]
 

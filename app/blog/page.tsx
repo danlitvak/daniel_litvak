@@ -8,6 +8,9 @@ export const metadata: Metadata = {
 }
 
 export default function BlogIndex() {
+  const upcoming = BLOG_POSTS.filter((post) => post.date === '—')
+  const published = BLOG_POSTS.filter((post) => post.date !== '—')
+
   return (
     <main className="space-y-10 pb-12">
       <section className="space-y-3">
@@ -41,7 +44,7 @@ export default function BlogIndex() {
           </Link>
         </div>
         <div className="mt-4 divide-y divide-black/10 border border-black/10 dark:divide-white/10 dark:border-white/10">
-          {BLOG_POSTS.map((post) => (
+          {published.map((post) => (
             <Link
               key={post.uid}
               href={post.link}
@@ -57,6 +60,29 @@ export default function BlogIndex() {
           ))}
         </div>
       </section>
+
+      {upcoming.length > 0 && (
+        <section className="rounded-none border border-dashed border-black/15 bg-white/70 p-6 shadow-sm dark:border-white/20 dark:bg-white/5">
+          <div className="space-y-1">
+            <h2 className="text-lg font-semibold text-black dark:text-white">Upcoming posts</h2>
+            <p className="text-sm text-black/60 dark:text-white/60">
+              Drafts and ideas in progress. Dates will firm up soon.
+            </p>
+          </div>
+          <div className="mt-4 divide-y divide-black/10 border border-black/10 dark:divide-white/15 dark:border-white/15">
+            {upcoming.map((post) => (
+              <div key={post.uid} className="flex flex-col gap-1 px-4 py-3">
+                <div className="flex items-center justify-between text-xs uppercase tracking-wide text-black/60 dark:text-white/60">
+                  <span>Draft</span>
+                  <span className="text-[11px]">Coming soon</span>
+                </div>
+                <h3 className="text-base font-semibold text-black dark:text-white">{post.title}</h3>
+                <p className="text-sm text-black/70 dark:text-white/70">{post.description}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
     </main>
   )
 }

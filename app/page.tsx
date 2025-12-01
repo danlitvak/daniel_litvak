@@ -8,12 +8,14 @@ import { ContactModal } from '../components/ContactModal'
 import {
   HERO,
   EDUCATION,
-  PROJECTS,
+  FEATURED_PROJECTS,
+  MORE_PROJECTS,
   WORK_EXPERIENCE,
   BLOG_POSTS,
   SKILL_GROUPS,
   CONTACT_LINKS,
   CAROUSEL_ITEMS,
+  type Project,
 } from './data'
 
 const VARIANTS_CONTAINER = {
@@ -86,6 +88,73 @@ export default function Personal() {
   const [isAnimating, setIsAnimating] = useState(true)
 
   const totalItems = CAROUSEL_ITEMS.length
+
+  const renderProjectCard = (project: Project) => {
+    const isExternal = project.link.startsWith('http')
+    const hasVideo = Boolean(project.video?.trim())
+    const cardContent = (
+      <>
+        <div className="relative aspect-[16/7] w-full bg-black/5 dark:bg-white/10">
+          {hasVideo ? (
+            <video
+              src={project.video}
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="h-full w-full object-cover"
+            />
+          ) : (
+            <div className="absolute inset-0 flex h-full w-full items-center justify-center bg-gradient-to-br from-black/40 via-black/30 to-black/10 text-xs font-medium uppercase tracking-wide text-white/70">
+              Preview unavailable
+            </div>
+          )}
+          <div className="absolute inset-0 bg-gradient-to-l from-black/50 via-black/25 to-transparent" aria-hidden />
+          <div className="absolute right-3 top-3 flex flex-col items-end text-right">
+            <span className="text-base font-semibold text-white transition-colors group-hover:text-white/80">
+              {project.name}
+            </span>
+          </div>
+        </div>
+        <div className="flex flex-1 flex-col gap-3 p-4">
+          <p className="text-base font-semibold leading-snug text-black dark:text-white">
+            {project.description}
+          </p>
+          <p className="text-xs text-black/60 dark:text-white/60">{project.impact}</p>
+          <div className="mt-auto flex flex-wrap gap-2">
+            {project.tools.map((tool) => (
+              <span
+                key={tool}
+                className="inline-flex items-center rounded-none bg-black/5 px-3 py-1 text-xs font-medium text-black dark:bg-white/10 dark:text-white"
+              >
+                {tool}
+              </span>
+            ))}
+          </div>
+        </div>
+      </>
+    )
+
+    return isExternal ? (
+      <a
+        key={project.id}
+        href={project.link}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="group flex flex-col overflow-hidden rounded-none border border-black/10 bg-white shadow-sm transition hover:border-black/40 hover:shadow-md dark:border-white/10 dark:bg-black/40 dark:hover:border-white/40"
+      >
+        {cardContent}
+      </a>
+    ) : (
+      <Link
+        key={project.id}
+        href={project.link}
+        className="group flex flex-col overflow-hidden rounded-none border border-black/10 bg-white shadow-sm transition hover:border-black/40 hover:shadow-md dark:border-white/10 dark:bg-black/40 dark:hover:border-white/40"
+      >
+        {cardContent}
+      </Link>
+    )
+  }
 
   const clampDisplayIndex = useCallback(
     (index: number) => {
@@ -235,7 +304,6 @@ export default function Personal() {
           </div>
         </div>
       </motion.section>
-
       <motion.section
         id="projects"
         variants={VARIANTS_SECTION}
@@ -256,73 +324,61 @@ export default function Personal() {
 
 
         </div>
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          {PROJECTS.map((project) => {
-            const isExternal = project.link.startsWith('http')
-            const hasVideo = Boolean(project.video?.trim())
-            const cardContent = (
-              <>
-                <div className="relative aspect-video w-full bg-black/5 dark:bg-white/10">
-                  {hasVideo ? (
-                    <video
-                      src={project.video}
-                      autoPlay
-                      loop
-                      muted
-                      playsInline
-                      className="h-full w-full object-cover"
-                    />
-                  ) : (
-                    <div className="absolute inset-0 flex h-full w-full items-center justify-center bg-gradient-to-br from-black/40 via-black/30 to-black/10 text-xs font-medium uppercase tracking-wide text-white/70">
-                      Preview unavailable
-                    </div>
-                  )}
-                  <div className="absolute inset-0 bg-gradient-to-l from-black/50 via-black/25 to-transparent" aria-hidden />
-                  <div className="absolute right-3 top-3 flex flex-col items-end text-right">
-                    <span className="text-base font-semibold text-white transition-colors group-hover:text-white/80">
-                      {project.name}
-                    </span>
-                  </div>
-                </div>
-                <div className="flex flex-1 flex-col gap-3 p-4">
-                  <p className="text-base font-semibold leading-snug text-black dark:text-white">
-                    {project.description}
-                  </p>
-                  <p className="text-xs text-black/60 dark:text-white/60">{project.impact}</p>
-                  <div className="mt-auto flex flex-wrap gap-2">
-                    {project.tools.map((tool) => (
-                      <span
-                        key={tool}
-                        className="inline-flex items-center rounded-none bg-black/5 px-3 py-1 text-xs font-medium text-black dark:bg-white/10 dark:text-white"
-                      >
-                        {tool}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </>
-            )
+        <div className="space-y-6">
+          <div className="space-y-2">
+            <h3 className="text-sm font-semibold uppercase tracking-wide text-black/60 dark:text-white/60">
+              Featured projects
+            </h3>
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+              {FEATURED_PROJECTS.map((project) => renderProjectCard(project))}
+            </div>
+          </div>
 
-            return isExternal ? (
-              <a
-                key={project.id}
-                href={project.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex flex-col overflow-hidden rounded-none border border-black/10 bg-white shadow-sm transition hover:border-black/40 hover:shadow-md dark:border-white/10 dark:bg-black/40 dark:hover:border-white/40"
-              >
-                {cardContent}
-              </a>
-            ) : (
-              <Link
-                key={project.id}
-                href={project.link}
-                className="group flex flex-col overflow-hidden rounded-none border border-black/10 bg-white shadow-sm transition hover:border-black/40 hover:shadow-md dark:border-white/10 dark:bg-black/40 dark:hover:border-white/40"
-              >
-                {cardContent}
-              </Link>
-            )
-          })}
+          {MORE_PROJECTS.length > 0 && (
+            <div className="space-y-2">
+              <h3 className="text-sm font-semibold uppercase tracking-wide text-black/60 dark:text-white/60">
+                More projects
+              </h3>
+              <div className="divide-y divide-black/10 rounded-none border border-black/10 bg-white max-h-96 overflow-y-auto dark:divide-white/10 dark:border-white/10 dark:bg-black/40">
+                {MORE_PROJECTS.map((project) => {
+                  const isExternal = project.link.startsWith('http')
+                  const content = (
+                    <div className="flex flex-col gap-1">
+                      <p className="text-sm font-semibold text-black dark:text-white">{project.name}</p>
+                      <p className="text-xs text-black/70 dark:text-white/70">{project.description}</p>
+                      <p className="text-xs text-black/60 dark:text-white/60">{project.impact}</p>
+                    </div>
+                  )
+
+                  return isExternal ? (
+                    <a
+                      key={project.id}
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group flex items-start justify-between gap-3 px-4 py-3 transition-colors hover:bg-black/5 dark:hover:bg-white/10"
+                    >
+                      {content}
+                      <span className="text-[11px] uppercase tracking-wide text-black/60 dark:text-white/60">
+                        Open
+                      </span>
+                    </a>
+                  ) : (
+                    <Link
+                      key={project.id}
+                      href={project.link}
+                      className="group flex items-start justify-between gap-3 px-4 py-3 transition-colors hover:bg-black/5 dark:hover:bg-white/10"
+                    >
+                      {content}
+                      <span className="text-[11px] uppercase tracking-wide text-black/60 dark:text-white/60">
+                        Open
+                      </span>
+                    </Link>
+                  )
+                })}
+              </div>
+            </div>
+          )}
         </div>
       </motion.section>
 
@@ -456,7 +512,7 @@ export default function Personal() {
         id="gallery"
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
-        className="rounded-none border border-black/10 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-white/5"
+        className="space-y-4 scroll-mt-28"
       >
         <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
           <div className="space-y-1">
@@ -476,12 +532,12 @@ export default function Personal() {
           )}
         </div>
 
-        <div className="mt-4 space-y-4">
-          <div className="relative overflow-hidden rounded-none border border-black/10 bg-black/5 dark:border-white/10 dark:bg-black/40">
+        <div className="space-y-4">
+          <div className="relative overflow-hidden bg-gradient-to-br from-black/80 via-black/70 to-black/50 text-white shadow-2xl ring-1 ring-black/10 dark:from-white/15 dark:via-white/10 dark:to-white/5 dark:ring-white/10">
             <button
               type="button"
               onClick={() => handleStep(-1)}
-              className="absolute left-3 top-1/2 z-10 flex -translate-y-1/2 items-center justify-center rounded-full border border-black/10 bg-white/80 px-2.5 py-2 text-sm font-semibold text-black shadow-sm transition hover:bg-white dark:border-white/20 dark:bg-black/70 dark:text-white dark:hover:bg-black"
+              className="absolute left-3 top-1/2 z-10 flex -translate-y-1/2 items-center justify-center rounded-full border border-black/20 bg-white/85 px-2.5 py-2 text-sm font-semibold text-black shadow-sm transition hover:bg-white dark:border-white/20 dark:bg-black/70 dark:text-white dark:hover:bg-black"
               aria-label="Previous image"
             >
               ‹
@@ -489,7 +545,7 @@ export default function Personal() {
             <button
               type="button"
               onClick={() => handleStep(1)}
-              className="absolute right-3 top-1/2 z-10 flex -translate-y-1/2 items-center justify-center rounded-full border border-black/10 bg-white/80 px-2.5 py-2 text-sm font-semibold text-black shadow-sm transition hover:bg-white dark:border-white/20 dark:bg-black/70 dark:text-white dark:hover:bg-black"
+              className="absolute right-3 top-1/2 z-10 flex -translate-y-1/2 items-center justify-center rounded-full border border-black/20 bg-white/85 px-2.5 py-2 text-sm font-semibold text-black shadow-sm transition hover:bg-white dark:border-white/20 dark:bg-black/70 dark:text-white dark:hover:bg-black"
               aria-label="Next image"
             >
               ›
@@ -506,7 +562,7 @@ export default function Personal() {
                     key={`${item.id}-${index}`}
                     type="button"
                     onClick={() => handleSelect(normalizedIndex)}
-                    className="relative aspect-video w-full shrink-0 overflow-hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black dark:focus-visible:outline-white"
+                    className="relative aspect-video w-full shrink-0 overflow-hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/80 dark:focus-visible:outline-white"
                   >
                     <Image
                       src={item.image}

@@ -1,0 +1,164 @@
+export const metadata = {
+  title: 'Automating Word Count Display on a Static Blog with Python + Git Hooks',
+  description:
+    'Walkthrough of a Python + PowerShell workflow that auto-generates blog word counts during git commits and renders them on a static site.',
+  alternates: {
+    canonical: '/blog/automatic-python',
+  },
+}
+
+<main className="space-y-6 pb-12">
+  <div className="flex items-center justify-between">
+    <a
+      href="/blog"
+      className="inline-flex items-center gap-2 text-sm font-semibold text-black hover:text-black/70 dark:text-white dark:hover:text-white/80"
+    >
+      ← Back to blog
+    </a>
+    <p className="text-sm text-black/60 dark:text-white/60">May 15, 2025 • 5 min read</p>
+  </div>
+
+  <header className="space-y-3">
+    <div className="space-y-2">
+      <h1 className="text-4xl font-semibold leading-tight text-black dark:text-white md:text-5xl">
+        Automating Word Count Display on a Static Blog with Python + Git Hooks
+      </h1>
+      <p className="text-lg text-black/80 dark:text-white/80">
+        My experience creating an automatic Python script to count words of HTML files to enhance my blog.
+      </p>
+    </div>
+    <div className="h-px w-full bg-black/10 dark:bg-white/15" />
+  </header>
+
+  <article className="prose prose-neutral max-w-none dark:prose-invert">
+    <h1>Automating Word Count Display on a Static Blog with Python + Git Hooks</h1>
+    <div className="blog-meta">
+      <span>May 15, 2025</span> • <span id="automatic-python"></span> • <span>5 min read</span>
+    </div>
+    <hr />
+
+    <h2>Why I Wanted This</h2>
+    <p>
+      While working on my personal blog hosted on GitHub Pages, I had a simple idea: what if each post could show its
+      word count automatically? I did not want to do this manually or hard-code anything — it felt like something a
+      script should handle. And more importantly, I wanted it to update automatically every time I made a commit.
+    </p>
+    <p>
+      This turned out to be a fun mini-project that taught me more about Git hooks, Python scripting, encoding quirks,
+      and working around GitHub Pages' static limitations.
+    </p>
+
+    <h2>The Setup I Ended Up With</h2>
+    <pre>
+      <code>{`portfolio/
+├── blogs/                        # My HTML blog posts
+│   ├── post1.html
+│   └── post2.html
+├── data/
+│   └── blog-word-count.json      # Auto-generated word count file
+├── scripts/
+│   └── pre-commit.ps1            # PowerShell script to update the word count
+├── generate_word_counts.py       # Python script to scan all blog files
+└── .git/
+    └── hooks/
+        └── pre-commit            # Git hook that triggers pre-commit.ps1`}</code>
+    </pre>
+
+    <h2>Writing the Python Word Counter</h2>
+    <p>
+      The heart of the setup was a Python script that loops through all HTML files in my <code>blogs/</code> folder,
+      extracts the visible text using BeautifulSoup, counts the words, and writes the result to a JSON file. I made sure
+      it was flexible enough to work for any file name.
+    </p>
+    <p>
+      I ran into a surprising bug early on: I had added emoji icons to the terminal output to make the logs friendlier.
+      Windows terminal encoding (cp1252) could not handle them, which broke the script in Git pre-commit context. Lesson
+      learned: keep hooks ASCII-safe.
+    </p>
+    <p>Once that was fixed, the script worked flawlessly.</p>
+
+    <h2>Automating with PowerShell + Git Hook</h2>
+    <p>
+      Next, I wanted to automate running the script before every commit. I initially tried putting the script directly
+      in <code>.git/hooks/</code>, but realized that Git ignores anything inside <code>.git/</code> when cloning or
+      sharing repos. So I moved the logic to a tracked <code>scripts/pre-commit.ps1</code> file and added a simple shell
+      shim in <code>.git/hooks/pre-commit</code> to call it:
+    </p>
+    <pre>
+      <code>{`#!/bin/sh
+powershell -ExecutionPolicy Bypass -File "scripts/pre-commit.ps1"`}</code>
+    </pre>
+    <p>The PowerShell script looks like this:</p>
+    <pre>
+      <code>{`Write-Host "Running generate_word_counts.py..."
+
+$process = Start-Process -FilePath "python" -ArgumentList "generate_word_counts.py" -NoNewWindow -Wait -PassThru
+
+if ($process.ExitCode -ne 0) {
+    Write-Host "Python script failed. Aborting commit."
+    exit 1
+}
+
+git add data/blog-word-count.json
+
+Write-Host "Word count JSON updated and staged."`}</code>
+    </pre>
+    <p>Once this was hooked up correctly, committing felt magical — Git ran my script, updated the JSON, and staged it.</p>
+
+    <h2>Displaying the Word Count on My Site</h2>
+    <p>To actually use the data, I added this simple JS snippet to my HTML pages:</p>
+    <pre>
+      <code>{`<p>This post has <span id="post1">...</span> words.</p>
+
+<script>
+fetch('data/blog-word-count.json')
+  .then(res => res.json())
+  .then(data => {
+    for (const key in data) {
+      const el = document.getElementById(key);
+      if (el) {
+        el.textContent = data[key] + " words";
+      }
+    }
+  });
+</script>`}</code>
+    </pre>
+    <p>Now each post updates its word count dynamically when deployed.</p>
+
+    <h2>A Few Gotchas Along the Way</h2>
+    <ol>
+      <li>
+        <strong>Unicode crashes in terminal output:</strong> Using emojis in Python <code>print()</code> statements
+        caused <code>UnicodeEncodeError</code>. The fix was replacing them with ASCII-safe tags.
+      </li>
+      <li>
+        <strong>Git could not find my script:</strong> Initially used a relative path that assumed the hook was executing
+        from a different location. Fixed by referencing <code>scripts/pre-commit.ps1</code> directly.
+      </li>
+    </ol>
+
+    <h2>What I Learned</h2>
+    <ul>
+      <li>Git hooks are powerful, but picky about paths and encoding.</li>
+      <li>Do not use emojis in anything that runs through Git hooks on Windows.</li>
+      <li>You can still build dynamic features on static sites — if you pre-process the data.</li>
+      <li>It is satisfying to automate something small and have it just work every time.</li>
+    </ul>
+
+    <h2>Further Reading</h2>
+    <p>If you are interested in learning more about quadtrees and spatial partitioning:</p>
+    <ul>
+      <li>
+        <a href="https://en.wikipedia.org/wiki/Quadtree" className="blog-content-link">
+          Wikipedia: Quadtree
+        </a>
+      </li>
+      <li>
+        <a href="https://github.com/danlitvak" className="blog-content-link">
+          Check out my GitHub
+        </a>{' '}
+        for implementation examples
+      </li>
+    </ul>
+  </article>
+</main>
