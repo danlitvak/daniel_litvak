@@ -36,6 +36,7 @@ interface P5 {
   text: (str: string, x: number, y: number) => void
   textAlign: (horizontal: number | string, vertical?: number | string) => void
   textSize: (size: number) => void
+  translate: (x: number, y: number) => void
   push: () => void
   pop: () => void
   noStroke: () => void
