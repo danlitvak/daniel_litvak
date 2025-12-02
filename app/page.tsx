@@ -805,10 +805,10 @@ export default function Personal() {
         className="rounded-none border border-black/10 bg-black/5 p-5 text-center shadow-sm dark:border-white/10 dark:bg-white/10"
       >
         <h2 className="text-2xl font-semibold text-black dark:text-white">
-          Let's work together.
+          Let&apos;s work together.
         </h2>
         <p className="mt-2 text-sm text-black/70 dark:text-white/70">
-          Make the impact you've been looking for.
+          Make the impact you&apos;ve been looking for.
         </p>
         <div className="mt-4 flex flex-wrap justify-center gap-3">
           <CTAButton href="/contact?open=true" label="Start the conversation" onClick={() => setIsContactOpen(true)} />
