@@ -124,15 +124,6 @@ export const MORE_PROJECTS: Project[] = [
     impact: 'Built responsive data-visualization tooling to explain iterative optimization.',
   },
   {
-    name: 'Mandelbrot Visualization',
-    description: 'Zoomable Mandelbrot explorer with HUD controls and undo support.',
-    link: '/projects/project-7',
-    video: '',
-    id: 'project-7',
-    tools: ['JavaScript', 'p5.js'],
-    impact: 'Demonstrated fractal rendering techniques and interactive navigation.',
-  },
-  {
     name: 'Hamiltonian Path Solver',
     description: 'DFS-based Hamiltonian path visualizer inspired by Block Fill.',
     link: 'https://danlitvak.github.io/portfolio/projects/project-8/project-8.html',

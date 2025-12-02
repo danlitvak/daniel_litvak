@@ -6,7 +6,7 @@ const DEFAULT_VIEW = { xmin: -2.5, xmax: 1.5, ymin: -1.5, ymax: 1.5 }
 const DEFAULT_ITERATIONS = 1000
 const ASPECT_RATIO = 0.8 // height = width * ASPECT_RATIO
 const ZOOM_FACTOR = 0.5
-const DEFAULT_PIXEL_SIZE = 2
+const DEFAULT_PIXEL_SIZE = 4
 
 interface P5Vector {
   x: number
@@ -14,7 +14,7 @@ interface P5Vector {
 }
 
 interface P5Constructor {
-  new (sketch: (p: P5) => void, node?: HTMLElement): P5
+  new(sketch: (p: P5) => void, node?: HTMLElement): P5
 }
 
 type WindowWithP5 = Window & { p5?: P5Constructor }
@@ -95,7 +95,11 @@ export function MandelbrotSketch() {
         const zoomStack: Array<{ xmin: number; xmax: number; ymin: number; ymax: number }> = []
         let showHUD = true
 
-        const getWidth = () => Math.max(200, containerRef.current?.getBoundingClientRect().width ?? 400)
+        const getWidth = () => {
+          const node = containerRef.current
+          const measured = node?.clientWidth ?? node?.getBoundingClientRect().width ?? 0
+          return Math.max(200, measured || 400)
+        }
         const getHeight = () => getWidth() * ASPECT_RATIO
 
         const adjustAspectRatio = () => {
@@ -113,7 +117,7 @@ export function MandelbrotSketch() {
           p.createCanvas(getWidth(), getHeight())
           p.noLoop()
           adjustAspectRatio()
-          p.windowResized()
+          p.redraw()
         }
 
         p.windowResized = () => {
@@ -144,6 +148,7 @@ export function MandelbrotSketch() {
 
         p.draw = () => {
           const startTime = p.millis()
+          p.pixelDensity(1)
           const blockSize = Math.max(1, Math.floor(pixelSizeRef.current))
 
           p.loadPixels()
@@ -200,7 +205,6 @@ export function MandelbrotSketch() {
 
           const elapsed = p.millis() - startTime
           if (elapsed > 100) {
-            // Keep a simple log for visibility on heavier redraws.
             // eslint-disable-next-line no-console
             console.log(`Mandelbrot redraw: ${elapsed.toFixed(1)} ms`)
           }
@@ -249,8 +253,8 @@ export function MandelbrotSketch() {
           }
         }
 
-        // Expose a refresh method so UI changes (like pixel size) can force a redraw without shifting the view.
-        ;(p as unknown as { refreshView?: () => void }).refreshView = () => {
+          ;
+        (p as unknown as { refreshView?: () => void }).refreshView = () => {
           adjustAspectRatio()
           p.redraw()
         }
@@ -304,30 +308,44 @@ export function MandelbrotSketch() {
   }, [])
 
   return (
-    <div className="space-y-3">
-      <div className="relative overflow-hidden rounded-none border border-black/10 bg-transparent shadow-md dark:border-white/10">
+    <div className="space-y-0">
+      <div className="relative w-full overflow-hidden rounded-none border border-black/10 bg-transparent dark:border-white/10">
         <div ref={containerRef} className="h-full w-full" aria-label="Interactive Mandelbrot visualization canvas" />
       </div>
-      <div className="flex flex-wrap items-center gap-3 rounded-none border border-black/10 bg-white/70 px-3 py-2 text-xs text-black/80 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/10 dark:text-white/80">
-        <span className="font-semibold uppercase text-[11px] text-black/70 dark:text-white/70">Pixel size</span>
-        <input
-          type="range"
-          min={1}
-          max={8}
-          step={1}
-          value={pixelSize}
-          onChange={(e) => {
-            const next = Math.max(1, Math.min(8, Number(e.target.value)))
-            setPixelSize(next)
-            pixelSizeRef.current = next
-            ;(instanceRef.current as unknown as { refreshView?: () => void })?.refreshView?.()
-          }}
-          className="h-1.5 w-40 accent-black dark:accent-white"
-        />
-        <span className="rounded-none border border-black/15 px-2 py-1 text-[11px] font-semibold uppercase tracking-wide text-black dark:border-white/20 dark:text-white">
-          {pixelSize}x{pixelSize}
-        </span>
-        <span className="text-[11px] text-black/60 dark:text-white/60">Lower values = finer detail, higher = faster.</span>
+      <div className="flex flex-wrap items-center gap-3 rounded-none border border-black/10 bg-white px-3 py-2 text-xs text-black dark:border-white/10 dark:bg-white/5 dark:text-white">
+        <span className="font-semibold uppercase text-[11px]">Pixel size</span>
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            className="flex h-7 w-7 items-center justify-center rounded-none border border-black/20 bg-white text-sm font-semibold leading-[0] text-black transition hover:bg-black/5 dark:border-white/30 dark:bg-transparent dark:text-white dark:hover:bg-white/10"
+            onClick={() => {
+              const next = Math.max(1, pixelSize - 1)
+              setPixelSize(next)
+              pixelSizeRef.current = next
+                ; (instanceRef.current as unknown as { refreshView?: () => void })?.refreshView?.()
+            }}
+            aria-label="Decrease pixel size"
+          >
+            -
+          </button>
+          <span className="inline-flex h-7 items-center justify-center rounded-none border border-black/20 bg-white px-3 text-[11px] font-semibold uppercase tracking-wide text-black transition dark:border-white/30 dark:bg-transparent dark:text-white">
+            {pixelSize}x{pixelSize}
+          </span>
+          <button
+            type="button"
+            className="flex h-7 w-7 items-center justify-center rounded-none border border-black/20 bg-white text-sm font-semibold leading-[0] text-black transition hover:bg-black/5 dark:border-white/30 dark:bg-transparent dark:text-white dark:hover:bg-white/10"
+            onClick={() => {
+              const next = Math.min(8, pixelSize + 1)
+              setPixelSize(next)
+              pixelSizeRef.current = next
+                ; (instanceRef.current as unknown as { refreshView?: () => void })?.refreshView?.()
+            }}
+            aria-label="Increase pixel size"
+          >
+            +
+          </button>
+        </div>
+        <span className="text-[11px] text-black/70 dark:text-white/70">Lower values = finer detail, higher = faster.</span>
       </div>
     </div>
   )

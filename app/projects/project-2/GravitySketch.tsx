@@ -362,10 +362,13 @@ export function GravitySketch() {
 
         p.mouseDragged = () => {
           if (!origin) return
+          if (p.mouseX < 0 || p.mouseX > p.width || p.mouseY < 0 || p.mouseY > p.height) return
           dragging = true
-          // Panning felt doubled in dev; use half-step to keep movement aligned with cursor drag.
-          origin.x += (p.mouseX - p.pmouseX) * 0.5
-          origin.y += (p.mouseY - p.pmouseY) * 0.5
+          // Use event deltas to avoid stacking with frame-based pmouse updates.
+          const dx = (p as unknown as { movedX?: number }).movedX ?? p.mouseX - p.pmouseX
+          const dy = (p as unknown as { movedY?: number }).movedY ?? p.mouseY - p.pmouseY
+          origin.x += dx
+          origin.y += dy
         }
 
         p.mouseClicked = () => {

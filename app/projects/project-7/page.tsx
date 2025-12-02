@@ -22,7 +22,7 @@ export default function MandelbrotPage() {
         </p>
       </div>
 
-      <div className="overflow-hidden rounded-none border border-black/10 bg-white shadow-sm dark:border-white/10 dark:bg-white/5">
+      <div className="overflow-hidden rounded-none border border-black/10 bg-white dark:border-white/10 dark:bg-white/5">
         <MandelbrotSketch />
       </div>
 
