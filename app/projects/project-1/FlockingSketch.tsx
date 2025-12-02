@@ -270,6 +270,9 @@ export function FlockingSketch() {
     const startSketch = () => {
       if (instance || !containerRef.current) return
 
+      // Clear any previous canvases left behind by React strict mode or hot reloads.
+      containerRef.current.innerHTML = ''
+
       const P5Ctor = (window as WindowWithP5).p5
       if (!P5Ctor) return
 
@@ -306,6 +309,8 @@ export function FlockingSketch() {
 
           boids = qt.returnObjects()
           p.textAlign(p.LEFT, p.TOP)
+          // Ensure canvas matches container on initial mount to avoid duplicate sizing artifacts.
+          p.windowResized()
         }
 
         p.windowResized = () => {
@@ -560,6 +565,10 @@ export function FlockingSketch() {
       }
       resizeObserver?.disconnect()
       instance?.remove?.()
+      // Clear any lingering canvas elements in dev/strict mode.
+      if (containerRef.current) {
+        containerRef.current.innerHTML = ''
+      }
     }
   }, [])
 

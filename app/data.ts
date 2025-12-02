@@ -69,11 +69,20 @@ export const FEATURED_PROJECTS: Project[] = [
   {
     name: '2D Gravity Simulation',
     description: 'Interactive Newtonian gravity sandbox with path prediction and field visualization.',
-    link: 'https://danlitvak.github.io/portfolio/projects/project-2/project-2.html',
+    link: '/projects/project-2',
     video: '',
     id: 'project-2',
     tools: ['JavaScript', 'p5.js'],
     impact: 'Deepened physics intuition while building an approachable simulator.',
+  },
+  {
+    name: 'Mandelbrot Visualization',
+    description: 'Zoomable Mandelbrot explorer with HUD controls and undo support.',
+    link: '/projects/project-7',
+    video: '',
+    id: 'project-7',
+    tools: ['JavaScript', 'p5.js'],
+    impact: 'Demonstrated fractal rendering techniques and interactive navigation.',
   },
 ]
 
@@ -117,7 +126,7 @@ export const MORE_PROJECTS: Project[] = [
   {
     name: 'Mandelbrot Visualization',
     description: 'Zoomable Mandelbrot explorer with HUD controls and undo support.',
-    link: 'https://danlitvak.github.io/portfolio/projects/project-7/project-7.html',
+    link: '/projects/project-7',
     video: '',
     id: 'project-7',
     tools: ['JavaScript', 'p5.js'],
