@@ -144,7 +144,6 @@ export function MandelbrotSketch() {
         }
 
         p.draw = () => {
-          const startTime = p.millis()
           p.pixelDensity(1)
           const blockSize = Math.max(1, Math.floor(pixelSizeRef.current))
 
