@@ -621,7 +621,7 @@ export default function Personal() {
           <CTAButton href="/blog" label="Browse" variant="secondary" />
         </div>
         <div className="mt-4 divide-y divide-black/10 border border-black/10 dark:divide-white/10 dark:border-white/10">
-          {BLOG_POSTS.map((post) => (
+          {BLOG_POSTS.filter((post) => post.published !== false && post.date && !post.date.includes('�')).map((post) => (
             <Link
               key={post.uid}
               className="flex flex-col gap-2 px-4 py-3 transition-colors hover:bg-black/5 dark:hover:bg-white/10"

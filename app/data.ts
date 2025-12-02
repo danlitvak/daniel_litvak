@@ -397,6 +397,7 @@ type BlogPost = {
   link: string
   uid: string
   date: string
+  published?: boolean
 }
 
 export const BLOG_POSTS: BlogPost[] = [
@@ -407,6 +408,7 @@ export const BLOG_POSTS: BlogPost[] = [
     link: '/blog/understanding-quadtrees',
     uid: 'understanding-quadtrees',
     date: 'May 15, 2025',
+    published: true,
   },
   {
     title: 'Automating Word Count Display on a Static Blog with Python + Git Hooks',
@@ -415,6 +417,7 @@ export const BLOG_POSTS: BlogPost[] = [
     link: '/blog/automatic-python',
     uid: 'automatic-python',
     date: 'May 15, 2025',
+    published: true,
   },
   {
     title: 'Neural Networks in Game Development',
@@ -422,6 +425,7 @@ export const BLOG_POSTS: BlogPost[] = [
     link: '/blog/neural-networks',
     uid: 'neural-networks',
     date: '—',
+    published: false
   },
   {
     title: 'Developing 2D Gravity Engines',
@@ -429,6 +433,7 @@ export const BLOG_POSTS: BlogPost[] = [
     link: '/blog/physics-engines',
     uid: 'physics-engines',
     date: '—',
+    published: false
   },
   {
     title: 'Test Drive of Blog Features',
@@ -436,6 +441,7 @@ export const BLOG_POSTS: BlogPost[] = [
     link: '/blog/test-drive-of-blog-features',
     uid: 'test-drive-of-blog-features',
     date: 'Nov 30, 2026',
+    published: true,
   },
 ]
 
