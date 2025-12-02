@@ -82,18 +82,18 @@ export const FEATURED_PROJECTS: Project[] = [
     tools: ['JavaScript', 'p5.js'],
     impact: 'Demonstrated fractal rendering techniques and interactive navigation.',
   },
-]
-
-export const MORE_PROJECTS: Project[] = [
   {
     name: "Conway's Game of Life",
     description: 'Interactive Game of Life with statistics, playback controls, and speed tuning.',
-    link: 'https://danlitvak.github.io/portfolio/projects/project-3/project-3.html',
+    link: '/projects/project-3',
     video: '',
     id: 'project-3',
     tools: ['JavaScript', 'p5.js'],
     impact: 'Showcased cellular automata and emergent complexity in a hands-on demo.',
   },
+]
+
+export const MORE_PROJECTS: Project[] = [
   {
     name: 'QuadTree',
     description: 'Spatial index demo comparing naive searches versus quadtree subdivision.',

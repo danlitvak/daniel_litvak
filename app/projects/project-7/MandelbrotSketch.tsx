@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 
 const DEFAULT_VIEW = { xmin: -2.5, xmax: 1.5, ymin: -1.5, ymax: 1.5 }
 const DEFAULT_ITERATIONS = 1000
-const ASPECT_RATIO = 0.8 // height = width * ASPECT_RATIO
+const ASPECT_RATIO = 0.5 // height = width * ASPECT_RATIO (2:1 width:height)
 const ZOOM_FACTOR = 0.5
 const DEFAULT_PIXEL_SIZE = 4
 
@@ -82,6 +82,22 @@ export function MandelbrotSketch() {
       const P5Ctor = (window as WindowWithP5).p5
       if (!P5Ctor) return
 
+      const syncParentHeight = () => {
+        const parent = containerRef.current?.parentElement as HTMLElement | null
+        if (!parent) return
+        const width =
+          parent.clientWidth ||
+          parent.getBoundingClientRect().width ||
+          parent.parentElement?.clientWidth ||
+          parent.parentElement?.getBoundingClientRect().width ||
+          0
+        if (width > 0) {
+          parent.style.height = `${width * ASPECT_RATIO}px`
+        }
+      }
+
+      syncParentHeight()
+
       const sketch = (p: P5) => {
         let xmin = DEFAULT_VIEW.xmin
         let xmax = DEFAULT_VIEW.xmax
@@ -94,7 +110,12 @@ export function MandelbrotSketch() {
 
         const getWidth = () => {
           const node = containerRef.current
-          const measured = node?.clientWidth ?? node?.getBoundingClientRect().width ?? 0
+          const measured =
+            node?.clientWidth ??
+            node?.getBoundingClientRect().width ??
+            node?.parentElement?.clientWidth ??
+            node?.parentElement?.getBoundingClientRect().width ??
+            0
           return Math.max(200, measured || 400)
         }
         const getHeight = () => getWidth() * ASPECT_RATIO
@@ -109,9 +130,18 @@ export function MandelbrotSketch() {
           ymax = ymid + complexHeight / 2
         }
 
+        const fitCanvasToContainer = () => {
+          const canvasEl = (p as unknown as { canvas?: HTMLCanvasElement }).canvas
+          if (canvasEl) {
+            canvasEl.style.width = '100%'
+            canvasEl.style.height = '100%'
+          }
+        }
+
         p.setup = () => {
           p.pixelDensity(1)
           p.createCanvas(getWidth(), getHeight())
+          fitCanvasToContainer()
           p.noLoop()
           adjustAspectRatio()
           p.redraw()
@@ -120,6 +150,7 @@ export function MandelbrotSketch() {
         p.windowResized = () => {
           p.pixelDensity(1)
           p.resizeCanvas(getWidth(), getHeight())
+          fitCanvasToContainer()
           adjustAspectRatio()
           p.redraw()
         }
@@ -256,8 +287,8 @@ export function MandelbrotSketch() {
 
       instance = new P5Ctor(sketch, containerRef.current)
       instanceRef.current = instance
-
       resizeObserver = new ResizeObserver(() => {
+        syncParentHeight()
         instance?.windowResized()
       })
       resizeObserver.observe(containerRef.current)
@@ -303,8 +334,11 @@ export function MandelbrotSketch() {
 
   return (
     <div className="space-y-0">
-      <div className="relative w-full overflow-hidden rounded-none border border-black/10 bg-transparent dark:border-white/10">
-        <div ref={containerRef} className="h-full w-full" aria-label="Interactive Mandelbrot visualization canvas" />
+      <div
+        className="relative w-full overflow-hidden rounded-none border border-black/10 bg-transparent dark:border-white/10"
+        style={{ aspectRatio: '2 / 1' }}
+      >
+        <div ref={containerRef} className="absolute inset-0" aria-label="Interactive Mandelbrot visualization canvas" />
       </div>
       <div className="flex flex-wrap items-center gap-3 rounded-none border border-black/10 bg-white px-3 py-2 text-xs text-black dark:border-white/10 dark:bg-white/5 dark:text-white">
         <span className="font-semibold uppercase text-[11px]">Pixel size</span>

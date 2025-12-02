@@ -360,7 +360,7 @@ export default function Personal() {
                     >
                       {content}
                       <span className="text-[11px] uppercase tracking-wide text-black/60 dark:text-white/60">
-                        Open
+                        View in legacy website
                       </span>
                     </a>
                   ) : (
@@ -371,7 +371,7 @@ export default function Personal() {
                     >
                       {content}
                       <span className="text-[11px] uppercase tracking-wide text-black/60 dark:text-white/60">
-                        Open
+                        View in legacy website
                       </span>
                     </Link>
                   )
