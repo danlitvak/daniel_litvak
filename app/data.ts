@@ -167,35 +167,27 @@ export type CarouselItem = {
 export const CAROUSEL_ITEMS: CarouselItem[] = [
   {
     id: 'carousel-flocking',
-    title: 'Flocking simulation',
-    image:
-      'https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1600&q=80',
-    description:
-      'Boids rendered in p5.js with quadtree acceleration to keep interactions smooth.',
+    title: 'Flocking Birds',
+    image: '/featured-images/boids.png',
+    description: 'Boids simulation accelerated with a quadtree, featuring 500 agents and mouse interaction.',
   },
   {
-    id: 'carousel-dashboards',
-    title: 'Data dashboards',
-    image:
-      'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1600&q=80',
-    description:
-      'Front-end views for real-time data at Sky AI, pairing HTML/CSS/JS with reliable APIs.',
+    id: 'carousel-gravity',
+    title: '2D Gravity Simulation',
+    image: '/featured-images/gravity.png',
+    description: 'Newtonian sandbox with orbit prediction, field vectors, and draggable origin controls.',
   },
   {
-    id: 'carousel-admin',
-    title: 'Admin portals',
-    image:
-      'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1600&q=80',
-    description:
-      'Markdown-driven blog and profile management built for the UBC Bionics design team.',
+    id: 'carousel-mandelbrot',
+    title: 'Mandelbrot Visualization',
+    image: '/featured-images/mandlebrot.png',
+    description: 'Zoomable Mandelbrot explorer with HUD, undo stack, and HSB coloring for smooth gradients.',
   },
   {
-    id: 'carousel-claw',
-    title: 'Embedded claw system',
-    image:
-      'https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?auto=format&fit=crop&w=1600&q=80',
-    description:
-      'Arduino-based claw controller using finite state machines and tunable parameters.',
+    id: 'carousel-game-of-life',
+    title: "Conway's Game of Life",
+    image: '/featured-images/gameoflife.png',
+    description: '40x20 toroidal grid with stats overlay, drag-to-paint cells, and adjustable step speed.',
   },
 ]
 
