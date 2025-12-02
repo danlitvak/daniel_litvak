@@ -48,6 +48,7 @@ export type Project = {
   description: string
   link: string
   video: string
+  image?: string
   id: string
   tools: string[]
   impact: string
@@ -60,8 +61,9 @@ export const FEATURED_PROJECTS: Project[] = [
       'Boids simulation using quadtrees for spacial indexing.',
     link: '/projects/project-1',
     video: '',
+    image: '/featured-images/boids.png',
     id: 'project-1',
-    tools: ['JavaScript', 'p5.js'],
+    tools: ['JavaScript', 'p5.js', 'SystemVerilog', 'Java', 'React', 'C'],
     impact: 'Interact and explore the emergent behavior of boids and see the performance gains from spatial indexing.',
   },
   {
@@ -69,6 +71,7 @@ export const FEATURED_PROJECTS: Project[] = [
     description: 'Interactive Newtonian gravity sandbox with path prediction and field visualization.',
     link: '/projects/project-2',
     video: '',
+    image: '/featured-images/gravity.png',
     id: 'project-2',
     tools: ['JavaScript', 'p5.js'],
     impact: 'Deepened physics intuition while building an approachable simulator.',
@@ -78,6 +81,7 @@ export const FEATURED_PROJECTS: Project[] = [
     description: 'Zoomable Mandelbrot explorer with HUD controls and undo support.',
     link: '/projects/project-7',
     video: '',
+    image: '/featured-images/mandlebrot.png',
     id: 'project-7',
     tools: ['JavaScript', 'p5.js'],
     impact: 'Demonstrated fractal rendering techniques and interactive navigation.',
@@ -87,6 +91,7 @@ export const FEATURED_PROJECTS: Project[] = [
     description: 'Interactive Game of Life with statistics, playback controls, and speed tuning.',
     link: '/projects/project-3',
     video: '',
+    image: '/featured-images/gameoflife.png',
     id: 'project-3',
     tools: ['JavaScript', 'p5.js'],
     impact: 'Showcased cellular automata and emergent complexity in a hands-on demo.',
@@ -309,32 +314,41 @@ export const SKILL_GROUPS: SkillGroup[] = [
   {
     category: 'Software Development',
     items: [
-      { name: 'Java 17/21' },
-      { name: 'C, C++, Python, JavaScript' },
+      { name: 'Java 17' },
+      { name: 'Java 21' },
+      { name: 'C' },
+      { name: 'C++' },
+      { name: 'Python' },
+      { name: 'JavaScript' },
       { name: 'SystemVerilog' },
       { name: 'RISCV Assembly' },
       { name: 'MatLab' },
-      { name: 'Git & GitHub' },
+      { name: 'Git' },
+      { name: 'GitHub' },
       { name: 'VS Code' },
     ],
   },
   {
     category: 'Web Development',
     items: [
-      { name: 'HTML, CSS, JavaScript' },
+      { name: 'HTML' },
+      { name: 'CSS' },
+      { name: 'JavaScript' },
       { name: 'React' },
       { name: 'Vue' },
       { name: 'Node.js' },
       { name: 'Next.js' },
       { name: 'GitHub Pages' },
-      { name: 'Canvas & p5.js' },
+      { name: 'Canvas' },
+      { name: 'p5.js' },
       { name: 'API integration' },
     ],
   },
   {
     category: 'Hardware & Embedded',
     items: [
-      { name: 'Arduino & Raspberry Pi' },
+      { name: 'Arduino' },
+      { name: 'Raspberry Pi' },
       { name: 'FPGA systems' },
       { name: 'Micro-architecture' },
       { name: 'Finite State Machines' },
@@ -446,7 +460,7 @@ export const RESUME_URL = 'https://danlitvak.github.io/portfolio'
 export const CONTACT_LINKS: ContactLink[] = [
   {
     label: 'Email',
-    link: 'mailto:daniel.litvak.64@gmail.com',
+    link: '/contact?open=true',
     description: 'Send me a note about collaborations or opportunities.',
   },
   {
@@ -460,7 +474,7 @@ export const CONTACT_LINKS: ContactLink[] = [
     description: 'Browse my projects, simulations, and web experiments.',
   },
   {
-    label: 'Portfolio',
+    label: 'View legacy portfolio',
     link: 'https://danlitvak.github.io/portfolio',
     description: 'View my portfolio site with interactive projects and demos.',
   },
