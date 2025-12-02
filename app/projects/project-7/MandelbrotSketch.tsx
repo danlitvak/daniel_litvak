@@ -8,11 +8,6 @@ const ASPECT_RATIO = 0.8 // height = width * ASPECT_RATIO
 const ZOOM_FACTOR = 0.5
 const DEFAULT_PIXEL_SIZE = 4
 
-interface P5Vector {
-  x: number
-  y: number
-}
-
 interface P5Constructor {
   new(sketch: (p: P5) => void, node?: HTMLElement): P5
 }
@@ -76,6 +71,7 @@ export function MandelbrotSketch() {
 
     let instance: P5 | undefined
     let resizeObserver: ResizeObserver | null = null
+    const containerEl = containerRef.current
 
     const startSketch = () => {
       if (instance || !containerRef.current) return
@@ -91,7 +87,7 @@ export function MandelbrotSketch() {
         let xmax = DEFAULT_VIEW.xmax
         let ymin = DEFAULT_VIEW.ymin
         let ymax = DEFAULT_VIEW.ymax
-        let maxIter = DEFAULT_ITERATIONS
+        const maxIter = DEFAULT_ITERATIONS
 
         const zoomStack: Array<{ xmin: number; xmax: number; ymin: number; ymax: number }> = []
         let showHUD = true
@@ -204,11 +200,9 @@ export function MandelbrotSketch() {
 
           drawHUD()
 
-          const elapsed = p.millis() - startTime
-          if (elapsed > 100) {
-            // eslint-disable-next-line no-console
-            console.log(`Mandelbrot redraw: ${elapsed.toFixed(1)} ms`)
-          }
+          // const elapsed = p.millis() - startTime
+          // Uncomment for debugging render time:
+          // console.log(`Mandelbrot redraw: ${elapsed.toFixed(1)} ms`)
         }
 
         p.mousePressed = () => {
@@ -302,8 +296,8 @@ export function MandelbrotSketch() {
       resizeObserver?.disconnect()
       instance?.remove?.()
       instanceRef.current = undefined
-      if (containerRef.current) {
-        containerRef.current.innerHTML = ''
+      if (containerEl) {
+        containerEl.innerHTML = ''
       }
     }
   }, [])
@@ -323,7 +317,7 @@ export function MandelbrotSketch() {
               const next = Math.max(1, pixelSize - 1)
               setPixelSize(next)
               pixelSizeRef.current = next
-                ; (instanceRef.current as unknown as { refreshView?: () => void })?.refreshView?.()
+              ;(instanceRef.current as unknown as { refreshView?: () => void })?.refreshView?.()
             }}
             aria-label="Decrease pixel size"
           >
@@ -339,7 +333,7 @@ export function MandelbrotSketch() {
               const next = Math.min(8, pixelSize + 1)
               setPixelSize(next)
               pixelSizeRef.current = next
-                ; (instanceRef.current as unknown as { refreshView?: () => void })?.refreshView?.()
+              ;(instanceRef.current as unknown as { refreshView?: () => void })?.refreshView?.()
             }}
             aria-label="Increase pixel size"
           >

@@ -1,5 +1,3 @@
-import blogsData from '../old_portfolio_data/projects/data/blogs.json'
-
 export type Hero = {
   name: string
   role: string

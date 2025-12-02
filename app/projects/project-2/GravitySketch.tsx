@@ -235,6 +235,7 @@ export function GravitySketch() {
 
     let instance: P5 | undefined
     let resizeObserver: ResizeObserver | null = null
+    const containerEl = containerRef.current
 
     const startSketch = () => {
       if (instance || !containerRef.current) return
@@ -439,8 +440,8 @@ export function GravitySketch() {
       }
       resizeObserver?.disconnect()
       instance?.remove?.()
-      if (containerRef.current) {
-        containerRef.current.innerHTML = ''
+      if (containerEl) {
+        containerEl.innerHTML = ''
       }
     }
   }, [])

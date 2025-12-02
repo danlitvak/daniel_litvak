@@ -29,7 +29,7 @@ export default function GravitySimulationPage() {
       <div className="space-y-3 rounded-none border border-black/10 bg-white p-4 dark:border-white/10 dark:bg-white/5">
         <h2 className="text-lg font-semibold">Description</h2>
         <ul className="list-disc space-y-2 pl-5 text-sm text-black/70 dark:text-white/70">
-          <li>Implements Newton's law of gravitation across movable bodies while handling reaction forces on anchored masses.</li>
+          <li>Implements Newton&apos;s law of gravitation across movable bodies while handling reaction forces on anchored masses.</li>
           <li>
             Predicts the next {PREDICTION_LENGTH} simulation ticks and renders blue trajectory trails so you can spot stable orbits versus escapes.
           </li>
