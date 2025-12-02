@@ -20,6 +20,7 @@ interface P5Constructor {
 type WindowWithP5 = Window & { p5?: P5Constructor }
 
 interface P5 {
+  TOP: string | number
   width: number
   height: number
   key: string
