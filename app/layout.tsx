@@ -4,6 +4,7 @@ import './globals.css'
 import { Header } from './header'
 import { Footer } from './footer'
 import { ThemeProvider } from 'next-themes'
+import { FaviconSwitcher } from '../components/FaviconSwitcher'
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -32,6 +33,13 @@ export const metadata: Metadata = {
     'JavaScript developer',
     'portfolio',
   ],
+  icons: {
+    icon: [
+      { url: '/favicon-dark.svg', media: '(prefers-color-scheme: light)' },
+      { url: '/favicon-light.svg', media: '(prefers-color-scheme: dark)' },
+      { url: '/favicon.svg' },
+    ],
+  },
   openGraph: {
     title: 'Daniel Litvak – Front End Developer & Technical Adviser',
     description:
@@ -77,6 +85,7 @@ export default function RootLayout({
           <div className="flex min-h-screen w-full flex-col font-[family-name:var(--font-inter-tight)]">
             <Header />
             <div className="relative mx-auto w-full max-w-[800px] flex-1 px-4 pb-12">
+              <FaviconSwitcher />
               {children}
               <Footer />
             </div>
