@@ -202,6 +202,7 @@ type WorkExperience = {
   achievements: string[]
   focus: string
   stack: string[]
+  hidden?: boolean
 }
 
 export const WORK_EXPERIENCE: WorkExperience[] = [
@@ -264,6 +265,7 @@ export const WORK_EXPERIENCE: WorkExperience[] = [
     end: 'Present',
     link: '',
     id: 'work-cactus-club',
+    hidden: true,
     summary:
       'Leads dish station operations in a fast-paced kitchen while training new crew members.',
     achievements: [
@@ -281,6 +283,7 @@ export const WORK_EXPERIENCE: WorkExperience[] = [
     end: 'Aug 2024',
     link: '',
     id: 'work-pajos',
+    hidden: true,
     summary:
       'Delivered front-of-house support and kitchen prep to keep service efficient in a seasonal restaurant.',
     achievements: [
@@ -295,6 +298,7 @@ export const WORK_EXPERIENCE: WorkExperience[] = [
 
 type Skill = {
   name: string
+  detail: string
 }
 
 type SkillGroup = {
@@ -306,58 +310,55 @@ export const SKILL_GROUPS: SkillGroup[] = [
   {
     category: 'Software Development',
     items: [
-      { name: 'Java 17' },
-      { name: 'Java 21' },
-      { name: 'C' },
-      { name: 'C++' },
-      { name: 'Python' },
-      { name: 'JavaScript' },
-      { name: 'SystemVerilog' },
-      { name: 'RISCV Assembly' },
-      { name: 'MatLab' },
-      { name: 'Git' },
-      { name: 'GitHub' },
-      { name: 'VS Code' },
+      {
+        name: 'Java 17',
+        detail: 'Built data-structure exercises and backend utilities with streams, generics, and JUnit tests.',
+      },
+      { name: 'Java 21', detail: 'Experimented with virtual threads and sequenced collections in personal tooling projects.' },
+      { name: 'Maven', detail: 'Managed Java builds and dependencies for course project application.' },
+      { name: 'Gradle', detail: 'Configured build scripts and tasks for Java projects and p5.js packaging.' },
+      { name: 'Spark', detail: 'Built full-stack application for coursework.' },
+      { name: 'C', detail: 'Used for embedded-style labs; comfortable with pointers and memory layout.' },
+      { name: 'Python', detail: 'Automated data wrangling and API debugging scripts; quick prototypes for coursework.' },
+      { name: 'JavaScript', detail: 'Primary language for dashboards and interactive canvas work across projects.' },
+      { name: 'SystemVerilog', detail: 'Modeled and simulated FPGA modules and testbenches for course labs.' },
+      { name: 'RISCV Assembly', detail: 'Wrote and debugged simple CPU programs to understand pipeline behavior.' },
+      { name: 'MatLab', detail: 'Ran numeric modeling and plotting for engineering coursework.' },
+      { name: 'Git', detail: 'Daily branching, rebasing, and conflict resolution across team projects.' },
+      { name: 'GitHub', detail: 'Hosted projects, managed issues, and reviewed PRs with Actions for CI.' },
+      { name: 'VS Code', detail: 'Primary IDE with debugging, linting, and Git integrations.' },
     ],
   },
   {
     category: 'Web Development',
     items: [
-      { name: 'HTML' },
-      { name: 'CSS' },
-      { name: 'JavaScript' },
-      { name: 'React' },
-      { name: 'Vue' },
-      { name: 'Node.js' },
-      { name: 'Next.js' },
-      { name: 'GitHub Pages' },
-      { name: 'Canvas' },
-      { name: 'p5.js' },
-      { name: 'API integration' },
+      { name: 'HTML', detail: 'Semantic, accessible markup for dashboards and blog content.' },
+      { name: 'CSS', detail: 'Responsive layouts with flex/grid, theming, and utility-first patterns.' },
+      { name: 'JavaScript', detail: 'Interactive UI logic, data fetching, and canvas animation loops.' },
+      { name: 'React', detail: 'Built dashboards, modals, and carousels using hooks and context.' },
+      { name: 'Node.js', detail: 'Auth flows and REST endpoints backing admin tooling.' },
+      { name: 'Next.js', detail: 'Portfolio pages, routing, and data fetching with app router.' },
+      { name: 'GitHub Pages', detail: 'Deployed legacy portfolio and p5.js demos to static hosting.' },
+      { name: 'Canvas', detail: 'Custom drawing and interactions for simulations and visualizations.' },
+      { name: 'p5.js', detail: 'Created boids, gravity, neural nets, and fractal simulations.' },
+      { name: 'API integration', detail: 'Connected frontends to REST APIs with error handling and retries.' },
+      { name: 'Auth', detail: 'Implemented login, protected routes, and session handling for admin tools.' },
+      { name: 'Database', detail: 'Designed schemas and wrote queries for app data and content management.' },
+      { name: 'SupaBase', detail: 'Experimented with Supabase for auth and managed Postgres storage.' },
     ],
   },
   {
     category: 'Hardware & Embedded',
     items: [
-      { name: 'Arduino' },
-      { name: 'Raspberry Pi' },
-      { name: 'FPGA systems' },
-      { name: 'Micro-architecture' },
-      { name: 'Finite State Machines' },
-      { name: 'Quartus Prime' },
-      { name: 'Questa Sim' },
-      { name: 'Circuit prototyping' },
-    ],
-  },
-  {
-    category: 'Domains & Interests',
-    items: [
-      { name: 'Newtonian simulations' },
-      { name: 'Cellular automata' },
-      { name: 'Recursive search algorithms' },
-      { name: 'Evolutionary machine learning' },
-      { name: 'Boid/flocking behaviors' },
-      { name: 'Service and education' },
+      { name: 'Arduino', detail: 'Prototyped sensor/actuator projects with serial logging and control loops.' },
+      { name: 'Raspberry Pi', detail: 'Configured headless Pi setups and GPIO experiments for small projects.' },
+      { name: 'FPGA systems', detail: 'Implemented logic on FPGA boards; verified timing and behavior.' },
+      { name: 'Micro-architecture', detail: 'Designed simple CPU datapaths/control and validated instruction flows.' },
+      { name: 'Finite State Machines', detail: 'Modeled digital control systems for hardware labs and simulations.' },
+      { name: 'Quartus Prime', detail: 'Synthesized and analyzed HDL designs for FPGA targets.' },
+      { name: 'Questa Sim', detail: 'Simulated SystemVerilog modules with assertions and waveform debugging.' },
+      { name: 'Circuit Prototyping', detail: 'Breadboarded circuits, measured signals, and iterated quickly.' },
+      { name: 'Circuit Timing Analysis', detail: 'Calculated propagation, setup, and hold constraints to keep designs stable.' },
     ],
   },
 ]

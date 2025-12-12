@@ -88,6 +88,7 @@ export default function Personal() {
   const [isPaused, setIsPaused] = useState(false)
   const [isAnimating, setIsAnimating] = useState(true)
   const [copiedEmail, setCopiedEmail] = useState(false)
+  const [activeSkill, setActiveSkill] = useState<string | null>(null)
 
   const totalItems = CAROUSEL_ITEMS.length
 
@@ -521,8 +522,13 @@ export default function Personal() {
         transition={TRANSITION_SECTION}
         className="rounded-none border border-black/10 bg-white p-6 shadow-sm scroll-mt-28 dark:border-white/10 dark:bg-white/5"
       >
-        <h2 className="text-lg mb-4 font-semibold text-black dark:text-white">Skills & tools matrix</h2>
-        <div className="grid gap-4 lg:grid-cols-2">
+        <div className="mb-4 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
+          <h2 className="text-lg font-semibold text-black dark:text-white">Skills</h2>
+          <span className="text-[11px] font-semibold uppercase tracking-wide text-black/60 dark:text-white/60">
+            Hover to learn more
+          </span>
+        </div>
+        <div className="grid gap-4 lg:grid-cols-1">
           {SKILL_GROUPS.map((group) => (
             <div
               key={group.category}
@@ -531,15 +537,40 @@ export default function Personal() {
               <h3 className="text-sm font-semibold uppercase tracking-wide text-black/60 dark:text-white/60">
                 {group.category}
               </h3>
-              <div className="mt-3 flex flex-wrap gap-2 text-sm text-black/80 dark:text-white/80">
-                {group.items.map((item) => (
-                  <span
-                    key={item.name}
-                    className="rounded-none bg-black/5 px-3 py-1 font-semibold text-black dark:bg-white/10 dark:text-white"
-                  >
-                    {item.name}
-                  </span>
-                ))}
+              <div className="mt-3 flex flex-wrap gap-x-2 gap-y-4 pb-2 text-sm text-black/80 dark:text-white/80">
+                {group.items.map((item) => {
+                  const isActive = activeSkill === item.name
+                  return (
+                    <div key={item.name} className="group relative">
+                      <button
+                        type="button"
+                        onPointerEnter={() => setActiveSkill(item.name)}
+                        onPointerLeave={(event) => {
+                          if (event.pointerType === 'mouse') {
+                            setActiveSkill(null)
+                          }
+                        }}
+                        onFocus={() => setActiveSkill(item.name)}
+                        onBlur={() => setActiveSkill(null)}
+                        onClick={() => setActiveSkill((prev) => (prev === item.name ? null : item.name))}
+                        aria-expanded={isActive}
+                        className="rounded-none bg-black/5 px-3 py-1 font-semibold text-black shadow-sm transition duration-150 group-hover:-translate-y-0.5 group-hover:bg-black/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black dark:bg-white/10 dark:text-white dark:group-hover:bg-white/20 dark:focus-visible:outline-white"
+                      >
+                        {item.name}
+                      </button>
+                      <div
+                        className={`pointer-events-none absolute left-1/2 z-20 mt-2 w-60 -translate-x-1/2 rounded-none border border-black/10 bg-white px-3 py-2 text-xs font-normal leading-relaxed text-black opacity-0 shadow-lg ring-1 ring-black/10 transition duration-150 group-hover:translate-y-0 group-hover:opacity-100 dark:border-white/10 dark:bg-black dark:text-white dark:ring-white/15 ${isActive ? 'translate-y-0 opacity-100' : 'translate-y-1 opacity-0'
+                          }`}
+                      >
+                        {item.detail}
+                        <span
+                          className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1.5 h-2 w-2 rotate-45 border border-black/10 bg-white dark:border-white/10 dark:bg-black"
+                          aria-hidden
+                        />
+                      </div>
+                    </div>
+                  )
+                })}
               </div>
             </div>
           ))}
@@ -561,7 +592,7 @@ export default function Personal() {
           </div>
         </div>
         <div className="mt-3 space-y-3">
-          {WORK_EXPERIENCE.map((job) => (
+          {WORK_EXPERIENCE.filter((job) => !job.hidden).map((job) => (
             <div
               key={job.id}
               className="rounded-none border border-black/10 bg-white p-4 dark:border-white/10 dark:bg-black/40"
