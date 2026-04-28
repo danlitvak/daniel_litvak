@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Package Fit Visualizer</title>
+  <style>
+    :root {
+      --bg: #101112;
+      --panel: #17191b;
+      --panel2: #212326;
+      --text: #f4f4f4;
+      --muted: #aaa;
+      --line: #34373c;
+    }
+    html, body {
+      margin: 0;
+      height: 100%;
+      overflow: hidden;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    #app {
+      height: 100%;
+      display: grid;
+      grid-template-columns: 335px 1fr;
+    }
+    #sidebar {
+      background: var(--panel);
+      border-right: 1px solid var(--line);
+      padding: 18px;
+      box-sizing: border-box;
+      overflow-y: auto;
+    }
+    h1 {
+      margin: 0 0 6px;
+      font-size: 18px;
+      letter-spacing: -0.02em;
+    }
+    .sub {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+      margin-bottom: 16px;
+    }
+    .card {
+      border: 1px solid var(--line);
+      background: #131416;
+      border-radius: 12px;
+      padding: 12px;
+      margin-bottom: 12px;
+    }
+    .card h2 {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      margin: 0 0 10px;
+      color: #ddd;
+    }
+    label {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      margin-bottom: 5px;
+    }
+    input, select, button {
+      width: 100%;
+      box-sizing: border-box;
+      background: var(--panel2);
+      color: var(--text);
+      border: 1px solid #3b3e43;
+      border-radius: 8px;
+      padding: 8px;
+      font-size: 13px;
+      outline: none;
+    }
+    button {
+      cursor: pointer;
+      margin-top: 8px;
+    }
+    button:hover { border-color: #888; }
+    .primary {
+      background: #f3f3f3;
+      color: #111;
+      font-weight: 700;
+      border-color: #f3f3f3;
+    }
+    .row3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin: 10px 0;
+    }
+    .row2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+    #viewer {
+      position: relative;
+      min-width: 0;
+    }
+    #c {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+    #hud {
+      position: absolute;
+      left: 16px;
+      bottom: 16px;
+      max-width: 500px;
+      padding: 10px 12px;
+      background: rgba(10, 11, 12, 0.78);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 10px;
+      color: #ddd;
+      font-size: 12px;
+      line-height: 1.55;
+      pointer-events: none;
+    }
+    .pill {
+      display: inline-block;
+      border: 1px solid #555;
+      border-radius: 999px;
+      padding: 1px 7px;
+      margin-right: 5px;
+      color: #eee;
+    }
+    .box-item {
+      display: grid;
+      grid-template-columns: 16px 1fr;
+      gap: 8px;
+      margin: 8px 0;
+      font-size: 12px;
+      line-height: 1.35;
+    }
+    .swatch {
+      width: 14px;
+      height: 14px;
+      border-radius: 4px;
+      border: 1px solid rgba(255,255,255,0.45);
+      margin-top: 2px;
+    }
+    .dims { color: var(--muted); font-size: 11px; }
+    .note {
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.45;
+    }
+    @media (max-width: 850px) {
+      #app { grid-template-columns: 1fr; grid-template-rows: 45vh 55vh; }
+      #viewer { grid-row: 1; }
+      #sidebar { grid-row: 2; border-right: none; border-top: 1px solid var(--line); }
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <aside id="sidebar">
+      <h1>Package Fit Visualizer</h1>
+      <div class="sub">Default demo uses your four package dimensions. Units are centimeters.</div>
+
+      <div class="card">
+        <h2>Selected package</h2>
+        <label>Package</label>
+        <select id="sel"></select>
+
+        <div class="row3">
+          <div><label>X</label><input id="x" type="number" step="1"></div>
+          <div><label>Y height</label><input id="y" type="number" step="1"></div>
+          <div><label>Z</label><input id="z" type="number" step="1"></div>
+        </div>
+
+        <div class="row3">
+          <div><label>Rot X°</label><input id="rx" type="number" step="5"></div>
+          <div><label>Rot Y°</label><input id="ry" type="number" step="5"></div>
+          <div><label>Rot Z°</label><input id="rz" type="number" step="5"></div>
+        </div>
+
+        <div class="row2">
+          <button id="flat">Lay flat</button>
+          <button id="upright">Stand upright</button>
+        </div>
+        <div class="row3">
+          <button id="rx90">+90° X</button>
+          <button id="ry90">+90° Y</button>
+          <button id="rz90">+90° Z</button>
+        </div>
+        <button class="primary" id="reset">Reset demo layout</button>
+      </div>
+
+      <div class="card">
+        <h2>Car model upload</h2>
+        <label>Upload .glb car model</label>
+        <input id="modelUpload" type="file" accept=".glb,model/gltf-binary">
+        <div class="row3">
+          <div><label>Scale</label><input id="modelScale" type="number" value="1" step="0.1"></div>
+          <div><label>Y height</label><input id="modelY" type="number" value="0" step="1"></div>
+          <div><label>Rot Y°</label><input id="modelRotY" type="number" value="0" step="5"></div>
+        </div>
+        <div class="row2">
+          <button id="centerModel">Center car</button>
+          <button id="removeModel">Remove car</button>
+        </div>
+        <div class="note">Choose the <strong>GLB</strong> download option. It is the simplest format because the model and textures are bundled into one file.</div>
+      </div>
+
+      <div class="card">
+        <h2>View</h2>
+        <div class="row2">
+          <button id="top">Top view</button>
+          <button id="side">Side view</button>
+        </div>
+        <button id="edges">Toggle outlines</button>
+      </div>
+
+      <div class="card">
+        <h2>Loaded packages</h2>
+        <div id="list"></div>
+      </div>
+
+      <div class="note">
+        Mouse: left-drag to orbit, scroll to zoom. Click a package to select it.
+        Hold <strong>Shift</strong> and drag the selected package to move it along the grid.
+        Dimensions are mapped as length × thickness/height × width.
+      </div>
+    </aside>
+
+    <main id="viewer">
+      <canvas id="c"></canvas>
+      <div id="hud">
+        <span class="pill">Orbit</span> left-drag
+        <span class="pill">Zoom</span> scroll
+        <span class="pill">Move box</span> Shift + drag selected package
+        <br>
+        World grid is 300 cm × 300 cm by default, with 10 cm spacing. Upload a .glb car model from the sidebar.
+      </div>
+    </main>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.min.js"></script>
+
+  <script>
+    window.addEventListener("load", function () {
+      if (!window.THREE) {
+        document.body.innerHTML = "<div style='padding:20px;color:white;font-family:sans-serif'>Three.js failed to load. Check your internet connection, then reopen this file.</div>";
+        return;
+      }
+
+      const demo = [
+        { name: "Carton 1", dims: [208.8, 9.6, 31.6], inches: '82.2 × 3.7 × 12.4"', color: 0xe76f51, pos: [-35, 4.8, -55], rot: [0, 0, 0] },
+        { name: "Carton 2", dims: [165.8, 6.9, 63.6], inches: '65.2 × 2.7 × 25"', color: 0x2a9d8f, pos: [-20, 3.45, 5], rot: [0, 0, 0] },
+        { name: "Carton 3", dims: [86.5, 16.8, 48.6], inches: '34 × 6.6 × 19.1"', color: 0xe9c46a, pos: [60, 8.4, 70], rot: [0, 0, 0] },
+        { name: "Slats", dims: [21, 6.5, 97.6], inches: '8.3 × 2.6 × 38.4"', color: 0x8ab17d, pos: [95, 3.25, -35], rot: [0, 0, Math.PI / 2] }
+      ];
+      const initial = JSON.parse(JSON.stringify(demo));
+      let carModel = null;
+      let carModelBoxHelper = null;
+      let carModelObjectUrl = null;
+
+      const canvas = document.getElementById("c");
+      const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+
+      const scene = new THREE.Scene();
+      scene.background = new THREE.Color(0x101112);
+
+      const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 3000);
+      camera.position.set(265, 185, 265);
+
+      const controls = new THREE.OrbitControls(camera, renderer.domElement);
+      controls.target.set(0, 20, 0);
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.08;
+
+      scene.add(new THREE.HemisphereLight(0xffffff, 0x222222, 1.3));
+      const light = new THREE.DirectionalLight(0xffffff, 1.4);
+      light.position.set(150, 250, 120);
+      scene.add(light);
+
+      const grid = new THREE.GridHelper(300, 30, 0x777777, 0x303030);
+      scene.add(grid);
+
+      const axes = new THREE.AxesHelper(75);
+      axes.position.set(-145, 0.1, -145);
+      scene.add(axes);
+
+      const floor = new THREE.Mesh(
+        new THREE.PlaneGeometry(300, 300),
+        new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.025, side: THREE.DoubleSide })
+      );
+      floor.rotation.x = -Math.PI / 2;
+      floor.position.y = -0.02;
+      scene.add(floor);
+
+      const meshes = [];
+      const outlines = [];
+      let selectedIndex = 0;
+      let selectionOutline = null;
+
+      function makePackage(pkg, i) {
+        const l = pkg.dims[0], h = pkg.dims[1], w = pkg.dims[2];
+
+        const geo = new THREE.BoxGeometry(l, h, w);
+        const mat = new THREE.MeshStandardMaterial({
+          color: pkg.color,
+          roughness: 0.55,
+          metalness: 0.02,
+          transparent: true,
+          opacity: 0.86
+        });
+
+        const mesh = new THREE.Mesh(geo, mat);
+        mesh.position.set(pkg.pos[0], pkg.pos[1], pkg.pos[2]);
+        mesh.rotation.set(pkg.rot[0], pkg.rot[1], pkg.rot[2]);
+        mesh.userData.index = i;
+        scene.add(mesh);
+        meshes.push(mesh);
+
+        const edge = new THREE.LineSegments(
+          new THREE.EdgesGeometry(geo),
+          new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.55 })
+        );
+        edge.position.copy(mesh.position);
+        edge.rotation.copy(mesh.rotation);
+        scene.add(edge);
+        outlines.push(edge);
+      }
+
+      demo.forEach(makePackage);
+
+      const sel = document.getElementById("sel");
+      const list = document.getElementById("list");
+
+      demo.forEach((pkg, i) => {
+        const opt = document.createElement("option");
+        opt.value = i;
+        opt.textContent = pkg.name;
+        sel.appendChild(opt);
+
+        const item = document.createElement("div");
+        item.className = "box-item";
+        item.innerHTML =
+          "<span class='swatch' style='background:#" + pkg.color.toString(16).padStart(6, "0") + "'></span>" +
+          "<span><strong>" + pkg.name + "</strong><br>" +
+          "<span class='dims'>" + pkg.dims.join(" × ") + " cm<br>" + pkg.inches + "</span></span>";
+        list.appendChild(item);
+      });
+
+      const fields = {
+        x: document.getElementById("x"),
+        y: document.getElementById("y"),
+        z: document.getElementById("z"),
+        rx: document.getElementById("rx"),
+        ry: document.getElementById("ry"),
+        rz: document.getElementById("rz")
+      };
+
+      function deg(rad) { return Math.round(rad * 180 / Math.PI); }
+      function rad(deg) { return Number(deg) * Math.PI / 180; }
+
+      function syncOutlines() {
+        for (let i = 0; i < meshes.length; i++) {
+          outlines[i].position.copy(meshes[i].position);
+          outlines[i].rotation.copy(meshes[i].rotation);
+        }
+        if (selectionOutline) {
+          selectionOutline.position.copy(meshes[selectedIndex].position);
+          selectionOutline.rotation.copy(meshes[selectedIndex].rotation);
+        }
+      }
+
+      function updateSelectionOutline() {
+        if (selectionOutline) scene.remove(selectionOutline);
+        const pkg = demo[selectedIndex];
+        const geo = new THREE.BoxGeometry(pkg.dims[0] + 3, pkg.dims[1] + 3, pkg.dims[2] + 3);
+        selectionOutline = new THREE.LineSegments(
+          new THREE.EdgesGeometry(geo),
+          new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 1 })
+        );
+        selectionOutline.position.copy(meshes[selectedIndex].position);
+        selectionOutline.rotation.copy(meshes[selectedIndex].rotation);
+        scene.add(selectionOutline);
+      }
+
+      function updateInputs() {
+        const m = meshes[selectedIndex];
+        fields.x.value = m.position.x.toFixed(1);
+        fields.y.value = m.position.y.toFixed(1);
+        fields.z.value = m.position.z.toFixed(1);
+        fields.rx.value = deg(m.rotation.x);
+        fields.ry.value = deg(m.rotation.y);
+        fields.rz.value = deg(m.rotation.z);
+        sel.value = selectedIndex;
+        updateSelectionOutline();
+      }
+
+      function select(i) {
+        selectedIndex = Number(i);
+        updateInputs();
+      }
+
+      function applyInputs() {
+        const m = meshes[selectedIndex];
+        m.position.set(Number(fields.x.value), Number(fields.y.value), Number(fields.z.value));
+        m.rotation.set(rad(fields.rx.value), rad(fields.ry.value), rad(fields.rz.value));
+        syncOutlines();
+      }
+
+      Object.keys(fields).forEach(k => fields[k].addEventListener("input", applyInputs));
+      sel.addEventListener("change", e => select(e.target.value));
+
+      document.getElementById("flat").addEventListener("click", function () {
+        const m = meshes[selectedIndex];
+        m.rotation.set(0, 0, 0);
+        m.position.y = demo[selectedIndex].dims[1] / 2;
+        updateInputs();
+        syncOutlines();
+      });
+
+      document.getElementById("upright").addEventListener("click", function () {
+        const m = meshes[selectedIndex];
+        m.rotation.set(0, 0, Math.PI / 2);
+        m.position.y = demo[selectedIndex].dims[0] / 2;
+        updateInputs();
+        syncOutlines();
+      });
+
+
+      function rotateSelected(axis) {
+        const m = meshes[selectedIndex];
+        m.rotation[axis] += Math.PI / 2;
+        updateInputs();
+        syncOutlines();
+      }
+
+      document.getElementById("rx90").addEventListener("click", function(){ rotateSelected("x"); });
+      document.getElementById("ry90").addEventListener("click", function(){ rotateSelected("y"); });
+      document.getElementById("rz90").addEventListener("click", function(){ rotateSelected("z"); });
+
+      document.getElementById("reset").addEventListener("click", function () {
+        for (let i = 0; i < meshes.length; i++) {
+          meshes[i].position.set(initial[i].pos[0], initial[i].pos[1], initial[i].pos[2]);
+          meshes[i].rotation.set(initial[i].rot[0], initial[i].rot[1], initial[i].rot[2]);
+        }
+        select(0);
+        syncOutlines();
+      });
+
+      document.getElementById("edges").addEventListener("click", function () {
+        outlines.forEach(o => o.visible = !o.visible);
+      });
+
+      document.getElementById("top").addEventListener("click", function () {
+        camera.position.set(0, 430, 0.01);
+        controls.target.set(0, 0, 0);
+        controls.update();
+      });
+
+      document.getElementById("side").addEventListener("click", function () {
+        camera.position.set(350, 90, 0);
+        controls.target.set(0, 25, 0);
+        controls.update();
+      });
+
+
+      const modelUpload = document.getElementById("modelUpload");
+      const modelScale = document.getElementById("modelScale");
+      const modelY = document.getElementById("modelY");
+      const modelRotY = document.getElementById("modelRotY");
+
+      function clearCarModel() {
+        if (carModel) {
+          scene.remove(carModel);
+          carModel.traverse(function (obj) {
+            if (obj.geometry) obj.geometry.dispose();
+            if (obj.material) {
+              if (Array.isArray(obj.material)) {
+                obj.material.forEach(function (m) { if (m.dispose) m.dispose(); });
+              } else if (obj.material.dispose) {
+                obj.material.dispose();
+              }
+            }
+          });
+          carModel = null;
+        }
+        if (carModelBoxHelper) {
+          scene.remove(carModelBoxHelper);
+          carModelBoxHelper = null;
+        }
+        if (carModelObjectUrl) {
+          URL.revokeObjectURL(carModelObjectUrl);
+          carModelObjectUrl = null;
+        }
+      }
+
+      function updateCarModelTransform() {
+        if (!carModel) return;
+        const s = Number(modelScale.value) || 1;
+        carModel.scale.set(s, s, s);
+        carModel.position.y = Number(modelY.value) || 0;
+        carModel.rotation.y = rad(Number(modelRotY.value) || 0);
+        if (carModelBoxHelper) carModelBoxHelper.update();
+      }
+
+      function centerCarModel() {
+        if (!carModel) return;
+        const box = new THREE.Box3().setFromObject(carModel);
+        const center = box.getCenter(new THREE.Vector3());
+        carModel.position.x -= center.x;
+        carModel.position.z -= center.z;
+        if (carModelBoxHelper) carModelBoxHelper.update();
+      }
+
+      modelUpload.addEventListener("change", function (e) {
+        const file = e.target.files && e.target.files[0];
+        if (!file) return;
+
+        if (!file.name.toLowerCase().endsWith(".glb")) {
+          alert("Please upload the .glb version. GLB is the supported single-file model format.");
+          modelUpload.value = "";
+          return;
+        }
+
+        clearCarModel();
+
+        carModelObjectUrl = URL.createObjectURL(file);
+        const loader = new THREE.GLTFLoader();
+
+        loader.load(
+          carModelObjectUrl,
+          function (gltf) {
+            carModel = gltf.scene;
+            carModel.name = "Uploaded car model";
+            scene.add(carModel);
+
+            carModel.traverse(function (obj) {
+              if (obj.isMesh) {
+                obj.castShadow = false;
+                obj.receiveShadow = false;
+                if (obj.material) obj.material.side = THREE.DoubleSide;
+              }
+            });
+
+            updateCarModelTransform();
+            centerCarModel();
+
+            carModelBoxHelper = new THREE.BoxHelper(carModel, 0xffffff);
+            scene.add(carModelBoxHelper);
+
+            const box = new THREE.Box3().setFromObject(carModel);
+            const size = box.getSize(new THREE.Vector3());
+            if (size.length() > 0) {
+              const maxDim = Math.max(size.x, size.y, size.z);
+              if (maxDim > 450 || maxDim < 20) {
+                const target = 420;
+                const autoScale = target / maxDim;
+                modelScale.value = (Number(modelScale.value) * autoScale).toFixed(3);
+                updateCarModelTransform();
+                centerCarModel();
+              }
+            }
+          },
+          undefined,
+          function (err) {
+            console.error(err);
+            alert("Could not load this GLB file. Try downloading the GLB option again.");
+            clearCarModel();
+          }
+        );
+      });
+
+      modelScale.addEventListener("input", updateCarModelTransform);
+      modelY.addEventListener("input", updateCarModelTransform);
+      modelRotY.addEventListener("input", updateCarModelTransform);
+      document.getElementById("centerModel").addEventListener("click", centerCarModel);
+      document.getElementById("removeModel").addEventListener("click", function () {
+        clearCarModel();
+        modelUpload.value = "";
+      });
+
+
+            const raycaster = new THREE.Raycaster();
+      const pointer = new THREE.Vector2();
+      const dragPlane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0);
+      const hit = new THREE.Vector3();
+      const offset = new THREE.Vector3();
+      let dragging = false;
+
+      function setPointer(e) {
+        const r = renderer.domElement.getBoundingClientRect();
+        pointer.x = ((e.clientX - r.left) / r.width) * 2 - 1;
+        pointer.y = -((e.clientY - r.top) / r.height) * 2 + 1;
+      }
+
+      renderer.domElement.addEventListener("pointerdown", function (e) {
+        setPointer(e);
+        raycaster.setFromCamera(pointer, camera);
+        const hits = raycaster.intersectObjects(meshes, false);
+        if (hits.length) {
+          select(hits[0].object.userData.index);
+          if (e.shiftKey) {
+            dragging = true;
+            controls.enabled = false;
+            raycaster.ray.intersectPlane(dragPlane, hit);
+            offset.copy(meshes[selectedIndex].position).sub(hit);
+            try { renderer.domElement.setPointerCapture(e.pointerId); } catch (err) {}
+          }
+        }
+      });
+
+      renderer.domElement.addEventListener("pointermove", function (e) {
+        if (!dragging) return;
+        setPointer(e);
+        raycaster.setFromCamera(pointer, camera);
+        if (raycaster.ray.intersectPlane(dragPlane, hit)) {
+          const m = meshes[selectedIndex];
+          m.position.x = Math.round((hit.x + offset.x) * 10) / 10;
+          m.position.z = Math.round((hit.z + offset.z) * 10) / 10;
+          updateInputs();
+          syncOutlines();
+        }
+      });
+
+      function stopDrag(e) {
+        dragging = false;
+        controls.enabled = true;
+        try { renderer.domElement.releasePointerCapture(e.pointerId); } catch (err) {}
+      }
+      renderer.domElement.addEventListener("pointerup", stopDrag);
+      renderer.domElement.addEventListener("pointercancel", stopDrag);
+
+      function resize() {
+        const rect = canvas.parentElement.getBoundingClientRect();
+        renderer.setSize(rect.width, rect.height, false);
+        camera.aspect = rect.width / rect.height;
+        camera.updateProjectionMatrix();
+      }
+      window.addEventListener("resize", resize);
+      resize();
+      select(0);
+
+      function animate() {
+        requestAnimationFrame(animate);
+        controls.update();
+        syncOutlines();
+        renderer.render(scene, camera);
+      }
+      animate();
+    });
+  </script>
+</body>
+</html>

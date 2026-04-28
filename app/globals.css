@@ -1,128 +1,171 @@
-@import 'tailwindcss';
-@plugin '@tailwindcss/typography';
-@custom-variant dark (&:is(.dark *));
+@import "tailwindcss";
 
-/*
-  The default border color has changed to `currentColor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
+@custom-variant dark (&:where(.dark, .dark *));
 
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
-*/
-@layer base {
-  *,
-  ::after,
-  ::before,
-  ::backdrop,
-  ::file-selector-button {
-    border-color: var(--color-gray-200, currentColor);
-  }
-}
-
-:root {
-  color-scheme: light;
-  --background-color: #ffffff;
-  --foreground-color: #000000;
-  --muted-foreground: rgba(0, 0, 0, 0.64);
-  --accent-color: #000000;
-  --accent-muted: rgba(0, 0, 0, 0.08);
-  --code-bg: #0f172a;
-  --code-border: #1f2937;
-  --code-text: #e6edf3;
-  --code-inline-bg: #edeff3;
-  --code-inline-text: #111827;
-  --sh-class: #267f99;
-  --sh-sign: #1f1f1f;
-  --sh-string: #ce9178;
-  --sh-keyword: #569cd6;
-  --sh-comment: #6a9955;
-  --sh-jsxliterals: #4ec9b0;
-  --sh-property: #9cdcfe;
-  --sh-entity: #c586c0;
+@theme {
+  --color-background: hsl(42 33% 97%);
+  --color-foreground: hsl(220 16% 12%);
+  --color-card: hsl(0 0% 100%);
+  --color-card-foreground: hsl(220 16% 12%);
+  --color-popover: hsl(0 0% 100%);
+  --color-popover-foreground: hsl(220 16% 12%);
+  --color-primary: hsl(220 16% 12%);
+  --color-primary-foreground: hsl(42 33% 97%);
+  --color-secondary: hsl(45 24% 92%);
+  --color-secondary-foreground: hsl(220 16% 12%);
+  --color-muted: hsl(45 20% 90%);
+  --color-muted-foreground: hsl(220 9% 30%);
+  --color-accent: hsl(173 38% 38%);
+  --color-accent-foreground: hsl(42 33% 97%);
+  --color-destructive: hsl(0 72% 50%);
+  --color-destructive-foreground: hsl(0 0% 98%);
+  --color-border: hsl(40 14% 82%);
+  --color-input: hsl(40 14% 82%);
+  --color-ring: hsl(173 38% 38%);
+  --radius: 0px;
+  --font-sans: "Inter", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
 }
 
 .dark {
-  color-scheme: dark;
-  --background-color: #000000;
-  --foreground-color: #ffffff;
-  --muted-foreground: rgba(255, 255, 255, 0.68);
-  --accent-color: #ffffff;
-  --accent-muted: rgba(255, 255, 255, 0.18);
-  --code-bg: #0b1220;
-  --code-border: #2c3648;
-  --code-text: #eef1f6;
-  --code-inline-bg: #252526;
-  --code-inline-text: #f5f5f5;
-  --sh-class: #4ec9b0;
-  --sh-sign: #d4d4d4;
-  --sh-string: #ce9178;
-  --sh-keyword: #569cd6;
-  --sh-comment: #6a9955;
-  --sh-jsxliterals: #4ec9b0;
-  --sh-property: #9cdcfe;
-  --sh-entity: #c586c0;
+  --color-background: hsl(0 0% 5%);
+  --color-foreground: hsl(0 0% 94%);
+  --color-card: hsl(0 0% 8%);
+  --color-card-foreground: hsl(0 0% 94%);
+  --color-popover: hsl(0 0% 8%);
+  --color-popover-foreground: hsl(0 0% 94%);
+  --color-primary: hsl(0 0% 94%);
+  --color-primary-foreground: hsl(0 0% 5%);
+  --color-secondary: hsl(0 0% 14%);
+  --color-secondary-foreground: hsl(0 0% 94%);
+  --color-muted: hsl(0 0% 15%);
+  --color-muted-foreground: hsl(0 0% 68%);
+  --color-accent: hsl(173 42% 53%);
+  --color-accent-foreground: hsl(0 0% 5%);
+  --color-border: hsl(0 0% 24%);
+  --color-input: hsl(0 0% 24%);
+  --color-ring: hsl(173 42% 53%);
 }
 
-@layer base {
-  body {
-    background-color: var(--background-color);
-    color: var(--foreground-color);
-    font-feature-settings: 'cv02' on, 'cv03' on, 'cv04' on;
-    letter-spacing: -0.01em;
-    scroll-behavior: smooth;
+* {
+  border-color: var(--color-border);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+  font-weight: 300;
+  letter-spacing: 0;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-accent-foreground);
+}
+
+a {
+  text-underline-offset: 4px;
+}
+
+.surface-grid {
+  background-image:
+    linear-gradient(to right, color-mix(in srgb, var(--color-border) 48%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--color-border) 48%, transparent) 1px, transparent 1px);
+  background-size: 42px 42px;
+}
+
+.thin-rule {
+  border-top: 1px solid var(--color-border);
+}
+
+.hero-text-shadow {
+  text-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.2),
+    0 8px 18px rgba(0, 0, 0, 0.12);
+}
+
+.hero-control-shadow {
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--color-border) 75%, transparent),
+    0 10px 24px rgba(0, 0, 0, 0.14);
+}
+
+.hero-button-surface {
+  background: color-mix(in srgb, var(--color-card) 88%, transparent);
+  backdrop-filter: blur(8px);
+}
+
+.dark .hero-text-shadow {
+  text-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.9),
+    0 8px 20px rgba(0, 0, 0, 0.6);
+}
+
+.dark .hero-control-shadow {
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--color-border) 80%, transparent),
+    0 10px 24px rgba(0, 0, 0, 0.48);
+}
+
+.dark .hero-button-surface {
+  background: color-mix(in srgb, var(--color-card) 86%, transparent);
+}
+
+.project-card-shell {
+  perspective: 1100px;
+}
+
+.project-card-title {
+  text-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.6),
+    0 12px 28px rgba(0, 0, 0, 0.35);
+  transition:
+    opacity 240ms ease,
+    transform 360ms ease;
+}
+
+.project-card-details {
+  backface-visibility: hidden;
+  transform: translateY(104%) rotateX(54deg);
+  transform-origin: bottom center;
+  transition:
+    opacity 280ms ease,
+    transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.project-card-shell:hover .project-card-title,
+.project-card-shell:focus-within .project-card-title {
+  opacity: 0;
+  transform: translateY(-0.75rem);
+}
+
+.project-card-shell:hover .project-card-details,
+.project-card-shell:focus-within .project-card-details {
+  opacity: 1;
+  transform: translateY(0) rotateX(0deg);
+}
+
+@media (hover: none) {
+  .project-card-title {
+    opacity: 0;
+    transform: translateY(-0.75rem);
   }
 
-  a {
-    color: inherit;
-    text-decoration: none;
-  }
-
-  a:hover {
-    color: #111111;
-  }
-
-  .dark a:hover {
-    color: #f5f5f5;
-  }
-
-  ::selection {
-    background-color: var(--accent-muted);
-    color: var(--foreground-color);
+  .project-card-details {
+    opacity: 1;
+    transform: translateY(0) rotateX(0deg);
   }
 }
 
-@layer base {
-  .prose :not(pre) > code {
-    background: var(--code-inline-bg);
-    color: var(--code-inline-text);
-    border-radius: 0;
-    padding: 0.1rem 0.35rem;
-    font-size: 0.95em;
+@media (prefers-reduced-motion: reduce) {
+  .project-card-title,
+  .project-card-details {
+    transition: none;
   }
-
-  .prose pre {
-    border-radius: 0;
-    border: 1px solid var(--code-border);
-    background: var(--code-bg);
-    color: var(--code-text);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-  }
-
-  .prose pre code {
-    display: grid;
-    gap: 0.25rem;
-    line-height: 1.6;
-    color: inherit;
-  }
-
-  .sh__line { color: inherit; }
-  .sh__keyword { color: var(--sh-keyword); }
-  .sh__string { color: var(--sh-string); }
-  .sh__class { color: var(--sh-class); }
-  .sh__sign { color: var(--sh-sign); }
-  .sh__comment { color: var(--sh-comment); }
-  .sh__jsxliterals { color: var(--sh-jsxliterals); }
-  .sh__property { color: var(--sh-property); }
-  .sh__entity { color: var(--sh-entity); }
 }

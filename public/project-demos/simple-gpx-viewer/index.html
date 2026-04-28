@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Simple GPX Viewer</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #0d0d0d;
+        --panel: #151515;
+        --line: #333;
+        --text: #f2f2f2;
+        --muted: #a7a7a7;
+        --accent: #59d8c9;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: var(--bg);
+        color: var(--text);
+        font-family:
+          Inter, "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont,
+          sans-serif;
+      }
+
+      main {
+        display: grid;
+        min-height: 100vh;
+        grid-template-columns: 320px 1fr;
+      }
+
+      aside {
+        border-right: 1px solid var(--line);
+        background: var(--panel);
+        padding: 20px;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 20px;
+      }
+
+      p {
+        color: var(--muted);
+        line-height: 1.55;
+      }
+
+      label {
+        display: block;
+        margin-top: 18px;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      input,
+      button {
+        width: 100%;
+        margin-top: 8px;
+        border: 1px solid var(--line);
+        background: #101010;
+        color: var(--text);
+        padding: 10px;
+        font: inherit;
+      }
+
+      button {
+        cursor: pointer;
+      }
+
+      dl {
+        display: grid;
+        gap: 10px;
+        margin: 22px 0 0;
+      }
+
+      .stat {
+        border: 1px solid var(--line);
+        padding: 10px;
+      }
+
+      dt {
+        color: var(--muted);
+        font-size: 11px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      dd {
+        margin: 4px 0 0;
+        font-weight: 700;
+      }
+
+      section {
+        display: grid;
+        min-height: 100vh;
+        place-items: center;
+        padding: 20px;
+      }
+
+      svg {
+        width: min(100%, 980px);
+        height: min(78vh, 760px);
+        border: 1px solid var(--line);
+        background:
+          linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+          #090909;
+        background-size: 40px 40px;
+      }
+
+      #route {
+        fill: none;
+        stroke: var(--accent);
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 3;
+      }
+
+      #empty {
+        fill: var(--muted);
+        font-size: 18px;
+        font-weight: 700;
+        text-align: center;
+      }
+
+      @media (max-width: 760px) {
+        main {
+          grid-template-columns: 1fr;
+        }
+
+        aside {
+          border-right: 0;
+          border-bottom: 1px solid var(--line);
+        }
+
+        section {
+          min-height: 60vh;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <aside>
+        <h1>Simple GPX Viewer</h1>
+        <p>
+          Load a GPX file to preview the route geometry and quick distance
+          stats. This single-file demo parses GPX XML directly in the browser.
+        </p>
+
+        <label for="file">GPX file</label>
+        <input id="file" type="file" accept=".gpx,application/gpx+xml,text/xml" />
+        <button id="sample" type="button">Load sample route</button>
+
+        <dl>
+          <div class="stat">
+            <dt>Track points</dt>
+            <dd id="points">0</dd>
+          </div>
+          <div class="stat">
+            <dt>Distance</dt>
+            <dd id="distance">0.00 km</dd>
+          </div>
+          <div class="stat">
+            <dt>Elevation gain</dt>
+            <dd id="gain">0 m</dd>
+          </div>
+          <div class="stat">
+            <dt>Bounds</dt>
+            <dd id="bounds">No file loaded</dd>
+          </div>
+        </dl>
+      </aside>
+
+      <section>
+        <svg id="map" viewBox="0 0 1000 1000" role="img" aria-label="GPX route preview">
+          <path id="route" />
+          <text id="empty" x="500" y="500" text-anchor="middle">
+            Load a GPX file to preview a route
+          </text>
+        </svg>
+      </section>
+    </main>
+
+    <script>
+      const fileInput = document.getElementById("file");
+      const sampleButton = document.getElementById("sample");
+      const route = document.getElementById("route");
+      const empty = document.getElementById("empty");
+      const pointsEl = document.getElementById("points");
+      const distanceEl = document.getElementById("distance");
+      const gainEl = document.getElementById("gain");
+      const boundsEl = document.getElementById("bounds");
+
+      const sampleGpx = `<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="Simple GPX Viewer">
+  <trk><name>Sample Route</name><trkseg>
+    <trkpt lat="49.2827" lon="-123.1207"><ele>30</ele></trkpt>
+    <trkpt lat="49.2850" lon="-123.1150"><ele>42</ele></trkpt>
+    <trkpt lat="49.2890" lon="-123.1120"><ele>65</ele></trkpt>
+    <trkpt lat="49.2935" lon="-123.1170"><ele>82</ele></trkpt>
+    <trkpt lat="49.2960" lon="-123.1240"><ele>71</ele></trkpt>
+    <trkpt lat="49.2910" lon="-123.1290"><ele>53</ele></trkpt>
+    <trkpt lat="49.2860" lon="-123.1265"><ele>39</ele></trkpt>
+  </trkseg></trk>
+</gpx>`;
+
+      fileInput.addEventListener("change", async (event) => {
+        const file = event.target.files[0];
+
+        if (file) {
+          renderGpx(await file.text());
+        }
+      });
+
+      sampleButton.addEventListener("click", () => renderGpx(sampleGpx));
+
+      function renderGpx(source) {
+        const doc = new DOMParser().parseFromString(source, "application/xml");
+        const points = [...doc.querySelectorAll("trkpt, rtept")].map((point) => ({
+          lat: Number(point.getAttribute("lat")),
+          lon: Number(point.getAttribute("lon")),
+          ele: Number(point.querySelector("ele")?.textContent || 0),
+        })).filter((point) => Number.isFinite(point.lat) && Number.isFinite(point.lon));
+
+        if (!points.length) {
+          route.setAttribute("d", "");
+          empty.textContent = "No track points found";
+          pointsEl.textContent = "0";
+          distanceEl.textContent = "0.00 km";
+          gainEl.textContent = "0 m";
+          boundsEl.textContent = "No route bounds";
+          return;
+        }
+
+        const lats = points.map((point) => point.lat);
+        const lons = points.map((point) => point.lon);
+        const minLat = Math.min(...lats);
+        const maxLat = Math.max(...lats);
+        const minLon = Math.min(...lons);
+        const maxLon = Math.max(...lons);
+        const latRange = maxLat - minLat || 1;
+        const lonRange = maxLon - minLon || 1;
+        const padding = 80;
+        const drawWidth = 1000 - padding * 2;
+        const drawHeight = 1000 - padding * 2;
+        const scale = Math.min(drawWidth / lonRange, drawHeight / latRange);
+        const usedWidth = lonRange * scale;
+        const usedHeight = latRange * scale;
+        const offsetX = (1000 - usedWidth) / 2;
+        const offsetY = (1000 - usedHeight) / 2;
+
+        const d = points.map((point, index) => {
+          const x = offsetX + (point.lon - minLon) * scale;
+          const y = offsetY + (maxLat - point.lat) * scale;
+          return `${index === 0 ? "M" : "L"} ${x.toFixed(2)} ${y.toFixed(2)}`;
+        }).join(" ");
+
+        route.setAttribute("d", d);
+        empty.textContent = "";
+        pointsEl.textContent = points.length.toString();
+        distanceEl.textContent = `${distanceKm(points).toFixed(2)} km`;
+        gainEl.textContent = `${elevationGain(points).toFixed(0)} m`;
+        boundsEl.textContent =
+          `${minLat.toFixed(4)}, ${minLon.toFixed(4)} to ${maxLat.toFixed(4)}, ${maxLon.toFixed(4)}`;
+      }
+
+      function distanceKm(points) {
+        let total = 0;
+        for (let index = 1; index < points.length; index += 1) {
+          total += haversine(points[index - 1], points[index]);
+        }
+        return total;
+      }
+
+      function haversine(a, b) {
+        const radius = 6371;
+        const dLat = toRad(b.lat - a.lat);
+        const dLon = toRad(b.lon - a.lon);
+        const lat1 = toRad(a.lat);
+        const lat2 = toRad(b.lat);
+        const value =
+          Math.sin(dLat / 2) ** 2 +
+          Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLon / 2) ** 2;
+
+        return 2 * radius * Math.atan2(Math.sqrt(value), Math.sqrt(1 - value));
+      }
+
+      function elevationGain(points) {
+        let total = 0;
+        for (let index = 1; index < points.length; index += 1) {
+          total += Math.max(0, points[index].ele - points[index - 1].ele);
+        }
+        return total;
+      }
+
+      function toRad(value) {
+        return (value * Math.PI) / 180;
+      }
+    </script>
+  </body>
+</html>

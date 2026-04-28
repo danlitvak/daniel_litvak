@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ping Test</title>
+  <!-- Chart.js v3 -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+  <style>
+    body { font-family: sans-serif; padding: 2rem; max-width: 900px; margin: 0 auto; }
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      background-color: #eeeeee;
+      display: block;
+      width: 100%;
+      padding: 0.5em;
+    }
+    .chart-wrapper {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 3rem;
+    }
+    .chart-block {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      height: 170px;
+    }
+    .chart-block header {
+      flex: 0 0 auto;
+      position: relative;
+      margin-bottom: 0.5rem;
+      padding-right: 3em;
+    }
+    .run-btn {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 0.2em 0.5em;
+      font-size: 0.9rem;
+    }
+    .status {
+      font-size: 0.9rem;
+      color: #555555;
+      margin-left: 0.5rem;
+    }
+    canvas {
+      flex: 1;
+      width: 100%;
+      height: 100%;
+    }
+    .console {
+      width: 250px;
+      height: 170px;
+      margin-left: 1rem;
+      border: 1px solid #ccc;
+      background: #f8f8f8;
+      padding: 0.5em;
+      font-family: monospace;
+      font-size: 0.8rem;
+      overflow-y: auto;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <h1>Ping Test</h1>
+  <div id="charts-container"></div>
+
+  <script>
+    const endpoints = {
+      Vancouver: 'https://www.google.com/favicon.ico',
+      California: 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js'
+    };
+
+    async function pingUrl(url) {
+      const testUrl = url + '?t=' + Date.now();
+      const t0 = performance.now();
+      try { await fetch(testUrl, { mode: 'no-cors', cache: 'no-store' }); } catch (e) {}
+      return performance.now() - t0;
+    }
+
+    function computeStats(data) {
+      if (!data.length) return {};
+      const sorted = [...data].sort((a, b) => a - b);
+      const min = sorted[0];
+      const max = sorted[sorted.length - 1];
+      const sum = data.reduce((a, b) => a + b, 0);
+      const avg = sum / data.length;
+      const mid = Math.floor(sorted.length / 2);
+      const median = sorted.length % 2 === 0
+        ? (sorted[mid - 1] + sorted[mid]) / 2
+        : sorted[mid];
+      const jitter = max - min;
+      return { min, avg, max, median, jitter };
+    }
+
+    window.onload = () => {
+      const charts = {};
+      const statusSpans = {};
+      const buttons = {};
+      const consoles = {};
+      const container = document.getElementById('charts-container');
+      const runDuration = 5000;
+
+      async function runRegion(name) {
+        const chart = charts[name];
+        const status = statusSpans[name];
+        const btn = buttons[name];
+        const logDiv = consoles[name];
+        btn.disabled = true;
+        status.textContent = 'Testing';
+        logDiv.textContent = `Test started for ${name} at ${new Date().toLocaleTimeString()}\n`;
+        chart.data.labels = [];
+        chart.data.datasets[0].data = [];
+        chart.update();
+        const start = Date.now();
+        let count = 0;
+        while (Date.now() - start < runDuration) {
+          count++;
+          const ms = await pingUrl(endpoints[name]);
+          chart.data.labels.push(count.toString());
+          chart.data.datasets[0].data.push(ms);
+          chart.update();
+          logDiv.textContent += `Ping ${count}: ${ms.toFixed(2)} ms at ${new Date().toLocaleTimeString()}\n`;
+          logDiv.scrollTop = logDiv.scrollHeight;
+        }
+        status.textContent = 'Complete';
+        logDiv.textContent += `Test completed for ${name} at ${new Date().toLocaleTimeString()}\n`;
+        // compute and log stats
+        const stats = computeStats(chart.data.datasets[0].data);
+        if (stats) {
+          logDiv.textContent += `\nmin: ${stats.min.toFixed(2)} ms\n`;
+          logDiv.textContent += `avg: ${stats.avg.toFixed(2)} ms\n`;
+          logDiv.textContent += `max: ${stats.max.toFixed(2)} ms\n`;
+          logDiv.textContent += `median: ${stats.median.toFixed(2)} ms\n`;
+          logDiv.textContent += `jitter: ${stats.jitter.toFixed(2)} ms\n`;
+        }
+        logDiv.scrollTop = logDiv.scrollHeight;
+        btn.disabled = false;
+      }
+
+      for (const name in endpoints) {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'chart-wrapper';
+
+        const chartBlock = document.createElement('div');
+        chartBlock.className = 'chart-block';
+
+        const header = document.createElement('header');
+        const title = document.createElement('strong');
+        title.textContent = name;
+        const status = document.createElement('span');
+        status.id = 'status-' + name;
+        status.className = 'status';
+        status.textContent = 'Starting';
+        statusSpans[name] = status;
+        const btn = document.createElement('button');
+        btn.textContent = 'Run';
+        btn.className = 'run-btn';
+        btn.onclick = () => runRegion(name);
+        buttons[name] = btn;
+
+        header.appendChild(title);
+        header.appendChild(status);
+        header.appendChild(btn);
+        chartBlock.appendChild(header);
+
+        const canvas = document.createElement('canvas');
+        canvas.id = 'chart-' + name;
+        chartBlock.appendChild(canvas);
+        wrapper.appendChild(chartBlock);
+
+        const logDiv = document.createElement('div');
+        logDiv.className = 'console';
+        logDiv.id = 'console-' + name;
+        consoles[name] = logDiv;
+        wrapper.appendChild(logDiv);
+
+        container.appendChild(wrapper);
+
+        const ctx = canvas.getContext('2d');
+        charts[name] = new Chart(ctx, {
+          type: 'line',
+          data: { labels: [], datasets: [{ label: name, data: [], fill: false, tension: 0.1, borderColor: '#222222', borderWidth: 2, pointRadius: 0 }] },
+          options: { maintainAspectRatio: false, animation: false, scales: { x: { display: true, title: { display: false }, ticks: { color: '#333333' } }, y: { title: { display: true, text: 'Latency (ms)', color: '#333333' }, ticks: { color: '#333333' } } }, plugins: { legend: { display: false } } }
+        });
+      }
+
+      for (const name in endpoints) runRegion(name);
+    };
+  </script>
+</body>
+</html>
